@@ -1,15 +1,72 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
+  --font-sans: "Kanit","Inter", ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+ 
+}
+
+:root {
+   --primary-color : #192531;
 }
 
 html,
 body {
-  @apply bg-white dark:bg-gray-950;
+  @apply bg-white;
 
-  @media (prefers-color-scheme: dark) {
-    color-scheme: dark;
-  }
+  
+}
+
+.container-x {
+  @apply max-w-7xl mx-auto lg:px-0 px-4;
+}
+
+.btn {
+  @apply border hover:bg-white hover:text-black/80 border-white px-8 duration-200 py-2 text-white;
+}
+.btn-1 {
+  @apply bg-(--primary-color) hover:px-14 text-white  px-12 duration-200 py-3 ;
+}
+
+
+.mc-hd .nav-item .nav-lnk {
+  position: relative;
+  /* padding: 0; */
+  line-height: 18px;
+  height: 18px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.mc-hd .nav-item .nav-lnk img {
+  background-size: cover;
+  position: relative;
+  bottom: 5px;
+}
+
+.mc-hd .nav-item .nav-lnk::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: white;
+  position: absolute;
+  top: 24px;
+  left: 0;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.mc-hd .nav-item .nav-lnk-active {
+  @apply text-(--primary-color) pb-1 font-medium;
+}
+
+.mc-hd .nav-item .nav-lnk:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.mc-hd .nav-item .nav-lnk:hover {
+  color: white;
 }
