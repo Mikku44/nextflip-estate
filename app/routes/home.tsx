@@ -155,28 +155,30 @@ export default function Home() {
 
         {/* card blog */}
 
-        <div className="h-[500px] mb-10 bg-white container-x mt-16 group transition
-         shadow-2xl  grid md:grid-cols-5 overflow-hidden">
-          <div className="p-10 md:col-span-2 relative">
-            <h4 className="md:text-5xl text-3xl line-clamp-2 font-light">Blog Title Lorem, ipsum dolor.</h4>
-            <p className="text-xl mt-5 line-clamp-5 font-light text-zinc-600">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cupiditate quidem in sed
-              similique aliquid voluptates atque iusto exercitationem sapiente quos?
-            </p>
-            {/* button */}
-            <div className="mt-6 w-full absolute bottom-14">
-              <NavLink
-                className="btn-1 group "
-                to={"#"}>
-                อ่านเพิ่มเติม
-              </NavLink>
+        <div className="container-x">
+          <div className="h-[500px] mb-10 bg-white  mt-16 group transition
+           shadow-2xl  grid md:grid-cols-5 overflow-hidden ">
+            <div className="p-10 md:col-span-2 relative">
+              <h4 className="md:text-5xl text-3xl line-clamp-2 font-light">Blog Title Lorem, ipsum dolor.</h4>
+              <p className="text-xl mt-5 line-clamp-5 font-light text-zinc-600">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cupiditate quidem in sed
+                similique aliquid voluptates atque iusto exercitationem sapiente quos?
+              </p>
+              {/* button */}
+              <div className="mt-6 w-full h-fit md:absolute bottom-14">
+                <NavLink
+                  className="btn-1 group "
+                  to={"#"}>
+                  อ่านเพิ่มเติม
+                </NavLink>
+              </div>
             </div>
-          </div>
-          {/* image */}
-          <div className="md:col-span-3">
-            <img src="/condo.jpg"
-              className="h-full w-full object-cover"
-              alt="blog" />
+            {/* image */}
+            <div className="md:col-span-3">
+              <img src="/condo.jpg"
+                className="h-full w-full object-cover"
+                alt="blog" />
+            </div>
           </div>
         </div>
       </section>
