@@ -5,7 +5,11 @@ import { motion } from "framer-motion";
 import AssetCard from "~/components/AssetCard";
 import { NavLink } from "react-router";
 import { FAQ } from "~/components/FAQ";
-import { faqItems } from "~/const/app";
+import { faqItems, TIMELINE_STEPS, WHY_US_LIST } from "~/const/app";
+import CardWithOverlay from "~/components/OverlayCard";
+import { BsAsterisk } from "react-icons/bs";
+import QuickValuationForm from "~/components/ShortForm";
+import Timeline from "~/components/Timeline";
 
 export function meta({ }: Route.MetaArgs) {
   return [
@@ -41,7 +45,7 @@ export default function Home() {
                 duration: 0.6
               }}
               className="text-4xl md:text-5xl max-w-xl drop-shadow-2xl  text-white leading-12">
-              รับซื้อ ฝากขาย อสังหาริมทรัพย์ ทั้วประเทศ
+              รับซื้อคอนโดเงินสด ปิดดีลไว
             </motion.h1>
 
             <motion.div
@@ -57,12 +61,12 @@ export default function Home() {
                 delay: 0.2,
               }}
               className="text-lg font-light max-w-xl text-white/70">
-              บ้าน คอนโด ขายด่วนหรือฝากขายกับ NextFlip Estate ดูแลครบทุกขั้นตอน ให้คำปรึกษาฟรี ไม่มีค่าใช้จ่าย
+              คอนโดเก่า / ขายด่วน / ห้องมีผู ้เช่า / สภาพเดิม
             </motion.div>
 
             {/* <Link
               className="shadow btn-1"
-              to="">ปรึกษาตอนนี้</Link> */}
+              to="">ประเมินราคาฟรี</Link> */}
           </div>
 
 
@@ -209,6 +213,69 @@ export default function Home() {
             </div>
             <FAQ items={faqItems} />
           </div>
+        </div>
+      </section>
+
+      {/* why us */}
+
+      <section className=" bg-zinc-100 mx-auto w-full pb-52">
+
+        <div className="grid px-4 md:grid-cols-2 max-w-3xl mx-auto mb-5">
+          <motion.h2
+            initial={{
+              y: 10, opacity: 0
+            }}
+            whileInView={{
+              y: 0, opacity: 1
+            }}
+            transition={{
+              duration: 0.6,
+              delay: 0.2
+            }}
+            className="md:text-6xl   mx-auto my-5  font-light text-5xl ">
+            Why Nextflip Estate?
+          </motion.h2>
+          <div className="text-lg text-black/700 font-light flex items-center">
+            ที่ Nextflip Estate เราทำงานด้วยทีมงานมืออาชีพที่พร้อมให้คำปรึกษาและดูแลคุณในทุกขั้นตอน
+          </div>
+        </div>
+        <div className="grid md:grid-cols-2 gap-2 pt-10 container-x w-full mx-auto  ">
+          <div className="shadow-2xl">
+            <img src="/condo.jpg" alt="codo.jpg" />
+          </div>
+          <div className=" flex flex-col w-full justify-between">
+            {WHY_US_LIST.map((item) =>
+              <div key={item.title}
+                className="flex items-center shadow-2xl p-4 gap-2 w-full bg-white">
+                <BsAsterisk className="mt-1 text-green-700"></BsAsterisk>
+                <div className="">
+                  <div className="">{item.title}</div>
+                  <div className="text-sm opacity-70">{item.desc}</div>
+                </div>
+              </div>
+            )}
+          </div>
+
+        </div>
+      </section>
+
+      {/* form */}
+      <section className="bg-zinc-200 relative py-16">
+        <img src="/images/condo1.jpg"
+          className="absolute h-full w-full object-cover top-0 left-0 opacity-30"
+        />
+        <div className="container-x relative z-1">
+          <QuickValuationForm />
+        </div>
+      </section>
+
+      {/* timeline */}
+      <section className="bg-zinc-100  py-16">
+
+        <div className="container-x relative z-1">
+          
+
+          <Timeline items={TIMELINE_STEPS} />
         </div>
       </section>
 
