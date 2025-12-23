@@ -17,7 +17,7 @@ export default function CardWithOverlay({
     <motion.div
      
       transition={{ duration: 0.3 }}
-      className={`relative ${height} w-full overflow-hidden shadow-lg cursor-pointer`}
+      className={`relative ${height} w-full rounded-2xl overflow-hidden shadow-lg cursor-pointer`}
     >
       {/* Background Image */}
       <img

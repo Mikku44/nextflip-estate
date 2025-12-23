@@ -1,4 +1,5 @@
 import { desc } from "framer-motion/client";
+import type { AssetModel } from "~/models/assetModel";
 
 export const APP_NAME = "Easy Hom 1969"
 
@@ -129,3 +130,40 @@ export const TIMELINE_STEPS = [
   }
 ];
 
+
+export const EXAMPLE_CONDO_LIST : AssetModel[]  = [
+    {
+        id: "1",
+        title: "ขายด่วน คอนโด XYZ ใกล้ BTS พร้อมอยู่",
+        description: "คอนโดตกแต่งครบ ใกล้ BTS เดินทางสะดวก พร้อมเข้าอยู่ได้ทันที",
+        price: 2500000,
+        area: 35,
+        bedrooms: 1,
+        bathrooms: 1,
+        badge: 'โครงการใหม่',
+        imageUrl: "/images/condo51.jpg",
+    },
+    {
+        id: "2",
+        title: "ขายด่วน คอนโด XYZ ใกล้ BTS พร้อมอยู่",
+        description: "คอนโดตกแต่งครบ ใกล้ BTS เดินทางสะดวก พร้อมเข้าอยู่ได้ทันที",
+        price: 2500000,
+        area: 35,
+        bedrooms: 1,
+        bathrooms: 1,
+        badge: 'โครงการยอดนิยม',
+        imageUrl: "/images/condo15.jpg",
+    },
+    {
+        id: "2",
+        title: "ขายด่วน คอนโด XYZ ใกล้ BTS พร้อมอยู่",
+        description: "คอนโดตกแต่งครบ ใกล้ BTS เดินทางสะดวก พร้อมเข้าอยู่ได้ทันที",
+        price: 2500000,
+        area: 35,
+        bedrooms: 1,
+        bathrooms: 1,
+        badge: 'ขายแล้ว',
+        imageUrl: "/images/condo32.jpg",
+    },
+    
+]

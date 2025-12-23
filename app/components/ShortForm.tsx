@@ -3,7 +3,7 @@ import { FaLine } from "react-icons/fa6";
 
 export default function QuickValuationForm() {
     return (
-        <section className="w-full flex justify-center py-20">
+        <section className="w-full flex justify-center md:py-20 md:px-0 px-4 py-4">
             <div className="w-full relative z-10 max-w-xl border border-zinc-200 bg-white shadow-xl p-8">
                 <h2 className="text-2xl font-semibold text-center mb-6">
                     ประเมินราคาคอนโดเบื้องต้น
@@ -112,12 +112,12 @@ export default function QuickValuationForm() {
                 </form>
             </div>
 
-            <div
+            {/* <div
                 className="absolute bottom-[-70px] left-[-10vw] w-[100vw] h-56  bg-zinc-100"
                 style={{
                     clipPath: "polygon(50% 0, 0 100%, 100% 100%)",
                 }}
-            />
+            /> */}
         </section>
     );
 }

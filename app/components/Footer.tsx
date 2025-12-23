@@ -2,8 +2,8 @@ import { Link } from "react-router";
 
 export default function Footer() {
   return (
-    <div className="">
-
+    <div className="bg-zinc-100">
+      
       <footer className="relative bg-(--primary-color) min-h-[300px] pt-18">
 
         {/* Triangle */}
