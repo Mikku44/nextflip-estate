@@ -1,20 +1,20 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Kanit","Inter", ui-sans-serif, system-ui, sans-serif,
+  --font-sans: "Kanit", "Inter", ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
- 
+
 }
 
 :root {
-   --primary-color : #192531;
+  --primary-color: #192531;
 }
 
 html,
 body {
   @apply bg-white scroll-smooth;
 
-  
+
 }
 
 .container-x {
@@ -24,11 +24,13 @@ body {
 .btn {
   @apply border hover:bg-white py-3 hover:text-black/80 border-white px-8 duration-200 text-white;
 }
+
 .btn-1 {
-  @apply bg-(--primary-color) hover:px-14 text-white  px-12 duration-200 py-3 ;
+  @apply bg-(--primary-color) hover:px-14 text-white px-12 duration-200 py-3;
 }
+
 .btn-line {
-  @apply bg-green-500 hover:px-14 text-white  px-12 duration-200 py-3 ;
+  @apply bg-green-500 hover:px-14 text-white px-12 duration-200 py-3;
 }
 
 
@@ -75,42 +77,46 @@ body {
 }
 
 .inner-curve {
-  --r: 20px;  /* control the rounded part */
-  --s: 40px;  /* control the size of the cut */
-  --a: 20deg; /* control the depth of the curvature */
-  --p: 50%;   /* control the position */
+  --r: 20px;
+  /* control the rounded part */
+  --s: 40px;
+  /* control the size of the cut */
+  --a: 20deg;
+  /* control the depth of the curvature */
+  --p: 50%;
+  /* control the position */
 
   height: 340px;
   /* aspect-ratio: 3/2; */
   background: var(--primary-color);
   border-radius: var(--r);
-  --_m:var(--r),#000 calc(100% - 1px),#0000;
-  --_d:(var(--s) + var(--r))*cos(var(--a));
+  --_m: var(--r), #000 calc(100% - 1px), #0000;
+  --_d: (var(--s) + var(--r))*cos(var(--a));
   mask:
     radial-gradient(var(--r) at calc(var(--p) + var(--_d)) var(--_m)),
     radial-gradient(var(--r) at calc(var(--p) - var(--_d)) var(--_m)),
     radial-gradient(var(--s) at var(--p) calc(-1*sin(var(--a))*var(--s)),
-      #0000 100%,#000 calc(100% + 1px)) 0 calc(var(--r)*(1 - sin(var(--a)))) no-repeat,
-    linear-gradient(90deg,#000 calc(var(--p) - var(--_d)),#f3080800 0 calc(var(--p) + var(--_d)),#f84040 0);
+      #0000 100%, #000 calc(100% + 1px)) 0 calc(var(--r)*(1 - sin(var(--a)))) no-repeat,
+    linear-gradient(90deg, #000 calc(var(--p) - var(--_d)), #f3080800 0 calc(var(--p) + var(--_d)), #f84040 0);
 }
 
 
 .arc {
-  --b: 40px; /* the boder thickness */
-  --a: 240deg; /* control the progression */
-  
+  --b: 40px;
+  /* the boder thickness */
+  --a: 240deg;
+  /* control the progression */
+
   width: 250px;
   aspect-ratio: 1;
   padding: var(--b);
   border-radius: 50%;
   background: #c0d860;
-  --_g:/var(--b) var(--b) no-repeat
-    radial-gradient(50% 50%,#000 97%,#0000);
+  --_g: /var(--b) var(--b) no-repeat radial-gradient(50% 50%, #000 97%, #0000);
   mask: top var(--_g),
-    calc(50% + 50%*sin(var(--a))) 
-    calc(50% - 50%*cos(var(--a))) var(--_g),
+    calc(50% + 50%*sin(var(--a))) calc(50% - 50%*cos(var(--a))) var(--_g),
     linear-gradient(#0000 0 0) content-box intersect,
-    conic-gradient(#000 var(--a),#0000 0);
+    conic-gradient(#000 var(--a), #0000 0);
 }
 
 
@@ -202,4 +208,8 @@ body {
   td {
     @apply px-4 py-2 border-b border-gray-100 align-top;
   }
+}
+
+.input {
+  @apply border-b border-zinc-200 py-3 focus:border-zinc-900 outline-none font-light;
 }

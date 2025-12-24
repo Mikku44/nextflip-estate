@@ -78,7 +78,7 @@ export default function Home() {
                 delay: 0.2,
               }}
               className="text-lg font-light max-w-xl text-white/70">
-              คอนโดเก่า / ขายด่วน / ห้องมีผู ้เช่า / สภาพเดิม
+              คอนโดเก่า / ขายด่วน / ห้องมีผู้เช่า / สภาพเดิม
             </motion.div>
 
             {/* <Link

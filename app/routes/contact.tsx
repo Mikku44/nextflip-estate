@@ -14,7 +14,7 @@ export function meta({ }: Route.MetaArgs) {
   ];
 }
 
-const CONTACT_METHODS = [
+export const CONTACT_METHODS = [
   {
     icon: <IoCallOutline size={28} />,
     label: "Phone",

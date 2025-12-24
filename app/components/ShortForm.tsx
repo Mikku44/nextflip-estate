@@ -19,8 +19,7 @@ export default function QuickValuationForm() {
                             type="text"
                             name="location"
                             placeholder="เช่น สุขุมวิท, พระราม 9"
-                            className="w-full border border-zinc-300 px-4 py-2.5 text-sm
-              focus:outline-none focus:ring-2 focus:ring-black"
+                            className="w-full input"
                             required
                         />
                     </div>
@@ -34,8 +33,7 @@ export default function QuickValuationForm() {
                             type="number"
                             name="size"
                             placeholder="เช่น 32"
-                            className="w-full border border-zinc-300 px-4 py-2.5 text-sm
-              focus:outline-none focus:ring-2 focus:ring-black"
+                            className="w-full input"
                             required
                         />
                     </div>
@@ -48,8 +46,7 @@ export default function QuickValuationForm() {
                         <select
                             name="condition"
                             required
-                            className="w-full border border-zinc-300 px-4 py-2.5 text-sm bg-white
-              focus:outline-none focus:ring-2 focus:ring-black"
+                            className="w-full input"
                         >
                             <option value="">เลือกสภาพห้อง</option>
                             <option value="original">สภาพเดิม</option>
@@ -67,8 +64,7 @@ export default function QuickValuationForm() {
                             type="tel"
                             name="phone"
                             placeholder="เช่น 08x-xxx-xxxx"
-                            className="w-full border border-zinc-300 px-4 py-2.5 text-sm
-              focus:outline-none focus:ring-2 focus:ring-black"
+                            className="w-full input"
                             required
                         />
                     </div>
@@ -82,8 +78,7 @@ export default function QuickValuationForm() {
                             type="text"
                             name="line"
                             placeholder="LINE ID ของคุณ"
-                            className="w-full border border-zinc-300 px-4 py-2.5 text-sm
-              focus:outline-none focus:ring-2 focus:ring-black"
+                            className="w-full input"
                         />
                     </div>
 
