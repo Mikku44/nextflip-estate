@@ -5,11 +5,12 @@ import { formatCurrency } from "~/utils/currencyFormator";
 
 interface AssetCardProps { 
     data : any | AssetModel;
+    className?: string;
 }
 
-export default function AssetCard({ data }: AssetCardProps) {
+export default function AssetCard({ data,className = "" }: AssetCardProps) {
     return (
-        <NavLink to={data?.id ? `/condominium/${data.id}` : "/"} className="relative group">
+        <NavLink to={data?.id ? `/condominium/${data.id}` : "/"} className={"relative group shadow-2xl " + className}>
             <div className="absolute pointer-events-none w-full md:block hidden md:scale-[120%] z-5 min-h-95 
         group-hover:opacity-100 opacity-0 shadow-xl duration-300
         h-full bg-black group ">

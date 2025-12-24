@@ -31,7 +31,7 @@ export default function Navbar() {
                 onClose={() => setOpen(false)}
                 menu={MENU_APP as any}
             />
-            <header className={'w-full flex min-h-[58px] z-20 fixed py-2 transition ' + (isScrollDown ? 'bg-white border-b border-zinc-200' : 'bg-transparent ')}>
+            <header className={'w-full flex min-h-[58px] z-50 fixed py-2 transition ' + (isScrollDown ? 'bg-white border-b border-zinc-200' : 'bg-transparent ')}>
                 <nav className='mc-hd container-x w-full flex justify-items-center items-center'>
                     {/* logo */}
                     <div className="flex items-center gap-5">
@@ -78,7 +78,7 @@ export default function Navbar() {
 
                 <div className="md:hidden h-[54px] aspect-square flex items-center gap-2">
                    
-                    <SearchButton open={open} onClick={() => { }} />
+                    {/* <SearchButton open={open} onClick={() => { }} /> */}
                     <BurgerButton open={open} onClick={() => setOpen(!open)} />
                 </div>
             </header>

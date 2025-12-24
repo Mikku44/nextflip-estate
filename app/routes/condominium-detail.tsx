@@ -162,7 +162,7 @@ export default function CondominiumDetail() {
             ทีมงาน NextFlip Estate เข้าใจความต้องการของคุณ คัดเฉพาะทรัพย์ที่ใช่ พร้อมให้คำแนะนำอย่างมืออาชีพ
             <NavLink
               className="btn-line w-fit flex items-center gap-4 mt-4"
-              to="#">
+              to={"https://lin.ee/4fkHaEbk"}>
               <div className=""><FaLine className="size-8" /></div>
               <div className="">สนใจห้องนี้</div>
             </NavLink>

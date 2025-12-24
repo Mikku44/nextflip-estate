@@ -145,9 +145,12 @@ export default function Home() {
             <div className="font-light">คอนโดรีโนเวทพร้อมขาย</div>
             <div className="md:text-5xl text-4xl">NextFlip Selection</div>
           </motion.h2>
-          <div className="grid md:grid-cols-3 h-[500px] gap-5 mt-5">
+          <div className="grid md:grid-cols-3  gap-5 mt-5">
             {EXAMPLE_CONDO_LIST.slice(0,3).map((item) =>
-              <AssetCard data={item} key={item.id} />)}
+              <AssetCard 
+              className="h-[550px]"
+              data={item} 
+              key={item.id} />)}
           </div>
 
           {/*  */}

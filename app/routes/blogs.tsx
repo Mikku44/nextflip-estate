@@ -120,7 +120,7 @@ export default function BlogPage() {
                   <div>
                     <time className="text-sm text-zinc-400 font-medium">{blog.date}</time>
                     <h3 className={`${isFeatured ? "text-3xl" : "text-xl"} font-semibold mt-3 mb-4 transition-colors`}>
-                      <Link to={`/blog/${blog.slug}`}>{blog.title}</Link>
+                      <Link to={`/blogs/${blog.slug}`}>{blog.title}</Link>
                     </h3>
                     <p className="text-zinc-600 font-light leading-relaxed line-clamp-3">
                       {blog.excerpt}
@@ -129,7 +129,7 @@ export default function BlogPage() {
 
                   <div className="mt-8">
                     <Link
-                      to={`/blog/${blog.slug}`}
+                      to={`/blogs/${blog.slug}`}
                       className="inline-flex items-center gap-2 font-semibold text-zinc-900 group/link"
                     >
                       อ่านเพิ่มเติม 
