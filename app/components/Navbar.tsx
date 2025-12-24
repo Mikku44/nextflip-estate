@@ -68,7 +68,7 @@ export default function Navbar() {
                     <div className="md:grid hidden place-items-end mix-blend-difference col-span-2 w-full">
                         <NavLink
                             className="btn"
-                            to={"/contact"}>
+                            to={"/condo-estimator"}>
                             ประเมินราคาฟรี
 
                         </NavLink>

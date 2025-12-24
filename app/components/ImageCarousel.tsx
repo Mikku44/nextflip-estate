@@ -5,12 +5,14 @@ interface ImageCarouselProps {
     images: string[];
     autoPlay?: boolean;
     interval?: number;
+    className?: string;
 }
 
 export default function ImageCarousel({
     images,
     autoPlay = true,
     interval = 3000,
+    className = "",
 }: ImageCarouselProps) {
     const [[index, direction], setIndex] = useState<[number, number]>([0, 0]);
 
@@ -28,7 +30,7 @@ export default function ImageCarousel({
     }, [index, autoPlay, interval]);
 
     return (
-        <div className="relative w-full h-full  overflow-hidden">
+        <div className={`relative w-full h-full  overflow-hidden ${className}`}>
             <div className="bg-black/20 w-full h-full absolute z-1 pointer-events-none"></div>
             {/* buttons */}
             <div className="absolute z-10 grid grid-flow-col gap-2 bottom-0 right-0 m-8 md:flex hidden">

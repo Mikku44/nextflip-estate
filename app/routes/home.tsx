@@ -6,7 +6,6 @@ import AssetCard from "~/components/AssetCard";
 import { NavLink } from "react-router";
 import { FAQ } from "~/components/FAQ";
 import { EXAMPLE_CONDO_LIST, faqItems, TIMELINE_STEPS, WHY_US_LIST } from "~/const/app";
-import CardWithOverlay from "~/components/OverlayCard";
 import { BsAsterisk } from "react-icons/bs";
 import QuickValuationForm from "~/components/ShortForm";
 import Timeline from "~/components/Timeline";
@@ -15,13 +14,30 @@ import { FaLine } from "react-icons/fa6";
 export function meta({ }: Route.MetaArgs) {
   return [
     {
-      title: "NextFlip Estate | ซื้อ ขาย ฝากขาย คอนโด บ้าน และอสังหาริมทรัพย์"
+      title: "ติดต่อ NextFlip Estate | ปรึกษาซื้อ-ขายอสังหาริมทรัพย์กับ คุณ Bangkaew"
     },
     {
       name: "description",
       content:
-        "NextFlip Estate ผู้เชี่ยวชาญด้านซื้อ ขาย ฝากขาย คอนโด บ้าน และอสังหาริมทรัพย์ ให้คำปรึกษาฟรี ดูแลครบทุกขั้นตอน"
+        "ติดต่อ NextFlip Estate เพื่อปรึกษาการลงทุนคอนโด บ้าน และอสังหาริมทรัพย์ โทร 086 386 3844 หรือแอด LINE เพื่อรับบริการพาชมโครงการแบบ Exclusive โดยทีมงานมืออาชีพ"
     },
+    {
+      name: "keywords",
+      content: "ติดต่อ NextFlip Estate, เบอร์โทร NextFlip Estate, คุณ Bangkaew อสังหา, ปรึกษาซื้อขายคอนโด, นัดชมคอนโด กรุงเทพ"
+    },
+    // Open Graph สำหรับแชร์ลง Social Media
+    {
+      property: "og:title",
+      content: "Contact NextFlip Estate | Real Estate Consultant"
+    },
+    {
+      property: "og:description",
+      content: "สอบถามข้อมูลอสังหาฯ หรือนัดชมโครงการกับ คุณ Bangkaew ได้ทุกช่องทาง"
+    },
+    {
+      property: "og:type",
+      content: "website"
+    }
   ];
 }
 
@@ -130,14 +146,14 @@ export default function Home() {
             <div className="md:text-5xl text-4xl">NextFlip Selection</div>
           </motion.h2>
           <div className="grid md:grid-cols-3 h-[500px] gap-5 mt-5">
-            {EXAMPLE_CONDO_LIST.map((item) =>
+            {EXAMPLE_CONDO_LIST.slice(0,3).map((item) =>
               <AssetCard data={item} key={item.id} />)}
           </div>
 
           {/*  */}
 
           <div className="flex justify-center">
-            <div className="btn-1 h-fit text-center mt-10 w-fit ">ดูคอนโดเพิ่มเติม</div>
+            <NavLink to="/condominium" className="btn-1 h-fit text-center mt-10 w-fit ">ดูคอนโดเพิ่มเติม</NavLink>
           </div>
         </div>
       </section>
@@ -175,7 +191,7 @@ export default function Home() {
         {/* card blog */}
 
         <div className="container-x">
-          <div className="h-[500px] mb-10 bg-white  mt-16 group transition
+          <div className="h-125 mb-10 bg-white  mt-16 group transition
            shadow-2xl  grid md:grid-cols-5 overflow-hidden ">
             <div className="p-10 md:col-span-2 relative">
               <h4 className="md:text-5xl text-3xl line-clamp-2 font-light">Blog Title Lorem, ipsum dolor.</h4>

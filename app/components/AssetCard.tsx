@@ -1,4 +1,5 @@
 import { TbResize } from "react-icons/tb";
+import { NavLink } from "react-router";
 import type { AssetModel } from "~/models/assetModel";
 import { formatCurrency } from "~/utils/currencyFormator";
 
@@ -8,7 +9,7 @@ interface AssetCardProps {
 
 export default function AssetCard({ data }: AssetCardProps) {
     return (
-        <div className="relative group">
+        <NavLink to={data?.id ? `/condominium/${data.id}` : "/"} className="relative group">
             <div className="absolute pointer-events-none w-full md:block hidden md:scale-[120%] z-5 min-h-95 
         group-hover:opacity-100 opacity-0 shadow-xl duration-300
         h-full bg-black group ">
@@ -91,7 +92,7 @@ export default function AssetCard({ data }: AssetCardProps) {
 
                 </div>
             </div>
-        </div>
+        </NavLink>
     )
 }
 
