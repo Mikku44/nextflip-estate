@@ -1,66 +1,70 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaChevronRight, FaChevronLeft, FaLine, FaCloudUploadAlt } from 'react-icons/fa';
+import { FaChevronRight, FaChevronLeft, FaCloudUploadAlt } from 'react-icons/fa';
 import ImageCarousel from '~/components/ImageSlider2';
-import type { Route } from './+types/condo-estimator';
 
-export function meta({ }: Route.MetaArgs) {
-  return [
-    { title: "ประเมินราคาคอนโดฟรี | NextFlip Estate" },
-    { 
-      name: "description", 
-      content: "ส่งข้อมูลคอนโดเพื่อรับการประเมินราคาเบื้องต้นฟรี วิเคราะห์แม่นยำด้วยฐานข้อมูลตลาดจริง โดยทีมงาน NextFlip Estate" 
-    },
-    { 
-      name: "keywords", 
-      content: "ประเมินราคาคอนโด, เช็กราคาคอนโด, ฝากขายคอนโด, ขายคอนโดเงินสด, NextFlip Estate" 
-    },
-    { property: "og:title", content: "ประเมินราคาอสังหาฯ ฟรีกับ NextFlip Estate" },
-    { property: "og:image", content: "/images/condo15.jpg" }, // ใส่รูป Preview สวยๆ
-  ];
-}
 
 export default function ValuationStepForm() {
   const [step, setStep] = useState(1);
-  const totalSteps = 3;
+  const totalSteps = 3; // Adjusted to match your visible steps
+
+  // 1. Centralized Data State
+  const [formData, setFormData] = useState({
+    projectName: '',
+    buildingFloor: '',
+    sizeSqm: '',
+    bedrooms: 'Studio',
+    isCornerUnit: false,
+    conditionDetail: '',
+    roomStatus: 'ว่าง',
+    isBankMortgage: false,
+    isCommonFeeOwed: false,
+    askingPrice: '',
+    contactName: '',
+    phoneNumber: '',
+  });
+
+  // 2. Handle Input Changes
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value, type } = e.target;
+    const checked = (e.target as HTMLInputElement).checked;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value,
+    }));
+  };
 
   const nextStep = () => setStep((s) => Math.min(s + 1, totalSteps));
   const prevStep = () => setStep((s) => Math.max(s - 1, 1));
 
+  // 3. Database Submission Handler
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("Data to send to DB:", formData);
+    
+    // Example API Call:
+    // const response = await fetch('/api/valuation', {
+    //   method: 'POST',
+    //   body: JSON.stringify(formData),
+    // });
+    
+    alert("ส่งข้อมูลเรียบร้อยแล้ว ทีมงานจะติดต่อกลับโดยเร็วที่สุด");
+  };
+
   return (
     <main className='bg-zinc-100 pb-10'>
-      {/* HERO section */}
+      {/* HERO section remains same */}
       <div className="h-[70vh] bg-zinc-100 overflow-hidden relative">
         <div className="h-full w-full flex items-center justify-center text-center flex-col pb-10 absolute z-10 inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
-          <motion.h1
-            initial={{ y: 20, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8 }}
-            className="text-4xl md:text-6xl max-w-3xl px-4 drop-shadow-2xl text-white "
-          >
-            ประเมินราคาคอนโด
-          </motion.h1>
-          <motion.p
-            initial={{ y: 20, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-lg md:text-xl font-light max-w-2xl text-white/80 mt-4 px-6"
-          >
-            รับประเมินราคาคอนโดฟรี โดยผู้เชี่ยวชาญด้านอสังหาฯ ของเรา
-          </motion.p>
+          <motion.h1 className="text-4xl md:text-6xl max-w-3xl px-4 drop-shadow-2xl text-white">ประเมินราคาคอนโด</motion.h1>
+          <motion.p className="text-lg md:text-xl font-light max-w-2xl text-white/80 mt-4 px-6">รับประเมินราคาคอนโดฟรี โดยผู้เชี่ยวชาญด้านอสังหาฯ ของเรา</motion.p>
         </div>
-        {/* <img 
-               loading="lazy"
-                src="/images/condo24.jpg"
-                className="w-full h-full object-cover scale-105" 
-                alt="blog cover" 
-              /> */}
         <ImageCarousel />
       </div>
-      {/* form */}
+
       <section className="pb-10">
-        <div className="w-full mt-10  max-w-2xl mx-auto bg-white h-fit border p-8 md:p-12 shadow-2xl border-t-4 border-zinc-900">
-          {/* Progress Bar */}
+        <div className="w-full mt-10 max-w-2xl mx-auto bg-white h-fit border p-8 md:p-12 shadow-2xl border-t-4 border-zinc-900">
           <div className="mb-10 flex justify-between items-center text-[10px] font-bold tracking-widest uppercase text-zinc-400">
             <span>Step {step} of {totalSteps}</span>
             <div className="flex gap-2">
@@ -69,53 +73,55 @@ export default function ValuationStepForm() {
               ))}
             </div>
           </div>
-          <form className="min-h-[450px] flex flex-col justify-between">
+
+          <form onSubmit={handleSubmit} className="min-h-[450px] flex flex-col justify-between">
             <AnimatePresence mode="wait">
               {step === 1 && (
                 <motion.div key="step1" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-6">
                   <h3 className="text-2xl font-light mb-8">A) ข้อมูลห้อง</h3>
-                  <input type="text" placeholder="ชื่อโครงการ" className="w-full input" />
+                  <input name="projectName" value={formData.projectName} onChange={handleChange} type="text" placeholder="ชื่อโครงการ" className="w-full input p-3" required />
                   <div className="grid grid-cols-2 gap-4">
-                    <input type="text" placeholder="อาคาร/ชั้น" className="input" />
-                    <input type="text" placeholder="ขนาด (ตร.ม.)" className="input" />
+                    <input name="buildingFloor" value={formData.buildingFloor} onChange={handleChange} type="text" placeholder="อาคาร/ชั้น" className="input p-3" />
+                    <input name="sizeSqm" value={formData.sizeSqm} onChange={handleChange} type="number" placeholder="ขนาด (ตร.ม.)" className="input p-3" />
                   </div>
-                  <select className="w-full input bg-transparent">
-                    <option>จำนวนห้องนอน</option>
-                    <option>Studio</option>
-                    <option>1 ห้องนอน</option>
-                    <option>2 ห้องนอน+</option>
+                  <select name="bedrooms" value={formData.bedrooms} onChange={handleChange} className="w-full input bg-transparent border p-3">
+                    <option value="Studio">Studio</option>
+                    <option value="1 ห้องนอน">1 ห้องนอน</option>
+                    <option value="2 ห้องนอน+">2 ห้องนอน+</option>
                   </select>
                   <label className="flex items-center gap-3 cursor-pointer py-2">
-                    <input type="checkbox" className="w-4 h-4 accent-zinc-900" />
+                    <input name="isCornerUnit" checked={formData.isCornerUnit} onChange={handleChange} type="checkbox" className="w-4 h-4 accent-zinc-900" />
                     <span className="text-sm font-light text-zinc-600">เป็นห้องมุม?</span>
                   </label>
                 </motion.div>
               )}
+
               {step === 2 && (
                 <motion.div key="step2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-6">
                   <h3 className="text-2xl font-light mb-8">B) สภาพ & สถานะ</h3>
-                  <textarea placeholder="รายละเอียดสภาพห้อง (เช่น รีโนเวทแล้ว, มีตำหนิผนัง)" className="w-full border border-zinc-200 p-4 focus:border-zinc-900 outline-none font-light h-32" />
+                  <textarea name="conditionDetail" value={formData.conditionDetail} onChange={handleChange} placeholder="รายละเอียดสภาพห้อง..." className="w-full border border-zinc-200 p-4 focus:border-zinc-900 outline-none font-light h-32" />
                   <div className="grid grid-cols-2 gap-6">
                     <div className="space-y-3">
                       <p className="text-xs font-bold uppercase tracking-widest text-zinc-400">สถานะห้อง</p>
-                      <label className="flex gap-2 text-sm font-light"><input type="radio" name="status" /> ว่าง</label>
-                      <label className="flex gap-2 text-sm font-light"><input type="radio" name="status" /> มีผู้เช่า</label>
+                      <label className="flex gap-2 text-sm font-light"><input type="radio" name="roomStatus" value="ว่าง" checked={formData.roomStatus === 'ว่าง'} onChange={handleChange} /> ว่าง</label>
+                      <label className="flex gap-2 text-sm font-light"><input type="radio" name="roomStatus" value="มีผู้เช่า" checked={formData.roomStatus === 'มีผู้เช่า'} onChange={handleChange} /> มีผู้เช่า</label>
                     </div>
                     <div className="space-y-3">
                       <p className="text-xs font-bold uppercase tracking-widest text-zinc-400">ภาระผูกพัน</p>
-                      <label className="flex gap-2 text-sm font-light"><input type="checkbox" /> ติดธนาคาร</label>
-                      <label className="flex gap-2 text-sm font-light"><input type="checkbox" /> ค้างส่วนกลาง</label>
+                      <label className="flex gap-2 text-sm font-light"><input name="isBankMortgage" checked={formData.isBankMortgage} onChange={handleChange} type="checkbox" /> ติดธนาคาร</label>
+                      <label className="flex gap-2 text-sm font-light"><input name="isCommonFeeOwed" checked={formData.isCommonFeeOwed} onChange={handleChange} type="checkbox" /> ค้างส่วนกลาง</label>
                     </div>
                   </div>
                 </motion.div>
               )}
+
               {step === 3 && (
                 <motion.div key="step3" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-6">
                   <h3 className="text-2xl font-light mb-8">C) ราคา & ติดต่อกลับ</h3>
-                  <input type="number" placeholder="ราคาที่ต้องการขาย (บาท)" className="w-full input" />
+                  <input name="askingPrice" value={formData.askingPrice} onChange={handleChange} type="number" placeholder="ราคาที่ต้องการขาย (บาท)" className="w-full input p-3" />
                   <div className="grid grid-cols-2 gap-4">
-                    <input type="text" placeholder="ชื่อของคุณ" className="input" />
-                    <input type="tel" placeholder="เบอร์โทรศัพท์" className="input" />
+                    <input name="contactName" value={formData.contactName} onChange={handleChange} type="text" placeholder="ชื่อของคุณ" className="input p-3" />
+                    <input name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} type="tel" placeholder="เบอร์โทรศัพท์" className="input p-3" />
                   </div>
                   <div className="border-2 border-dashed border-zinc-200 p-8 text-center hover:border-zinc-900 transition-colors cursor-pointer group">
                     <FaCloudUploadAlt className="mx-auto text-zinc-300 group-hover:text-zinc-900 mb-2" size={32} />
@@ -124,7 +130,7 @@ export default function ValuationStepForm() {
                 </motion.div>
               )}
             </AnimatePresence>
-            {/* Navigation Buttons */}
+
             <div className="flex gap-4 mt-12 border-t border-zinc-100 pt-8">
               {step > 1 && (
                 <button type="button" onClick={prevStep} className="flex-1 py-4 border border-zinc-200 flex items-center justify-center gap-2 hover:bg-zinc-50 transition-all font-medium uppercase tracking-widest text-xs">
@@ -144,8 +150,6 @@ export default function ValuationStepForm() {
           </form>
         </div>
       </section>
-
-
     </main>
   );
 }

@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { IoCheckmarkCircleOutline, IoAlertCircleOutline, IoBuildOutline, IoTimeOutline, IoWalletOutline, IoBarChartOutline } from "react-icons/io5";
 import ImageCarousel from "~/components/ImageSlider2";
+import CaseStudyCard from "~/components/UsecaseCard";
+import { CASE_STUDIES } from "~/const/app";
 
 const CASE_DATA = {
   title: "รีโนเวทคอนโดเก่า 20 ปี ให้เป็น Luxury Minimal",
@@ -56,7 +58,11 @@ export default function CaseDetail() {
       </section>
 
       <main className="max-w-5xl mx-auto px-6 py-20">
-      
+        <div className="grid grid-cols-1 md:grid-cols-6 gap-10">
+          {CASE_STUDIES.map((item, index) => (
+            <CaseStudyCard key={item.slug} data={item} index={index} />
+          ))}
+        </div>
       </main>
     </div>
   );
