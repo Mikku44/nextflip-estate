@@ -6,6 +6,7 @@ interface ImageCarouselProps {
     autoPlay?: boolean;
     interval?: number;
     className?: string;
+    hiddenThumbs?: boolean;
 }
 
 export default function ImageCarousel({
@@ -13,6 +14,7 @@ export default function ImageCarousel({
     autoPlay = true,
     interval = 3000,
     className = "",
+    hiddenThumbs = false,
 }: ImageCarouselProps) {
     const [[index, direction], setIndex] = useState<[number, number]>([0, 0]);
 
@@ -33,13 +35,14 @@ export default function ImageCarousel({
         <div className={`relative w-full h-full  overflow-hidden ${className}`}>
             <div className="bg-black/20 w-full h-full absolute z-1 pointer-events-none"></div>
             {/* buttons */}
-            <div className="absolute z-10 grid grid-flow-col gap-2 bottom-0 right-0 m-8 md:flex hidden">
+            {!hiddenThumbs &&<div className="absolute z-10 grid grid-flow-col gap-2 bottom-0 right-0 m-8 md:flex hidden">
                 {images.map((image, idx) => <div
                     key={image}
+                    onClick={() => setIndex([idx, idx > index ? 1 : -1])}
                     className={`${index !== idx ? "opacity-50 scale-95" : "opacity-90"}  duration-200 md:size-24 size-16 rounded-xl overflow-hidden`}>
                     <img className="h-full w-full object-cover" src={image} />
                 </div>)}
-            </div>
+            </div>}
             <AnimatePresence initial={false} custom={direction}>
                 <motion.img
                     key={index}

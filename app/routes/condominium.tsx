@@ -207,7 +207,7 @@ export default function Condominium() {
           <div className="text-zinc-500 text-center  w-62.5">----- หรือ -----</div>
 
           <div className="flex items-center justify-center gap-2 w-62.5">
-            <NavLink target="_blank" to="https://line.me/ti/p/@nextflipestate"><FaLine className="size-6 hover:text-zinc-700 transition-all" /></NavLink>
+            <NavLink target="_blank" to="https://lin.ee/4fkHaEbk"><FaLine className="size-6 hover:text-zinc-700 transition-all" /></NavLink>
             <NavLink target="_blank" to="https://www.facebook.com/nextflipestate"><FaFacebook className="size-6 hover:text-zinc-700 transition-all" /></NavLink>
           </div>
         </div>

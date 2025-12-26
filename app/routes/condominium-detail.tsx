@@ -161,6 +161,7 @@ export default function CondominiumDetail() {
           <p className="text-lg max-w-[70%] font-light">
             ทีมงาน NextFlip Estate เข้าใจความต้องการของคุณ คัดเฉพาะทรัพย์ที่ใช่ พร้อมให้คำแนะนำอย่างมืออาชีพ
             <NavLink
+            target="_blank"
               className="btn-line w-fit flex items-center gap-4 mt-4"
               to={"https://lin.ee/4fkHaEbk"}>
               <div className=""><FaLine className="size-8" /></div>
@@ -325,7 +326,8 @@ export default function CondominiumDetail() {
             โทร
           </a>
           <a
-            href="https://line.me/ti/p/~yourline"
+          target="_blank"
+            href="https://lin.ee/4fkHaEbk"
             className="flex-1 py-4 text-center font-semibold bg-green-500 text-white"
           >
             LINE

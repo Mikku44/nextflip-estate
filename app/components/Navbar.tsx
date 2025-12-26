@@ -35,14 +35,14 @@ export default function Navbar() {
                 <nav className='mc-hd container-x w-full flex justify-items-center items-center'>
                     {/* logo */}
                     <div className="flex items-center gap-5">
-                        <Link to="/" className="h-[54px] aspect-square">
+                        <Link to="/" className="h-17 aspect-square">
                             <img
                                 src="/logo.png"
                                 alt="Nextflip estate logo"
                                 className='h-full w-full object-cover' />
                         </Link>
                         {/* menu */}
-                        <div className="w-full justify-center text-[14px] nav-item text-white mix-blend-difference font-light hidden lg:flex gap-6">
+                        <div className="w-full justify-center text-[17px] nav-item text-white mix-blend-difference font-light hidden lg:flex gap-6">
                             {MENU_APP.map((item) => (
                                 <div
                                     key={item.label}

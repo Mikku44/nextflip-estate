@@ -18,7 +18,7 @@ export function meta({ }: Route.MetaArgs) {
   ];
 }
 
-const BLOGS = [
+export const BLOGS = [
   {
     slug: "sell-condo-cash",
     title: "ขายคอนโดเงินสด ดีกว่ายังไง เหมาะกับใคร?",

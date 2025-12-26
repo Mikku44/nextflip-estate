@@ -2,6 +2,23 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaChevronRight, FaChevronLeft, FaCloudUploadAlt } from 'react-icons/fa';
 import ImageCarousel from '~/components/ImageSlider2';
+import type { Route } from './+types/condo-estimator';
+
+
+export function meta({}: Route.MetaArgs) {
+  return [
+    {
+      title: "ประเมินราคาคอนโดฟรี | รู้ราคาขายภายใน 24 ชม. | NextFlip Estate",
+    },
+    {
+      name: "description",
+      content:
+        "ประเมินราคาคอนโดฟรีกับ NextFlip Estate รู้ราคาขายภายใน 24 ชั่วโมง ประเมินตรงตลาด รับซื้อเงินสดจริง ปรึกษาฟรี ไม่มีค่าใช้จ่าย",
+    },
+  ];
+}
+
+
 
 
 export default function ValuationStepForm() {
@@ -17,12 +34,12 @@ export default function ValuationStepForm() {
     isCornerUnit: false,
     conditionDetail: '',
     roomStatus: 'ว่าง',
-    isBankMortgage: false,
-    isCommonFeeOwed: false,
+    liabilityStatus: '',
     askingPrice: '',
     contactName: '',
     phoneNumber: '',
   });
+
 
   // 2. Handle Input Changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -42,13 +59,13 @@ export default function ValuationStepForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Data to send to DB:", formData);
-    
+
     // Example API Call:
     // const response = await fetch('/api/valuation', {
     //   method: 'POST',
     //   body: JSON.stringify(formData),
     // });
-    
+
     alert("ส่งข้อมูลเรียบร้อยแล้ว ทีมงานจะติดต่อกลับโดยเร็วที่สุด");
   };
 
@@ -84,7 +101,7 @@ export default function ValuationStepForm() {
                     <input name="buildingFloor" value={formData.buildingFloor} onChange={handleChange} type="text" placeholder="อาคาร/ชั้น" className="input p-3" />
                     <input name="sizeSqm" value={formData.sizeSqm} onChange={handleChange} type="number" placeholder="ขนาด (ตร.ม.)" className="input p-3" />
                   </div>
-                  <select name="bedrooms" value={formData.bedrooms} onChange={handleChange} className="w-full input bg-transparent border p-3">
+                  <select name="bedrooms" value={formData.bedrooms} onChange={handleChange} className="w-full input bg-transparent  p-3">
                     <option value="Studio">Studio</option>
                     <option value="1 ห้องนอน">1 ห้องนอน</option>
                     <option value="2 ห้องนอน+">2 ห้องนอน+</option>
@@ -103,14 +120,54 @@ export default function ValuationStepForm() {
                   <div className="grid grid-cols-2 gap-6">
                     <div className="space-y-3">
                       <p className="text-xs font-bold uppercase tracking-widest text-zinc-400">สถานะห้อง</p>
-                      <label className="flex gap-2 text-sm font-light"><input type="radio" name="roomStatus" value="ว่าง" checked={formData.roomStatus === 'ว่าง'} onChange={handleChange} /> ว่าง</label>
-                      <label className="flex gap-2 text-sm font-light"><input type="radio" name="roomStatus" value="มีผู้เช่า" checked={formData.roomStatus === 'มีผู้เช่า'} onChange={handleChange} /> มีผู้เช่า</label>
+                      <div className="flex flex-wrap gap-2">
+                        {['ว่าง', 'มีผู้เช่า', 'อยู่เอง'].map((status) => (
+                          <label key={status} className="flex-1">
+                            <input
+                              type="radio"
+                              name="roomStatus"
+                              value={status}
+                              checked={formData.roomStatus === status}
+                              onChange={handleChange}
+                              className="hidden" // ซ่อน radio ดั้งเดิม
+                            />
+                            <div className={`cursor-pointer py-3 px-4 text-center text-sm 
+                                  transition-all border ${formData.roomStatus === status
+                                ? 'bg-zinc-900 text-white border-zinc-900 shadow-md'
+                                : 'bg-white text-zinc-600 border-zinc-200 hover:border-zinc-400'}`}>
+                              {status}
+                            </div>
+                          </label>
+                        ))}
+                      </div>
                     </div>
                     <div className="space-y-3">
                       <p className="text-xs font-bold uppercase tracking-widest text-zinc-400">ภาระผูกพัน</p>
-                      <label className="flex gap-2 text-sm font-light"><input name="isBankMortgage" checked={formData.isBankMortgage} onChange={handleChange} type="checkbox" /> ติดธนาคาร</label>
-                      <label className="flex gap-2 text-sm font-light"><input name="isCommonFeeOwed" checked={formData.isCommonFeeOwed} onChange={handleChange} type="checkbox" /> ค้างส่วนกลาง</label>
+                      <div className="grid grid-cols-2 gap-2">
+                        {[
+                          { id: 'bank', label: 'ติดธนาคาร' },
+                          { id: 'free', label: 'ปลอดภาระ' }
+                        ].map((item) => (
+                          <label key={item.id} className="cursor-pointer">
+                            <input
+                              type="radio"
+                              name="liabilityStatus"
+                              value={item.id}
+                              checked={formData.liabilityStatus === item.id}
+                              onChange={handleChange}
+                              className="hidden"
+                            />
+                            <div className={`py-3 px-4 text-center text-sm transition-all border
+                                    ${formData.liabilityStatus === item.id
+                                ? 'bg-zinc-900 text-white border-zinc-900 shadow-md'
+                                : 'bg-white text-zinc-600 border-zinc-200 hover:border-zinc-400'}`}>
+                              {item.label}
+                            </div>
+                          </label>
+                        ))}
+                      </div>
                     </div>
+
                   </div>
                 </motion.div>
               )}
@@ -123,10 +180,10 @@ export default function ValuationStepForm() {
                     <input name="contactName" value={formData.contactName} onChange={handleChange} type="text" placeholder="ชื่อของคุณ" className="input p-3" />
                     <input name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} type="tel" placeholder="เบอร์โทรศัพท์" className="input p-3" />
                   </div>
-                  <div className="border-2 border-dashed border-zinc-200 p-8 text-center hover:border-zinc-900 transition-colors cursor-pointer group">
+                  {/* <div className="border-2 border-dashed border-zinc-200 p-8 text-center hover:border-zinc-900 transition-colors cursor-pointer group">
                     <FaCloudUploadAlt className="mx-auto text-zinc-300 group-hover:text-zinc-900 mb-2" size={32} />
                     <p className="text-xs font-light text-zinc-400">Upload รูปห้อง (สูงสุด 10 รูป)</p>
-                  </div>
+                  </div> */}
                 </motion.div>
               )}
             </AnimatePresence>
@@ -142,7 +199,7 @@ export default function ValuationStepForm() {
                   Next Step <FaChevronRight size={10} />
                 </button>
               ) : (
-                <button type="submit" className="flex-[2] py-4 bg-zinc-900 text-white flex items-center justify-center gap-2 hover:bg-black transition-all font-bold uppercase tracking-widest text-xs shadow-xl shadow-zinc-200">
+                <button type="button" className="flex-[2] py-4 bg-zinc-900 text-white flex items-center justify-center gap-2 hover:bg-black transition-all font-bold uppercase tracking-widest text-xs shadow-xl shadow-zinc-200">
                   Submit Request
                 </button>
               )}

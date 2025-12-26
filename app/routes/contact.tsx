@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { IoCallOutline, IoMailOutline, IoLogoYoutube, IoLocationOutline } from "react-icons/io5";
+import { IoCallOutline, IoMailOutline, IoLogoYoutube, IoLocationOutline, IoLogoFacebook } from "react-icons/io5";
 import { FaLine } from "react-icons/fa";
 import ImageCarousel from "~/components/ImageSlider2"; 
 import type { Route } from "./+types/contact";
@@ -15,6 +15,13 @@ export function meta({ }: Route.MetaArgs) {
 }
 
 export const CONTACT_METHODS = [
+  {
+    icon: <IoLogoFacebook size={28} />,
+    label: "Facebook",
+    value: "NextFlip Estate",
+    href: "https://www.facebook.com/nextflipestate",
+    color: "hover:text-blue-600"
+  },
   {
     icon: <IoCallOutline size={28} />,
     label: "Phone",
