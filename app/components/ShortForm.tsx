@@ -13,19 +13,55 @@ export default function QuickValuationForm() {
         const formData = new FormData(e.currentTarget);
 
         const payload = {
-            location: formData.get("location"),
-            size: formData.get("size"),
-            condition: formData.get("condition"),
-            phone: formData.get("phone"),
-            line: formData.get("line"),
+            location: formData.get("location") as string,
+            size: formData.get("size") as string,
+            condition: formData.get("condition") as string,
+            phone: formData.get("phone") as string,
+            line: formData.get("line") as string,
         };
 
-        console.log("Payload:", payload);
+        const message = `
+            *ขอสอบถามข้อมูลและประเมินราคาเบื้องต้น*
+
+            ทำเลที่ตั้ง: ${payload.location}
+            ขนาดพื้นที่: ${payload.size}
+            สภาพทรัพย์สิน: ${payload.condition}
+            หมายเลขโทรศัพท์: ${payload.phone}
+            LINE ID: ${payload.line}
+            `.trim();
+
+        // const href = `https://lin.ee/4fkHaEbk?text=${encodeURIComponent(message)}`;
+
+        // window.open(href, "_blank");
+     
+
+        try {
+            const res = await fetch("/api/apply", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(message),
+            });
+
+            if (!res.ok) throw new Error("Submit failed");
+
+            const result = await res.json();
+            console.log("Success:", result);
+
+            toast("ส่งข้อมูลเรียบร้อยแล้ว");
+        } catch (error) {
+            console.error("Error submitting form:", error);
+            toast("เกิดข้อผิดพลาด กรุณาลองใหม่");
+        } finally {
+            setLoading(false);
+        }
 
         setLoading(false);
-        toast("ส่งข้อมูลเรียบร้อยแล้ว");
+        toast("ระบบกำลังเปิด LINE เพื่อส่งข้อมูล");
         e.currentTarget.reset();
     }
+
 
     return (
         <section className="w-full flex justify-center md:py-20 px-4 py-4">
@@ -120,7 +156,7 @@ export default function QuickValuationForm() {
                     <p className="text-center text-sm text-zinc-500">หรือ</p>
 
                     <Link
-                    target="_blank"
+                        target="_blank"
                         to="https://lin.ee/4fkHaEbk"
                         className="w-full bg-green-500 py-3 text-white font-medium flex justify-center items-center gap-3"
                     >

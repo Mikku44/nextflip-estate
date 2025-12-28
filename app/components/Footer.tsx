@@ -96,12 +96,12 @@ export default function Footer() {
         </section>
       </footer>
       <section className="bg-(--primary-color) py-2">
-        <div className=" flex justify-between container-x w-full">
+        <div className=" flex md:flex-row flex-col gap-5 justify-between container-x w-full">
           <div className="font-light  text-white
            text-sm ">
             NextFlip Estate © 2025. สงวนลิขสิทธิ์.
           </div>
-          <div className="flex gap-2 text-white/80 font-light text-sm">
+          <div className="flex  gap-2 text-white/80 font-light text-sm">
             <Link className="hover:text-white w-fit " to="/privacy">นโยบายความเป็นส่วนตัว</Link>
             <Link className="hover:text-white w-fit " to="/terms">ข้อกำหนดการใช้งาน</Link>
           </div>

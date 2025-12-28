@@ -3,9 +3,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FaChevronRight, FaChevronLeft, FaCloudUploadAlt } from 'react-icons/fa';
 import ImageCarousel from '~/components/ImageSlider2';
 import type { Route } from './+types/condo-estimator';
+import { toast } from 'sonner';
 
 
-export function meta({}: Route.MetaArgs) {
+export function meta({ }: Route.MetaArgs) {
   return [
     {
       title: "ประเมินราคาคอนโดฟรี | รู้ราคาขายภายใน 24 ชม. | NextFlip Estate",
@@ -19,26 +20,28 @@ export function meta({}: Route.MetaArgs) {
 }
 
 
-
+const defaultData = {
+  projectName: '',
+  buildingFloor: '',
+  sizeSqm: '',
+  bedrooms: 'Studio',
+  isCornerUnit: false,
+  conditionDetail: '',
+  roomStatus: 'ว่าง',
+  liabilityStatus: '',
+  askingPrice: '',
+  contactName: '',
+  phoneNumber: '',
+  line: '',
+}
 
 export default function ValuationStepForm() {
   const [step, setStep] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
   const totalSteps = 3; // Adjusted to match your visible steps
 
   // 1. Centralized Data State
-  const [formData, setFormData] = useState({
-    projectName: '',
-    buildingFloor: '',
-    sizeSqm: '',
-    bedrooms: 'Studio',
-    isCornerUnit: false,
-    conditionDetail: '',
-    roomStatus: 'ว่าง',
-    liabilityStatus: '',
-    askingPrice: '',
-    contactName: '',
-    phoneNumber: '',
-  });
+  const [formData, setFormData] = useState(defaultData);
 
 
   // 2. Handle Input Changes
@@ -58,15 +61,58 @@ export default function ValuationStepForm() {
   // 3. Database Submission Handler
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Data to send to DB:", formData);
+    setIsLoading(true)
 
-    // Example API Call:
-    // const response = await fetch('/api/valuation', {
-    //   method: 'POST',
-    //   body: JSON.stringify(formData),
-    // });
+    // console.log("Data to send to DB:", formData);
 
-    alert("ส่งข้อมูลเรียบร้อยแล้ว ทีมงานจะติดต่อกลับโดยเร็วที่สุด");
+    const message = `
+        *ขอสอบถามข้อมูลและประเมินราคาเบื้องต้น*
+
+        ชื่อโครงการ: ${formData.projectName}
+        ชั้น / อาคาร: ${formData.buildingFloor}
+        ขนาดห้อง: ${formData.sizeSqm} ตารางเมตร
+        จำนวนห้องนอน: ${formData.bedrooms}
+        ห้องมุม: ${formData.isCornerUnit ? "ใช่" : "ไม่ใช่"}
+        สภาพห้อง: ${formData.conditionDetail}
+        สถานะห้อง: ${formData.roomStatus}
+        ภาระผูกพัน: ${formData.liabilityStatus || "-"}
+        ราคาที่ต้องการขาย: ${formData.askingPrice}
+        ชื่อผู้ติดต่อ: ${formData.contactName}
+        หมายเลขโทรศัพท์: ${formData.phoneNumber}
+        ช่องทางการติดต่อ: ${formData.line}
+          `.trim();
+
+    // const href = `https://lin.ee/4fkHaEbk?text=${encodeURIComponent(message)}`;
+
+    // window.open(href, "_blank");
+
+    const payload = message;
+
+    try {
+      const res = await fetch("/api/apply", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) throw new Error("Submit failed");
+
+      const result = await res.json();
+      console.log("Success:", result);
+
+      toast("ส่งข้อมูลเรียบร้อยแล้ว");
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      toast("เกิดข้อผิดพลาด กรุณาลองใหม่");
+    } finally {
+      setIsLoading(false);
+    }
+    setStep(1);
+    setFormData(defaultData);
+
+    toast("ระบบกำลังเปิด LINE เพื่อส่งข้อมูล");
   };
 
   return (
@@ -91,7 +137,7 @@ export default function ValuationStepForm() {
             </div>
           </div>
 
-          <form onSubmit={handleSubmit} className="min-h-[450px] flex flex-col justify-between">
+          <form className="min-h-[450px] flex flex-col justify-between">
             <AnimatePresence mode="wait">
               {step === 1 && (
                 <motion.div key="step1" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-6">
@@ -184,7 +230,10 @@ export default function ValuationStepForm() {
                     <FaCloudUploadAlt className="mx-auto text-zinc-300 group-hover:text-zinc-900 mb-2" size={32} />
                     <p className="text-xs font-light text-zinc-400">Upload รูปห้อง (สูงสุด 10 รูป)</p>
                   </div> */}
+                   <input name="line" value={formData.line} onChange={handleChange} type="tel" placeholder="LINE ID หรือช่องทางการติดต่ออื่นๆ" className="input w-full p-3" />
+                  
                 </motion.div>
+
               )}
             </AnimatePresence>
 
@@ -199,9 +248,17 @@ export default function ValuationStepForm() {
                   Next Step <FaChevronRight size={10} />
                 </button>
               ) : (
-                <button type="button" className="flex-[2] py-4 bg-zinc-900 text-white flex items-center justify-center gap-2 hover:bg-black transition-all font-bold uppercase tracking-widest text-xs shadow-xl shadow-zinc-200">
-                  Submit Request
-                </button>
+                <motion.button
+
+                  whileTap={{
+                    scale: 0.8
+                  }}
+                  type="button"
+                  disabled={isLoading}
+                  onClick={handleSubmit}
+                  className="flex-[2] py-4 bg-zinc-900 text-white flex items-center justify-center gap-2 hover:bg-black transition-all font-bold uppercase tracking-widest text-xs shadow-xl shadow-zinc-200">
+                  {isLoading ? "Sending.." : "Submit Request"}
+                </motion.button>
               )}
             </div>
           </form>
