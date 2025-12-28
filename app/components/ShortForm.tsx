@@ -79,7 +79,6 @@ export default function QuickValuationForm() {
                         <input
                             id="location"
                             name="location"
-                            required
                             placeholder="เช่น สุขุมวิท, พระราม 9"
                             className="w-full input"
                         />
@@ -94,7 +93,6 @@ export default function QuickValuationForm() {
                             id="size"
                             name="size"
                             type="number"
-                            required
                             placeholder="เช่น 32"
                             className="w-full input"
                         />
@@ -108,7 +106,6 @@ export default function QuickValuationForm() {
                         <select
                             id="condition"
                             name="condition"
-                            required
                             className="w-full input"
                         >
                             <option value="">เลือกสภาพห้อง</option>
@@ -126,7 +123,6 @@ export default function QuickValuationForm() {
                         <input
                             id="phone"
                             name="phone"
-                            required
                             placeholder="เช่น 08x-xxx-xxxx"
                             className="w-full input"
                         />
