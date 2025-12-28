@@ -175,7 +175,9 @@ export default function Condominium() {
       <section className="container-x bg-zinc-100">
         <div className="grid md:grid-cols-3 gap-5 mt-5">
           {sortedList.map((item) => (
-            <AssetCard data={item} key={item.id} />
+            <AssetCard
+            className="h-[500px]"
+            data={item} key={item.id} />
           ))}
         </div>
       </section>
@@ -184,7 +186,7 @@ export default function Condominium() {
 
       {/*  */}
 
-      <section className=" min-h-[50vh]   py-10 flex items-center justify-center">
+      <section className=" min-h-[50vh] py-10 flex items-center justify-center">
         <div className="container-x w-full items-center grid h-full gap-3">
           <motion.h2
             initial={{

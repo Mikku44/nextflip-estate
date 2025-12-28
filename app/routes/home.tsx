@@ -96,6 +96,10 @@ export default function Home() {
             "/images/condo17.jpg",
             "/images/condo15.jpg",
             "/images/condo26.jpg",
+            "/images/condo34.jpg",
+            "/images/condo33.jpg",
+            "/images/condo51.jpg",
+            "/images/condo50.jpg",
             "/condo.jpg",
 
           ]}
@@ -315,9 +319,13 @@ export default function Home() {
 
       {/* form */}
       <section className="bg-zinc-200 grid md:grid-cols-2 ">
-        <img src="/images/condo10.jpg"
-          className=" h-full w-full object-cover"
-        />
+        <div className="max-h-[950px]">
+          <video src="/videos/condo-sell.mp4" 
+          x-webkit-airplay="deny" 
+          controls autoPlay muted preload="true"
+            className=" h-full w-full object-cover"
+          />
+        </div>
         <div className="w-full relative z-1">
           <QuickValuationForm />
         </div>
@@ -436,7 +444,7 @@ export default function Home() {
       <section className="py-10 bg-zinc-100">
         <div className="container-x">
           <div className="container-x">
-            <div className="h-[500px] mb-10 bg-white  mt-16 group transition
+            <div className="min-h-[500px] mb-10 bg-white  mt-16 group transition
            shadow-2xl  grid md:grid-cols-5 overflow-hidden ">
               <div className="p-10 md:col-span-2 relative">
                 <h4 className="md:text-4xl text-3xl font-light">อยากขายด่วน? <br />ส่งข้อมูลห้องให้ประเมินฟรี</h4>
@@ -444,14 +452,15 @@ export default function Home() {
                   ไม่แน่ใจว่าห้องขายได้เท่าไร? ส่งข้อมูลมาให้เราช่วยประเมินก่อนตัดสินใจได้ฟรี
                 </p>
                 {/* button */}
-                <div className="mt-6 space-x-2 flex w-full h-fit md:absolute bottom-14">
+                <div className="mt-6 gap-2 md:grid-cols-2 flex-col space-x-2 md:grid 
+                flex md:w-[90%] h-fit md:absolute bottom-14">
                   <NavLink
-                    className="btn-1 group "
+                    className="btn-1 group w-full flex-1 justify-center flex"
                     to={"/condo-estimator"}>
                     ประเมินฟรี
                   </NavLink>
                   <NavLink
-                    className="btn-line group flex w-fit gap-2 "
+                    className="btn-line group flex w-full justify-center gap-2 "
                     to={"https://lin.ee/4fkHaEbk"}>
                     <FaLine className="size-[24px]" />
                     <div className="">LINE</div>
@@ -460,7 +469,7 @@ export default function Home() {
               </div>
               {/* image */}
               <div className="md:col-span-3">
-                <img src="/images/condo5.jpg"
+                <img src="/images/condo54.jpg"
                   className="h-full w-full object-cover"
                   alt="blog" />
               </div>

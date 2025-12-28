@@ -13,14 +13,15 @@ export default function AssetCard({ data,className = "" }: AssetCardProps) {
         <NavLink to={data?.id ? `/condominium/${data.id}` : "/"} className={"relative group shadow-2xl " + className}>
             <div className="absolute pointer-events-none w-full md:block hidden md:scale-[120%] z-5 min-h-95 
         group-hover:opacity-100 opacity-0 shadow-xl duration-300
-        h-full bg-black group ">
+        md:h-full h-fit bg-black group ">
    {/* badge */}
                 {data?.badge && (
                     <AssetBadge badge={data.badge} />
                 )}
 
 
-                <div className="h-[65%] w-full">
+                <div className="h-[65%] w-full relative">
+                    
                     <img src={data?.imageUrl || "/condo.jpg"}
                         className="w-full h-full object-cover"
                         alt="codo image" />
@@ -80,18 +81,19 @@ export default function AssetCard({ data,className = "" }: AssetCardProps) {
                 <div className="grid grid-cols-3  px-4 gap-2">
                     <div className="flex gap-3 border-r pr-4 border-zinc-300 items-center ">
                         <TbResize />
-                        <p className="text-sm">{data?.area  || "- "}m^2</p>
+                        <p className="text-sm line-clamp-1">{data?.area  || "- "}m^2</p>
                     </div>
                     <div className="flex justify-center gap-3 border-r pr-4 border-zinc-300 items-center ">
                         <TbResize />
-                        <p className="text-sm">{data?.bedrooms  || "- "} ห้องนอน</p>
+                        <p className="text-sm line-clamp-1">{data?.bedrooms  || "- "} ห้องนอน</p>
                     </div>
                     <div className="flex justify-end gap-3 items-center ">
                         <TbResize />
-                        <p className="text-sm">{data?.bathrooms  || "- "} ห้องน้ำ</p>
+                        <p className="text-sm line-clamp-1">{data?.bathrooms  || "- "} ห้องน้ำ</p>
                     </div>
 
                 </div>
+                
             </div>
         </NavLink>
     )

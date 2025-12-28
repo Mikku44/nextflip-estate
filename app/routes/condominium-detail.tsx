@@ -1,11 +1,17 @@
 import ImageCarousel from "~/components/ImageCarousel";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import type { Route } from "./+types/condominium-detail";
 import { BsAsterisk } from "react-icons/bs";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 import { FaLine } from "react-icons/fa6";
 import { FAQ } from "~/components/FAQ";
 import { formatCurrency } from "~/utils/currencyFormator";
+import {
+  FaBuilding, FaLayerGroup, FaDoorOpen, FaRulerCombined,
+  FaCompass, FaMoneyBillWave, FaDroplet, FaCar, FaMotorcycle
+} from "react-icons/fa6";
+import ShareButton from "~/components/Sharebutton";
+import { useRef } from "react";
 
 export const faqItems = [
   {
@@ -63,6 +69,14 @@ export function meta({ data }: Route.MetaArgs) {
 
 
 export default function CondominiumDetail() {
+  const ref = useRef<any>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+
+  // scale from 1 to 1.1
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.3]);
   return (
     <main className="min-h-[150vh] bg-zinc-100">
 
@@ -70,7 +84,7 @@ export default function CondominiumDetail() {
 
         <div className=" bg-black/20 absolute z-10 w-full h-[500px] flex flex-col justify-end pb-10">
           <div className="container-x w-full flex flex-col space-y-2">
-            
+
             <motion.div
               initial={{
                 y: 10, opacity: 0
@@ -84,7 +98,7 @@ export default function CondominiumDetail() {
               }}
               className="w-fit rounded-xl bg-white md:text-5xl 
               max-w-xl py-2 px-4 drop-shadow-2xl  text-(--primary-color) leading-12">
-                <div className="text-sm">ราคาเริ่มต้น</div>
+              <div className="text-sm">ราคาโปรโมชั่น</div>
               <div className="text-4xl ">{formatCurrency(10000)}</div>
             </motion.div>
             <motion.h1
@@ -118,6 +132,9 @@ export default function CondominiumDetail() {
               ถานที่ 35 ตร.ม. 1 ห้องนอน 1 ห้องน้ำ ราคา 1,500,000 บาท
             </motion.div>
 
+
+
+
             {/* <Link
               className="shadow btn-1"
               to="">ประเมินราคาฟรี</Link> */}
@@ -142,6 +159,7 @@ export default function CondominiumDetail() {
           alt="nextflip estate hero image" /> */}
       </section>
 
+
       {/* cta */}
 
       <section className=" min-h-[50vh] bg-zinc-200  py-10 flex items-center justify-center">
@@ -160,19 +178,169 @@ export default function CondominiumDetail() {
             className="md:text-5xl md:max-w-[80%] text-3xl" id="more">สนใจห้องนี้? <br />ประเมินราคาฟรี <br /> ไม่มีค่าใช้จ่าย</motion.h2>
           <p className="text-lg max-w-[70%] font-light">
             ทีมงาน NextFlip Estate เข้าใจความต้องการของคุณ คัดเฉพาะทรัพย์ที่ใช่ พร้อมให้คำแนะนำอย่างมืออาชีพ
-            <NavLink
-            target="_blank"
-              className="btn-line w-fit flex items-center gap-4 mt-4"
-              to={"https://lin.ee/4fkHaEbk"}>
-              <div className=""><FaLine className="size-8" /></div>
-              <div className="">สนใจห้องนี้</div>
-            </NavLink>
+            <div className="flex flex-col max-w-[250px] gap-2 mt-4">
+              <NavLink
+                target="_blank"
+                className="btn-line w-full  flex justify-center items-center gap-4"
+                to={"https://lin.ee/4fkHaEbk"}>
+                <div className=""><FaLine className="size-8" /></div>
+                <div className="">สนใจห้องนี้</div>
+              </NavLink>
+              {/* share */}
+              <ShareButton title={`${"Nextflip Estate Condo renovate"} สนใจห้องนี้? ประเมินราคาฟรี ไม่มีค่าใช้จ่าย`} />
+            </div>
           </p>
 
         </div>
       </section>
 
 
+      {/* basic information */}
+      <section className="pt-12 bg-zinc-50 relative">
+
+        <div className="container-x">
+          <h2 className="text-2xl mb-8 text-zinc-800">
+            ข้อมูลห้อง
+          </h2>
+
+          <div className="relative overflow-hidden h-[500px]">
+
+            {/* image */}
+            <div className="absolute inset-0 z-0">
+              <motion.img
+                ref={ref}
+                style={{ scale }} src="/images/condo2.jpg" alt="condo" className="w-full h-full object-cover" />
+            </div>
+
+            <section className="max-w-[500px] w-full absolute z-5 bottom-0 left-0 m-5 bg-white shadow-2xl p-5">
+              {/* Project Name */}
+              <div className="flex items-center justify-between  pb-3">
+                <div className="flex flex-col ">
+                  <div className="">ชื่อโครงการ</div>
+                  <span className="font-medium text-3xl text-(--primary-color)" >Condominum XYZ</span>
+                </div>
+              </div>
+
+              {/* Building */}
+              <div className="flex items-center justify-between  pb-3">
+                <div className="flex items-center gap-3 ">
+                  <FaBuilding className="text-(--primary-color" />
+                  <span className="font-medium">อาคาร</span>
+                </div>
+                <span className="font-light text-zinc-700 ">value</span>
+              </div>
+
+              {/* Floor */}
+              <div className="flex items-center justify-between  pb-3">
+                <div className="flex items-center gap-3 ">
+                  <FaLayerGroup className="text-(--primary-color" />
+                  <span className="font-medium">ชั้น</span>
+                </div>
+                <span className="font-light text-zinc-700 ">value</span>
+              </div>
+
+              {/* Room Number */}
+              <div className="flex items-center justify-between  pb-3">
+                <div className="flex items-center gap-3 ">
+                  <FaDoorOpen className="text-(--primary-color" />
+                  <span className="font-medium">เลขที่ห้อง</span>
+                </div>
+                <span className="font-light text-zinc-700 ">value</span>
+              </div>
+
+              {/* Size */}
+              <div className="flex items-center justify-between  pb-3">
+                <div className="flex items-center gap-3 ">
+                  <FaRulerCombined className="text-(--primary-color" />
+                  <span className="font-medium">ขนาด</span>
+                </div>
+                <span className="font-light text-zinc-700 ">value</span>
+              </div>
+
+              {/* Balcony Direction */}
+              <div className="flex items-center justify-between  pb-3">
+                <div className="flex items-center gap-3 ">
+                  <FaCompass className="text-(--primary-color" />
+                  <span className="font-medium">ทิศของระเบียงห้อง</span>
+                </div>
+                <span className="font-light text-zinc-700 ">value</span>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+      <section className="py-12 bg-zinc-50">
+        <div className="container-x">
+          <h2 className="text-2xl mb-8 text-zinc-800">
+            ค่าใช้จ่ายห้อง
+          </h2>
+
+          <div className="relative">
+
+
+            {/* cost */}
+            <div className="grid md:grid-cols-2 gap-y-6 gap-x-16">
+
+
+
+              {/* Common Fee */}
+              <div className="flex items-center justify-between pb-3">
+                <div className="flex items-center gap-3 ">
+                  <FaMoneyBillWave className="text-green-500" />
+                  <span className="font-medium">ค่าส่วนกลาง</span>
+                </div>
+                <span className="font-light text-zinc-700 ">value</span>
+              </div>
+
+              {/* Water Rate */}
+              <div className="flex items-center justify-between pb-3">
+                <div className="flex items-center gap-3 ">
+                  <FaDroplet className="text-green-500" />
+                  <span className="font-medium">ค่าน้ำ</span>
+                </div>
+                <span className="font-light text-zinc-700 ">value</span>
+              </div>
+
+              {/* Car Parking */}
+              <div className="flex items-center justify-between pb-3">
+                <div className="flex items-center gap-3 ">
+                  <FaCar className="text-green-500" />
+                  <span className="font-medium">ค่าที่จอดรถยนต์ต่อเดือน</span>
+                </div>
+                <span className="font-light text-zinc-700 ">value</span>
+              </div>
+
+              {/* Bike Parking */}
+              <div className="flex items-center justify-between pb-3">
+                <div className="flex items-center gap-3 ">
+                  <FaMotorcycle className="text-green-500" />
+                  <span className="font-medium">ค่าที่จอดมอเตอร์ไซต์ต่อเดือน</span>
+                </div>
+                <span className="font-light text-zinc-700 ">value</span>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* furniture */}
+      <section className="py-12 bg-zinc-50">
+        <div className="container-x">
+          <h2 className="text-2xl font-semibold mb-6">
+            เฟอร์นิเจอร์ / เครื่องใช้ไฟฟ้า
+          </h2>
+
+          <ul className="grid grid-cols-2 md:grid-cols-3 gap-3">
+            <li><BsAsterisk className="text-green-500" /> เตียง + ที่นอน</li>
+            <li><BsAsterisk className="text-green-500" /> โซฟา</li>
+            <li><BsAsterisk className="text-green-500" /> ตู้เสื้อผ้า</li>
+            <li><BsAsterisk className="text-green-500" /> แอร์</li>
+            <li><BsAsterisk className="text-green-500" /> ตู้เย็น</li>
+            <li><BsAsterisk className="text-green-500" /> เครื่องซักผ้า</li>
+          </ul>
+        </div>
+      </section>
 
       {/* hightlight */}
 
@@ -191,7 +359,7 @@ export default function CondominiumDetail() {
             ].map((item, i) => (
               <div
                 key={i}
-                className="flex items-center gap-3 p-4 "
+                className="flex items-center gap-3 "
               >
                 <span className="text-green-500"><BsAsterisk /></span>
                 <span>{item}</span>
@@ -200,6 +368,8 @@ export default function CondominiumDetail() {
           </div>
         </div>
       </section>
+
+
 
       {/* before & after   */}
 
@@ -270,23 +440,7 @@ export default function CondominiumDetail() {
           </div>
         </div>
       </section>
-      {/* furniture */}
-      <section className="py-12 bg-zinc-50">
-        <div className="container-x">
-          <h2 className="text-2xl font-semibold mb-6">
-            เฟอร์นิเจอร์ / เครื่องใช้ไฟฟ้า
-          </h2>
 
-          <ul className="grid grid-cols-2 md:grid-cols-3 gap-3">
-            <li><BsAsterisk className="text-green-500" /> เตียง + ที่นอน</li>
-            <li><BsAsterisk className="text-green-500" /> โซฟา</li>
-            <li><BsAsterisk className="text-green-500" /> ตู้เสื้อผ้า</li>
-            <li><BsAsterisk className="text-green-500" /> แอร์</li>
-            <li><BsAsterisk className="text-green-500" /> ตู้เย็น</li>
-            <li><BsAsterisk className="text-green-500" /> เครื่องซักผ้า</li>
-          </ul>
-        </div>
-      </section>
       {/*  */}
 
       <section className="bg-zinc-100 pb-24">
@@ -320,13 +474,13 @@ export default function CondominiumDetail() {
       <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-zinc-50 shadow-md md:hidden z-50">
         <div className="flex">
           <a
-            href="tel:0999999999"
+            href="tel:0863863844"
             className="flex-1 py-4 text-center font-semibold"
           >
             โทร
           </a>
           <a
-          target="_blank"
+            target="_blank"
             href="https://lin.ee/4fkHaEbk"
             className="flex-1 py-4 text-center font-semibold bg-green-500 text-white"
           >
