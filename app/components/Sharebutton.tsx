@@ -32,7 +32,7 @@ const ShareButton = ({
   const shareOptions = [
     { name: 'Facebook', icon: <FaFacebookF />, color: '#1877F2', link: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}` },
     { name: 'Line', icon: <FaLine />, color: '#06C755', link: `https://lineit.line.me/share/ui?url=${encodeURIComponent(shareUrl)}` },
-    { name: 'Instagram', icon: <FaInstagram />, color: '#E4405F', link: `https://www.instagram.com/` },
+    // { name: 'Instagram', icon: <FaInstagram />, color: '#E4405F', link: `https://www.instagram.com/` },
     { name: 'X', icon: <FaXTwitter />, color: '#000000', link: `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(title)}` },
   ];
 

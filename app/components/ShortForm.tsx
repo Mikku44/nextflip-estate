@@ -30,32 +30,32 @@ export default function QuickValuationForm() {
             LINE ID: ${payload.line}
             `.trim();
 
-        // const href = `https://lin.ee/4fkHaEbk?text=${encodeURIComponent(message)}`;
+        const href = `https://lin.ee/4fkHaEbk?text=${encodeURIComponent(message)}`;
 
-        // window.open(href, "_blank");
+        window.open(href, "_blank");
      
 
-        try {
-            const res = await fetch("/api/apply", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(message),
-            });
+        // try {
+        //     const res = await fetch("/api/apply", {
+        //         method: "POST",
+        //         headers: {
+        //             "Content-Type": "application/json",
+        //         },
+        //         body: JSON.stringify(message),
+        //     });
 
-            if (!res.ok) throw new Error("Submit failed");
+        //     if (!res.ok) throw new Error("Submit failed");
 
-            const result = await res.json();
-            console.log("Success:", result);
+        //     const result = await res.json();
+        //     console.log("Success:", result);
 
-            toast("ส่งข้อมูลเรียบร้อยแล้ว");
-        } catch (error) {
-            console.error("Error submitting form:", error);
-            toast("เกิดข้อผิดพลาด กรุณาลองใหม่");
-        } finally {
-            setLoading(false);
-        }
+        //     toast("ส่งข้อมูลเรียบร้อยแล้ว");
+        // } catch (error) {
+        //     console.error("Error submitting form:", error);
+        //     toast("เกิดข้อผิดพลาด กรุณาลองใหม่");
+        // } finally {
+        //     setLoading(false);
+        // }
 
         setLoading(false);
         toast("ระบบกำลังเปิด LINE เพื่อส่งข้อมูล");
