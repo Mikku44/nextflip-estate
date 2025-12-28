@@ -3,10 +3,8 @@ import { useScroll } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router'
 import { MENU_APP } from '~/const/app'
-import { BurgerButton, MobileDrawer, SearchButton } from './DrawerMenu';
-import { HiChatBubbleBottomCenterText } from 'react-icons/hi2';
-import { PiChatCenteredDots } from 'react-icons/pi';
-import { BsPersonBadge } from 'react-icons/bs';
+import { BurgerButton, MobileDrawer } from './DrawerMenu';
+
 
 export default function Navbar() {
     const [isScrollDown, setIsScrollDown] = useState(false);

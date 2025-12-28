@@ -47,7 +47,7 @@ export function MobileDrawer({ open, onClose, menu }: MobileDrawerProps) {
                             {item.label}
                         </NavLink>
                     ))}
-                    <div className="w-full place-items-end mix-blend-difference opacity-80">
+                    {/* <div className="w-full place-items-end mix-blend-difference opacity-80">
                         <NavLink
                             className="btn w-full"
                              onClick={onClose}
@@ -55,7 +55,7 @@ export function MobileDrawer({ open, onClose, menu }: MobileDrawerProps) {
                             ประเมินราคาฟรี
 
                         </NavLink>
-                    </div>
+                    </div> */}
 
                 </nav>
 

@@ -320,9 +320,11 @@ export default function Home() {
       {/* form */}
       <section className="bg-zinc-200 grid md:grid-cols-2 ">
         <div className="max-h-[950px]">
-          <video src="/videos/condo-sell.mp4" 
-          x-webkit-airplay="deny" 
-          controls autoPlay muted preload="true"
+          <video src="/videos/condo-sell.mp4"
+            x-webkit-airplay="deny"
+            playsInline
+            webkit-playsinline="true"
+            controls autoPlay muted preload="true"
             className=" h-full w-full object-cover"
           />
         </div>
@@ -381,7 +383,7 @@ export default function Home() {
 
         <div className="grid grid-cols-1 md:grid-cols-6 gap-10">
           {BLOGS.map((blog, index) => {
-        
+
             return (
               <motion.div
                 key={blog.slug}

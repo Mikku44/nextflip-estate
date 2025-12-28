@@ -131,8 +131,8 @@ export default function Condominium() {
 
       {/* filter */}
       <div className="text-xl container-x mb-1">เรียงตาม</div>
-      <div className="container-x justify-between flex items-end">
-        <div className="flex gap-2 mb-4 flex-wrap ">
+      <div className="container-x justify-between flex md:flex-row flex-col md:items-end">
+        <div className="flex  gap-2 mb-4 flex-wrap ">
           <button
             onClick={() => setSort("new")}
             className={`px-4 py-2 border ${sort === "new" ? "bg-black text-white" : "bg-zinc-100"

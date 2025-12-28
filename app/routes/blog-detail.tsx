@@ -1,10 +1,11 @@
 import { Remark } from 'react-remark';
+import { useNavigate } from 'react-router';
 import ImageCarousel from "~/components/ImageCarousel"; // Adjust path as needed
 import { MOCK_BLOG } from '~/models/blogModel';
 
 export default function BlogDetail() {
   const blog = MOCK_BLOG; // In a real app, use useParams() and a loader
-
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-zinc-100">
       {/* Hero Section with your Image Carousel */}
@@ -31,8 +32,10 @@ export default function BlogDetail() {
         <hr className="my-12 border-gray-200" />
         
         <div className="flex justify-between items-center">
-          <button className="text-(--primary-color) font-semibold hover:underline">
-            ← Back to Tours
+          <button 
+          onClick={() => navigate(-1)}
+          className="text-(--primary-color) font-semibold hover:underline">
+            ← Back to Blogs
           </button>
           <div className="flex gap-4">
             {/* Social Share Icons could go here */}

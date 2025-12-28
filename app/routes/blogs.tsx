@@ -1,6 +1,5 @@
-import { Link, NavLink } from "react-router";
+import { Link } from "react-router";
 import type { Route } from "./+types/blogs";
-import { ImageSlider } from "~/components/ImageSlider";
 import { motion } from "framer-motion";
 import ImageCarousel from "~/components/ImageSlider2";
 
@@ -77,7 +76,7 @@ export default function BlogPage() {
 
       <main className="container mx-auto px-4 py-20 max-w-7xl">
         {/* Header Section */}
-        <div className="flex flex-col md:flex-row justify-between items-end gap-4 mb-12 ">
+        <div className="flex flex-col md:flex-row justify-between md:items-end gap-4 mb-12 ">
           <div>
             <h2 className="text-4xl md:text-5xl font-medium text-zinc-900">บทความทั้งหมด</h2>
             <p className="text-zinc-500 mt-2">แหล่งรวมสาระน่ารู้เพื่อเจ้าของอสังหาริมทรัพย์</p>

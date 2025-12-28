@@ -80,7 +80,7 @@ export default function ValuationStepForm() {
         <ImageCarousel />
       </div>
 
-      <section className="pb-10">
+      <section className="pb-10 container-x">
         <div className="w-full mt-10 max-w-2xl mx-auto bg-white h-fit border p-8 md:p-12 shadow-2xl border-t-4 border-zinc-900">
           <div className="mb-10 flex justify-between items-center text-[10px] font-bold tracking-widest uppercase text-zinc-400">
             <span>Step {step} of {totalSteps}</span>
@@ -120,7 +120,7 @@ export default function ValuationStepForm() {
                   <div className="grid grid-cols-2 gap-6">
                     <div className="space-y-3">
                       <p className="text-xs font-bold uppercase tracking-widest text-zinc-400">สถานะห้อง</p>
-                      <div className="flex flex-wrap gap-2">
+                      <div className="flex md:flex-row flex-col flex-wrap gap-2">
                         {['ว่าง', 'มีผู้เช่า', 'อยู่เอง'].map((status) => (
                           <label key={status} className="flex-1">
                             <input
@@ -143,7 +143,7 @@ export default function ValuationStepForm() {
                     </div>
                     <div className="space-y-3">
                       <p className="text-xs font-bold uppercase tracking-widest text-zinc-400">ภาระผูกพัน</p>
-                      <div className="grid grid-cols-2 gap-2">
+                      <div className="grid  md:grid-cols-2 gap-2">
                         {[
                           { id: 'bank', label: 'ติดธนาคาร' },
                           { id: 'free', label: 'ปลอดภาระ' }
