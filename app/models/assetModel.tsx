@@ -11,69 +11,62 @@ export interface AssetModel {
 
 }
 
-export interface AssetFullModel {
-  /* ---------- Core ---------- */
-  id?: string;
-  title: string;
-  description: string;
+export interface AssetDetailModel {
+    id?:string;
+    slug: string;
+    title: string;
+    description: string;
+    price: number;
+    area: number;
+    bedrooms: number;
+    bathrooms: number;
+    badge?: 'โครงการใหม่' | 'ขายแล้ว' | 'โครงการยอดนิยม';
+    images: string;
 
-  price: number;              // ราคาขาย
-  area: number;               // ตร.ม.
-  bedrooms: number;
-  bathrooms: number;
+    // basic info
+    buildingName? : string;
+    floor? : string;
+    roomNumber? : string;
+    size? : number;
+    direction ? : string;
 
-  badge?: 'โครงการใหม่' | 'ขายแล้ว' | 'โครงการยอดนิยม';
+    // cost
+    commonFree? : number;
+    waterBill? : number;
+    parkingFee? : number;
+    motorBikeFee? : number;
 
-  /* ---------- Media ---------- */
-  imageUrl: string;           // รูป cover
-  images?: string[];          // รูปทั้งหมด (carousel)
-  beforeImages?: string[];    // Before
-  afterImages?: string[];     // After
+    //furniture
+    furnitures : string[];
 
-  /* ---------- Renovation / Highlights ---------- */
-  highlights?: string[];      // จุดเด่นห้อง (bullet + icon)
-  renovated?: {
-    bathroom?: boolean;
-    kitchen?: boolean;
-    floor?: boolean;
-    lighting?: boolean;
-    painting?: boolean;
-    other?: string[];
-  };
+    // hightlights
+    hightlights : string[];
 
-  /* ---------- Location ---------- */
-  location?: {
-    address?: string;
-    lat?: number;
-    lng?: number;
-    mapEmbedUrl?: string;
-    nearby?: string[];        // BTS, ห้าง, ทางด่วน
-  };
+    // before - after
+    beforeImage : string;
+    afterImage : string;
 
-  /* ---------- Investment ---------- */
-  suitableFor?: {
-    living?: boolean;         // อยู่เอง
-    investment?: boolean;     // นักลงทุน
-    estimatedYield?: number;  // % ต่อปี (ประมาณการ)
-  };
+    // location & map
+    embededMap? : string;
+    nearPlaces? : string[];
 
-  /* ---------- Furniture & Appliances ---------- */
-  furniture?: string[];       // เตียง, โซฟา ฯลฯ
-  appliances?: string[];      // แอร์, ตู้เย็น ฯลฯ
 
-  /* ---------- FAQ ---------- */
-  faqs?: {
-    question: string;
-    answer: string;
-  }[];
+    // competible
+    compatible ?  : {
+      title : string;
+      desc : string;
+    }[];
 
-  /* ---------- Contact / CTA ---------- */
-  contact?: {
-    phone?: string;
-    lineId?: string;
-  };
 
-  /* ---------- Meta / SEO ---------- */
-  createdAt?: string;         // ใช้ sort new / old
-  updatedAt?: string;
+    // FAQ
+
+    FAQs? : {
+      title ? : string;
+      desc ? : string;
+    }[];
+
+
+
 }
+
+

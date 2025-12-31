@@ -15,6 +15,11 @@ export default [
         route("/contact", "routes/contact.tsx"),
     ],
     ),
+    // admin
+    route("/admin/assets/add", "routes/admin/assets/add.tsx"),
+
+
+    // api
     route("/api/apply", "routes/api/apply.tsx")
 
 ] satisfies RouteConfig;

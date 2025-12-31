@@ -86,7 +86,23 @@ export default function Condominium() {
                 duration: 0.6,
                 delay: 0.2
               }}
-              className="md:text-2xl text-xl font-light text-center text-white/80">คัดห้องเอง รีโนเวทเอง พร้อมอยู่</motion.div>
+              className="md:text-2xl text-xl font-light text-center text-white/80 mt-5">คัดเอง รีโนเวทเอง มาตรฐาน NextFlip</motion.div>
+            <motion.div
+              initial={{
+                y: 10, opacity: 0
+              }}
+              whileInView={{
+                y: 0, opacity: 1
+              }}
+
+              transition={{
+                duration: 0.6,
+                delay: 0.2
+              }}
+              className="text-lg font-thin text-center max-w-[300px] mt-5 text-white/80">
+              ทุกห้องผ่านการออกแบบและควบคุมงานโดยทีม NextFlip
+              เน้นอยู่สบาย <br /> คุณภาพจริง และราคาสมเหตุสมผล
+            </motion.div>
 
             <div className="grid mt-5 gap-2">
               <NavLink to="#more" className="btn text-center flex items-center justify-center gap-2">
@@ -124,8 +140,11 @@ export default function Condominium() {
               duration: 0.6,
               delay: 0.2
             }}
-            className="md:text-5xl md:max-w-[60%] text-3xl" id="more">คอนโดทั้งหมดที่เราคัดมาแล้ว</motion.h2>
-          <p className="text-lg max-w-[70%] font-light">ทุกโครงการผ่านการคัดเลือกและรีโนเวทอย่างพิถีพิถัน เพื่อให้คุณมั่นใจในคุณภาพและความคุ้มค่า</p>
+            className="md:text-5xl md:max-w-[60%] text-3xl" id="more">คอนโดรีโนเวทคุณภาพ ที่เราคัดมาแล้ว</motion.h2>
+          <p className="text-lg max-w-[70%] font-light">
+            ทุกห้องผ่านการคัดเลือก วางแผนรีโนเวท และควบคุมงานโดยทีม NextFlip
+            Estate เราเลือกเฉพาะห้องที่มีศักยภาพ เพื่อให้ได้ห้องที่อยู่สบาย คุณภาพจริง
+            และราคาสมเหตุสมผลในระยะยาว</p>
         </div>
       </section>
 
@@ -176,8 +195,8 @@ export default function Condominium() {
         <div className="grid md:grid-cols-3 gap-5 mt-5">
           {sortedList.map((item) => (
             <AssetCard
-            className="h-[500px]"
-            data={item} key={item.id} />
+              className="h-[600px]"
+              data={item} key={item.id} />
           ))}
         </div>
       </section>
@@ -199,11 +218,11 @@ export default function Condominium() {
               duration: 0.6,
               delay: 0.2
             }}
-            className="md:text-4xl md:max-w-[50%] text-3xl leading-12 font-light" id="more">
-            สนใจห้องไหน? <br />
-            <span className="font-normal md:text-5xl ">ส่งชื่อโครงการ/งบประมาณมา</span>
-            <br /> เดี๋ยวเราคัดให้</motion.h2>
-          <p className="text-lg max-w-[40%] font-light">ทีมงาน NextFlip Estate เข้าใจความต้องการของคุณ คัดเฉพาะทรัพย์ที่ใช่ พร้อมให้คำแนะนำอย่างมืออาชีพ</p>
+            className="md:text-3xl md:max-w-[50%] text-2xl leading-12 font-light" id="more">
+            สนใจห้องแบบไหน? <br />
+            <span className="font-normal md:text-5xl text-3xl">บอกเรามา เดี๋ยวทีม NextFlip คัดห้องที่เหมาะกับคุณให้ </span>
+            <br /></motion.h2>
+          <p className="text-lg max-w-[40%] font-light"> เราเข้าใจทั้งฝั่งอยู่เองและนักลงทุน <br/>พร้อมแนะนำอย่างตรงไปตรงมา</p>
           <NavLink to="/contact" className="btn-1 h-fit text-center mt-5 w-62.5 ">สอบถามเพิ่มเติม</NavLink>
 
           <div className="text-zinc-500 text-center  w-62.5">----- หรือ -----</div>

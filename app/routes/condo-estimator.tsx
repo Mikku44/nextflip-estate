@@ -4,6 +4,7 @@ import { FaChevronRight, FaChevronLeft, FaCloudUploadAlt } from 'react-icons/fa'
 import ImageCarousel from '~/components/ImageSlider2';
 import type { Route } from './+types/condo-estimator';
 import { toast } from 'sonner';
+import { Check } from '@untitledui/icons';
 
 
 export function meta({ }: Route.MetaArgs) {
@@ -121,7 +122,7 @@ export default function ValuationStepForm() {
       <div className="h-[70vh] bg-zinc-100 overflow-hidden relative">
         <div className="h-full w-full flex items-center justify-center text-center flex-col pb-10 absolute z-10 inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
           <motion.h1 className="text-4xl md:text-6xl max-w-3xl px-4 drop-shadow-2xl text-white">ประเมินราคาคอนโด</motion.h1>
-          <motion.p className="text-lg md:text-xl font-light max-w-2xl text-white/80 mt-4 px-6">รับประเมินราคาคอนโดฟรี โดยผู้เชี่ยวชาญด้านอสังหาฯ ของเรา</motion.p>
+          <motion.p className="text-lg md:text-xl font-light max-w-2xl text-white/80 mt-4 px-6">ประเมินฟรี ไม่มีข้อผูกมัด ใช้เป็นข้อมูลประกอบการตัดสินใจขาย</motion.p>
         </div>
         <ImageCarousel />
       </div>
@@ -236,6 +237,17 @@ export default function ValuationStepForm() {
 
               )}
             </AnimatePresence>
+
+            <section className="font-light mt-5 text-zinc-600">
+              <div className="flex gap-2 items-center">
+                <Check />
+                <div className="">การประเมินนี้ฟรี ไม่มีค่าใช้จ่าย</div>
+              </div>
+              <div className="flex gap-2 items-center">
+                <Check />
+                <div className="">ไม่จำเป็นต้องตัดสินใจขาย</div>
+              </div>
+            </section>
 
             <div className="flex gap-4 mt-12 border-t border-zinc-100 pt-8">
               {step > 1 && (

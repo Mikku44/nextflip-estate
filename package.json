@@ -13,6 +13,7 @@
     "@react-router/serve": "7.10.1",
     "@tailwindcss/postcss": "^4.1.18",
     "@untitledui/icons": "^0.0.19",
+    "firebase": "^12.7.0",
     "framer-motion": "^12.23.26",
     "isbot": "^5.1.31",
     "popmotion": "^11.0.5",

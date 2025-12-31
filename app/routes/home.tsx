@@ -11,6 +11,7 @@ import QuickValuationForm from "~/components/ShortForm";
 import Timeline from "~/components/Timeline";
 import { FaLine } from "react-icons/fa6";
 import { BLOGS } from "./blogs";
+import { Check } from "@untitledui/icons";
 
 export function meta({ }: Route.MetaArgs) {
   return [
@@ -63,8 +64,13 @@ export default function Home() {
                 duration: 0.6
               }}
               className="text-4xl md:text-5xl max-w-xl drop-shadow-2xl  text-white leading-12">
-              รับซื้อคอนโดเงินสด ปิดดีลไว
+              รับซื้อคอนโดเงินสด ปิดดีลไว โปร่งใส
             </motion.h1>
+
+            <div className="text-lg max-w-[500px] font-light text-white/80">
+              ช่วยคุณขายคอนโดเก่า ห้องสภาพเดิม หรือขายด่วน <br />
+              ไม่ต้องรอสินเชื่อ ไม่ต้องเสียเวลาลงประกาศ
+            </div>
 
             <motion.div
               initial={{
@@ -78,8 +84,10 @@ export default function Home() {
                 duration: 0.6,
                 delay: 0.2,
               }}
-              className="text-lg font-light max-w-xl text-white/70">
-              คอนโดเก่า / ขายด่วน / ห้องมีผู้เช่า / สภาพเดิม
+              className="text-lg font-light 
+              max-w-xl text-white/70 
+              flex gap-2 items-center">
+              <Check /> ซื้อเงินสดจริง  <Check /> ประเมินฟรี  <Check /> ไม่ต้องนัดดูห้องได้
             </motion.div>
 
             {/* <Link
@@ -112,23 +120,40 @@ export default function Home() {
 
       {/*  */}
 
-      <section className=" min-h-[50vh] bg-zinc-200  py-10 flex items-center justify-center">
-        <div className="container-x w-full items-center grid md:grid-cols-2 h-full gap-3">
-          <motion.h2
-            initial={{
-              y: 10, opacity: 0
-            }}
-            whileInView={{
-              y: 0, opacity: 1
-            }}
-            transition={{
-              duration: 0.6,
-              delay: 0.2
-            }}
-            className="md:text-5xl md:max-w-[80%] text-3xl" id="more">เราช่วยคุณหาคอนโดและบ้านที่ตรงใจ</motion.h2>
-          <p className="text-lg max-w-[70%] font-light">ทีมงาน NextFlip Estate เข้าใจความต้องการของคุณ คัดเฉพาะทรัพย์ที่ใช่ พร้อมให้คำแนะนำอย่างมืออาชีพ</p>
-        </div>
-      </section>
+      <div className="bg-zinc-200">
+        <section className=" min-h-[50vh] bg-zinc-200  py-10 flex flex-col container-x justify-center">
+          <div className="w-full items-center grid md:grid-cols-2 h-full gap-3">
+            <div className="">
+              <motion.h2
+                initial={{
+                  y: 10, opacity: 0
+                }}
+                whileInView={{
+                  y: 0, opacity: 1
+                }}
+                transition={{
+                  duration: 0.6,
+                  delay: 0.2
+                }}
+                className="md:text-5xl md:max-w-[80%] text-3xl" id="more">เราช่วยคุณหาคอนโดได้ไว</motion.h2>
+              <p className="text-xl max-w-[75%] font-light">พร้อมเสนอหลายทางเลือก เพื่อให้คุณได้ราคาที่เหมาะสมที่สุด</p>
+            </div>
+            <div className="font-light space-y-4 mt-12">
+              <p className="">ทีมงาน NextFlip Estate เข้าใจว่าการขายคอนโดของแต่ละคนมีเงื่อนไขไม่เหมือนกัน
+                บางกรณีต้องการขายเร็วด้วยการรับซื้อเงินสด
+                บางกรณีสามารถวางแผนในรูปแบบ ฟลิปหรือแนวทางอื่น เพื่อเพิ ่มโอกาสได้ราคาที่สูงขึ้น
+              </p>
+              <p className="">เราประเมินตามสภาพจริง อธิบายแต่ละทางเลือกอย่างตรงไปตรงมา
+                เพื่อให้คุณตัดสินใจได้บนข้อมูลที่ครบถ้วนและเหมาะกับคุณที่สุด </p>
+            </div>
+          </div>
+          {/* small */}
+          <div className="mt-5">
+
+            <p className="text-sm max-w-[70%] font-light">รับซื้อเงินสด ● ฟลิป ●  แนวทางขายที่คุ้มค่าในแต่ละสถานการณ์ </p>
+          </div>
+        </section>
+      </div>
 
       {/* why us */}
 
@@ -147,10 +172,10 @@ export default function Home() {
               delay: 0.2
             }}
             className="md:text-6xl  my-2  font-light text-5xl ">
-            Why Nextflip Estate?
+            เหตุผลที่เจ้าของคอนโดเลือก NextFlip Estate
           </motion.h2>
           <div className="text-lg text-black/700 font-light flex items-center">
-            ที่ Nextflip Estate เราทำงานด้วยทีมงานมืออาชีพที่พร้อมให้คำปรึกษาและดูแลคุณในทุกขั้นตอน
+            เพราะการขายคอนโดที่ดี ควรมีทางเลือกที่เหมาะกับทั้ง “เวลา” และ “ราคา”
           </div>
         </div>
         <div className="grid md:grid-cols-2 gap-2 pt-10 container-x w-full mx-auto  ">
@@ -213,21 +238,28 @@ export default function Home() {
 
       <section className="w-full bg-zinc-100 min-h-screen items-center py-10">
         <div className="grid md:grid-cols-2 gap-6 md:gap-3 h-auto md:h-[250px] container-x py-10">
-          <div className="flex items-center">
+          <div className="flex flex-col">
             <motion.h2
               initial={{ y: 10, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="md:text-6xl md:max-w-[90%] font-light text-4xl leading-tight"
+              className="md:text-6xl md:max-w-[90%] font-light text-4xl leading-16"
             >
-              Trusted by owners who value results.
+              โอนจริง ปิดดีลจริง จากเจ้าของคอนโดจริง
             </motion.h2>
+            <motion.div
+              initial={{ y: 10, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className=" md:max-w-[90%] font-light text-xl leading-tight"
+            >
+              Real owners. Real deals. Real transfers.
+            </motion.div>
           </div>
 
           <div className="text-lg text-zinc-600 font-light flex items-center leading-relaxed">
-            ร่วมเป็นส่วนหนึ่งกับเจ้าของคอนโดที่ไว้วางใจให้เราดูแล
-            ด้วยระบบที่โปร่งใสและตรวจสอบได้จริง
-            การันตีจากข้อมูลและเอกสารจริงที่ส่งตรงถึงทีมงานของเราทุกวัน
+            นี่คือตัวอย่างการทำงานของ NextFlip Estate
+            ที่เจ้าของคอนโดตัดสินใจขาย ด้วยข้อมูลจริง และเงื่อนไขที่เหมาะกับเขา
           </div>
         </div>
 
@@ -238,13 +270,14 @@ export default function Home() {
           <div className="h-auto md:h-125 mb-10 bg-white mt-16 group transition shadow-2xl grid md:grid-cols-5 overflow-hidden border border-zinc-100">
             <div className="p-10 md:p-10 md:col-span-2 relative flex flex-col justify-center">
               <h4 className="md:text-5xl text-3xl font-light leading-tight">
-                เชื่อมโยงความต้องการ <br />
-                <span className="font-medium text-(--primary-color)">ด้วยความไว้วางใจ</span>
+                เราเชื่อว่าความไว้วางใจ <br />
+                <span className="font-medium text-(--primary-color)">เกิดจากการทำงานที่ตรวจสอบได้จริง</span>
               </h4>
               <p className="text-lg mt-6 line-clamp-5 font-light text-zinc-500 leading-relaxed">
-                เราสร้างพื้นที่ที่ปลอดภัยสำหรับการส่งต่ออสังหาริมทรัพย์ที่มีค่า
-                ไม่ว่าคุณจะเป็นผู้ขายที่ต้องการราคาที่เหมาะสม หรือผู้ซื้อที่มองหาคุณภาพ
-                ทีมงาน khain.app คัดกรองทุกเอกสารเพื่อให้ทุกการจับคู่คือความสำเร็จ
+                ไม่ว่าจะเป็นการรับซื้อเงินสด
+                หรือการวางแนวทางฟลิปเพื่อเพิ่มมูลค่า
+                ทุกขั้นตอนมีเอกสาร มีการโอนจริง และอธิบาย
+                อย่างตรงไปตรงมา
               </p>
 
               {/* button */}
@@ -253,7 +286,7 @@ export default function Home() {
                   className=" items-center justify-center px-8 py-4 bg-(--primary-color) text-white hover:bg-black
                    transition-all tracking-[0.05em] font-light text-sm"
                   to={"/use-case"}>
-                  ดูเคสคอนโดตัวอย่าง
+                  ดูเคสตัวอย่างการปิดดีลจริง
                 </NavLink>
               </div>
             </div>
