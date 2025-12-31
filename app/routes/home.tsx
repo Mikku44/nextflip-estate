@@ -46,7 +46,7 @@ export function meta({ }: Route.MetaArgs) {
 }
 
 export async function loader() {
-  const data = await blogService.getAll(4); // ดึงมา 100 รายการล่าสุด
+  const data = await blogService.getAll(3); // ดึงมา 100 รายการล่าสุด
   return {
     BLOGS: data.blogs as BlogPost[],
   };

@@ -187,7 +187,7 @@ export default function CondominiumDetail() {
                 <div className="">สนใจห้องนี้</div>
               </NavLink>
               {/* share */}
-              <ShareButton title={`${"Nextflip Estate Condo renovate"} สนใจห้องนี้? ประเมินราคาฟรี ไม่มีค่าใช้จ่าย`} />
+              <ShareButton title={`แชร์ห้องนี้`} />
             </div>
           </p>
 
