@@ -3,15 +3,17 @@ import type { Route } from "./+types/home";
 import ImageCarousel from "~/components/ImageCarousel";
 import { motion } from "framer-motion";
 import AssetCard from "~/components/AssetCard";
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useLoaderData } from "react-router";
 import { FAQ } from "~/components/FAQ";
 import { EXAMPLE_CONDO_LIST, faqItems, TIMELINE_STEPS, WHY_US_LIST } from "~/const/app";
 import { BsAsterisk } from "react-icons/bs";
 import QuickValuationForm from "~/components/ShortForm";
 import Timeline from "~/components/Timeline";
 import { FaLine } from "react-icons/fa6";
-import { BLOGS } from "./blogs";
+
 import { Check } from "@untitledui/icons";
+import { blogService } from "~/services/blogService";
+import type { BlogPost } from "~/models/blogModel";
 
 export function meta({ }: Route.MetaArgs) {
   return [
@@ -43,9 +45,18 @@ export function meta({ }: Route.MetaArgs) {
   ];
 }
 
+export async function loader() {
+  const data = await blogService.getAll(4); // ดึงมา 100 รายการล่าสุด
+  return {
+    BLOGS: data.blogs as BlogPost[],
+  };
+}
+
 
 
 export default function Home() {
+
+  const { BLOGS } = useLoaderData<typeof loader>();
   return (
     <main className="min-h-screen">
       <section className="max-h-screen h-screen overflow-clip relative">
@@ -416,43 +427,56 @@ export default function Home() {
 
         <div className="grid grid-cols-1 md:grid-cols-6 gap-10">
           {BLOGS.map((blog, index) => {
+            // 1. Handle Images: Use the first image from the array, fallback to a condo image if empty
+            const displayImage = blog.images && blog.images.length > 0
+              ? blog.images[0]
+              : "/images/condo5.jpg";
+
+            // 2. Handle Tags: If tags is a string "condo, travel", we take the first one for the badge
+            const displayTag = blog.tags ? blog.tags.split(',')[0].trim() : "General";
 
             return (
               <motion.div
-                key={blog.slug}
+                key={blog.id || blog.slug} // Use ID if available, otherwise slug
                 initial={{ y: 20, opacity: 0 }}
                 whileInView={{ y: 0, opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
                 className={`group bg-white overflow-hidden 
-                  shadow-sm hover:shadow-2xl
-                   transition-all duration-500 flex flex-col 
-                  md:col-span-3 lg:col-span-2
-                  }`}
+        shadow-sm hover:shadow-2xl
+        transition-all duration-500 flex flex-col 
+        md:col-span-3 lg:col-span-2`}
               >
                 {/* Image Container */}
                 <div className={`relative overflow-hidden h-64`}>
                   <img
                     loading="lazy"
-                    src={"/images/condo5.jpg"} // Replace with real logic
+                    src={displayImage}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     alt={blog.title}
                   />
                   <div className="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 font-light
-                   text-xs uppercase tracking-widest">
-                    Real Estate
+          text-xs uppercase tracking-widest">
+                    {displayTag}
                   </div>
                 </div>
 
                 {/* Content Container */}
                 <div className={`p-8 flex flex-col justify-between flex-1`}>
                   <div>
-                    <time className="text-sm text-zinc-400 font-medium">{blog.date}</time>
+                    {/* Displaying dynamic date and author */}
+                    <div className="flex justify-between items-center mb-1">
+                      <time className="text-sm text-zinc-400 font-medium">{blog.date}</time>
+                      <span className="text-[10px] text-zinc-300 uppercase tracking-tighter">By {blog.author}</span>
+                    </div>
+
                     <h3 className={`text-xl font-semibold mt-3 mb-4 transition-colors`}>
                       <Link to={`/blogs/${blog.slug}`}>{blog.title}</Link>
                     </h3>
+
+                    {/* Content: We strip basic markdown symbols for the preview summary */}
                     <p className="text-zinc-600 font-light leading-relaxed line-clamp-3">
-                      {blog.excerpt}
+                      {blog.content?.replace(/[#*`]/g, '')}
                     </p>
                   </div>
 

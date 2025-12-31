@@ -1,10 +1,19 @@
-import { Link } from "react-router";
+import { Link, useLoaderData } from "react-router";
 import type { Route } from "./+types/blogs";
 import { motion } from "framer-motion";
 import ImageCarousel from "~/components/ImageSlider2";
+import { blogService } from "~/services/blogService"; // นำเข้า service
+import type { BlogPost } from "~/models/blogModel";
 
+// 1. เพิ่ม Loader เพื่อดึงข้อมูลจากฐานข้อมูล
+export async function loader() {
+  const data = await blogService.getAll(100); // ดึงมา 100 รายการล่าสุด
+  return {
+    blogs: data.blogs as BlogPost[],
+  };
+}
 
-export function meta({ }: Route.MetaArgs) {
+export function meta({}: Route.MetaArgs) {
   return [
     {
       title: "บทความอสังหาริมทรัพย์ | NextFlip Estate",
@@ -17,32 +26,10 @@ export function meta({ }: Route.MetaArgs) {
   ];
 }
 
-export const BLOGS = [
-  {
-    slug: "sell-condo-cash",
-    title: "ขายคอนโดเงินสด ดีกว่ายังไง เหมาะกับใคร?",
-    excerpt:
-      "ทำความเข้าใจข้อดีของการขายคอนโดเงินสด เหมาะกับใครบ้าง และช่วยแก้ปัญหาเจ้าของคอนโดได้อย่างไร",
-    date: "2025-01-10",
-  },
-  {
-    slug: "condo-with-tenant",
-    title: "คอนโดมีผู้เช่า ขายได้ไหม?",
-    excerpt:
-      "หลายคนกังวลว่าคอนโดที่มีผู้เช่าจะขายยาก บทความนี้มีคำตอบจากประสบการณ์จริง",
-    date: "2025-01-05",
-  },
-  {
-    slug: "why-sell-to-investor",
-    title: "ทำไมเจ้าของคอนโดจำนวนมากเลือกขายให้นักลงทุน",
-    excerpt:
-      "วิเคราะห์เหตุผลที่เจ้าของคอนโดตัดสินใจขายให้กลุ่มนักลงทุน แทนการขายตลาดทั่วไป",
-    date: "2024-12-28",
-  },
-];
-
-
 export default function BlogPage() {
+  // 2. ใช้ข้อมูลจาก Loader แทน BLOGS mockup
+  const { blogs } = useLoaderData<typeof loader>();
+
   return (
     <div className="bg-zinc-100 min-h-screen">
       {/* Hero Section */}
@@ -52,7 +39,7 @@ export default function BlogPage() {
             initial={{ y: 20, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8 }}
-            className="text-4xl md:text-6xl max-w-3xl px-4 drop-shadow-2xl text-white "
+            className="text-4xl md:text-6xl max-w-3xl px-4 drop-shadow-2xl text-white font-bold"
           >
             บทความ & ความรู้ด้านอสังหาริมทรัพย์
           </motion.h1>
@@ -65,80 +52,113 @@ export default function BlogPage() {
             ติดปีกความรู้เรื่องคอนโดและบ้านกับ NextFlip Estate
           </motion.p>
         </div>
-        {/* <img 
-         loading="lazy"
-          src="/images/condo24.jpg"
-          className="w-full h-full object-cover scale-105" 
-          alt="blog cover" 
-        /> */}
         <ImageCarousel />
       </div>
 
       <main className="container mx-auto px-4 py-20 max-w-7xl">
         {/* Header Section */}
-        <div className="flex flex-col md:flex-row justify-between md:items-end gap-4 mb-12 ">
+        <div className="flex flex-col md:flex-row justify-between md:items-end gap-4 mb-12">
           <div>
-            <h2 className="text-4xl md:text-5xl font-medium text-zinc-900">บทความทั้งหมด</h2>
-            <p className="text-zinc-500 mt-2">แหล่งรวมสาระน่ารู้เพื่อเจ้าของอสังหาริมทรัพย์</p>
+            <h2 className="text-4xl md:text-5xl font-medium text-zinc-900">
+              บทความทั้งหมด
+            </h2>
+            <p className="text-zinc-500 mt-2">
+              แหล่งรวมสาระน่ารู้เพื่อเจ้าของอสังหาริมทรัพย์
+            </p>
           </div>
           <div className="text-lg font-medium text-zinc-400">
-            {BLOGS.length} Articles
+            {blogs.length} Articles
           </div>
         </div>
 
         {/* Blog Grid */}
         <div className="grid grid-cols-1 md:grid-cols-6 gap-10">
-          {BLOGS.map((blog, index) => {
-            const isFeatured = index === 0;
-            return (
-              <motion.div
-                key={blog.slug}
-                initial={{ y: 20, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className={`group bg-white overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col ${
-                  isFeatured ? "md:col-span-6 lg:flex-row h-auto lg:h-[500px]" : "md:col-span-3 lg:col-span-2"
-                }`}
-              >
-                {/* Image Container */}
-                <div className={`relative overflow-hidden ${isFeatured ? "lg:w-3/5 h-64 lg:h-full" : "h-64"}`}>
-                  <img
-                    loading="lazy"
-                    src={"/images/condo5.jpg"} // Replace with real logic
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                    alt={blog.title}
-                  />
-                  <div className="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 font-light text-xs font-bold uppercase tracking-widest">
-                    Real Estate
-                  </div>
-                </div>
+          {blogs.length > 0 ? (
+            blogs.map((blog, index) => {
+              const isFeatured = index === 0;
+              // ดึงรูปแรกจาก Array images ถ้าไม่มีให้ใช้รูป Default
+              const coverImage =
+                blog.images && blog.images.length > 0
+                  ? blog.images[0]
+                  : "/images/condo5.jpg";
 
-                {/* Content Container */}
-                <div className={`p-8 flex flex-col justify-between ${isFeatured ? "lg:w-2/5" : "flex-1"}`}>
-                  <div>
-                    <time className="text-sm text-zinc-400 font-medium">{blog.date}</time>
-                    <h3 className={`${isFeatured ? "text-3xl" : "text-xl"} font-semibold mt-3 mb-4 transition-colors`}>
-                      <Link to={`/blogs/${blog.slug}`}>{blog.title}</Link>
-                    </h3>
-                    <p className="text-zinc-600 font-light leading-relaxed line-clamp-3">
-                      {blog.excerpt}
-                    </p>
+              return (
+                <motion.div
+                  key={blog.slug}
+                  initial={{ y: 20, opacity: 0 }}
+                  whileInView={{ y: 0, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className={`group bg-white overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col ${
+                    isFeatured
+                      ? "md:col-span-6 lg:flex-row h-auto lg:min-h-[500px]"
+                      : "md:col-span-3 lg:col-span-2"
+                  }`}
+                >
+                  {/* Image Container */}
+                  <div
+                    className={`relative overflow-hidden ${
+                      isFeatured ? "lg:w-3/5 h-64 lg:h-auto" : "h-64"
+                    }`}
+                  >
+                    <img
+                      loading="lazy"
+                      src={coverImage}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      alt={blog.title}
+                    />
+                    <div className="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 text-xs font-bold uppercase tracking-widest text-zinc-900">
+                      {blog.tags?.split(",")[0] || "Real Estate"}
+                    </div>
                   </div>
 
-                  <div className="mt-8">
-                    <Link
-                      to={`/blogs/${blog.slug}`}
-                      className="inline-flex items-center gap-2 font-semibold text-zinc-900 group/link"
-                    >
-                      อ่านเพิ่มเติม 
-                      <span className="group-hover/link:translate-x-2 transition-transform">→</span>
-                    </Link>
+                  {/* Content Container */}
+                  <div
+                    className={`p-8 flex flex-col justify-between ${
+                      isFeatured ? "lg:w-2/5" : "flex-1"
+                    }`}
+                  >
+                    <div>
+                      <time className="text-sm text-zinc-400 font-medium">
+                        {new Date(blog.date).toLocaleDateString("th-TH", {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        })}
+                      </time>
+                      <h3
+                        className={`${
+                          isFeatured ? "text-3xl" : "text-xl"
+                        } font-semibold mt-3 mb-4 transition-colors `}
+                      >
+                        <Link to={`/blogs/${blog.slug}`}>{blog.title}</Link>
+                      </h3>
+                      <p className="text-zinc-600 font-light leading-relaxed line-clamp-3">
+                        {/* ตัดเนื้อหาจาก content มาแสดงเป็น excerpt */}
+                        {blog.content?.replace(/[#*`]/g, "").substring(0, 160)}...
+                      </p>
+                    </div>
+
+                    <div className="mt-8">
+                      <Link
+                        to={`/blogs/${blog.slug}`}
+                        className="inline-flex items-center gap-2 font-semibold text-zinc-900 group/link"
+                      >
+                        อ่านเพิ่มเติม
+                        <span className="group-hover/link:translate-x-2 transition-transform">
+                          →
+                        </span>
+                      </Link>
+                    </div>
                   </div>
-                </div>
-              </motion.div>
-            );
-          })}
+                </motion.div>
+              );
+            })
+          ) : (
+            <div className="col-span-6 text-center py-20 text-zinc-400">
+              ยังไม่มีบทความในขณะนี้
+            </div>
+          )}
         </div>
       </main>
     </div>

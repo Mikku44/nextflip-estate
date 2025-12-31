@@ -1,8 +1,10 @@
 export interface BlogPost {
+  id? : string;
   slug: string;
   title: string;
   date: string;
   author: string;
+  tags : string;
   images: string[];
   content: string; // Markdown string
 }
@@ -12,6 +14,7 @@ export const MOCK_BLOG: BlogPost = {
   title: "The Future of Luxury Condo Living in Bangkok",
   date: "December 24, 2025",
   author: "NextFlip Estate",
+  tags : "NextFlip Estate",
   images: [
     '/images/condo24.jpg',
     '/images/condo25.jpg',

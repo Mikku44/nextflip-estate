@@ -61,7 +61,7 @@ const ShareButton = ({
           }}
           className="btn-1 w-full cursor-pointer flex justify-center items-center gap-2 px-4 py-2 border hover:bg-gray-50 transition-all"
         >
-          <span>แชร์คอนโดนี้</span>
+          <span>{title ? title :"แชร์คอนโดนี้"}</span>
           <FaShare />
         </button>
       ) : (

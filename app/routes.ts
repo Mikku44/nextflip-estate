@@ -17,6 +17,7 @@ export default [
     ),
     // admin
     route("/admin/assets/add", "routes/admin/assets/add.tsx"),
+    route("/admin/blogs/add","routes/admin/blog/blog.add.tsx"),
 
 
     // api
