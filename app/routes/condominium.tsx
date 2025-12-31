@@ -195,7 +195,7 @@ export default function Condominium() {
         <div className="grid md:grid-cols-3 gap-5 mt-5">
           {sortedList.map((item) => (
             <AssetCard
-              className="h-[600px]"
+              className="h-[650px]"
               data={item} key={item.id} />
           ))}
         </div>

@@ -32,6 +32,10 @@ export default function AssetCard({ data, className = "" }: AssetCardProps) {
                     <div className="">
                         <div className="text-xl line-clamp-1">{data?.title || "Azura Villa"}</div>
                         <div className=" font-light line-clamp-2">{data?.description || "Lorem, ipsum dolor."}</div>
+                        <ul className="list-disc font-light line-clamp-2 mt-2">
+                            <li className="flex items-center gap-2"><Check className="size-4 text-blue-500" />รีโนเวทใหม่ทั้งห้อง พร้อมอยู่</li>
+                            <li className="flex items-center gap-2"><Check className="size-4 text-blue-500" />เหมาะอยู่เอง / ปล่อยเช่า</li>
+                        </ul>
                     </div>
                     {/* price */}
                     <div className="text-xl grid place-self-end font-medium">{data?.price ? formatCurrency(data.price) : "12M"}</div>
