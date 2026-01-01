@@ -58,7 +58,7 @@ export default function CaseDetail() {
       </section>
 
       <main className="max-w-5xl mx-auto px-6 py-20">
-        <div className="grid grid-cols-1 md:grid-cols-6 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-6 gap-2">
           {CASE_STUDIES.map((item, index) => (
             <CaseStudyCard key={item.slug} data={item} index={index} />
           ))}
