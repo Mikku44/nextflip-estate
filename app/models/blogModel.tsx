@@ -9,6 +9,8 @@ export interface BlogPost {
   content: string; // Markdown string
 }
 
+
+
 export const MOCK_BLOG: BlogPost = {
   slug: "luxury-condo-living-bangkok",
   title: "The Future of Luxury Condo Living in Bangkok",

@@ -99,7 +99,7 @@ export default function Footer() {
         <div className=" flex md:flex-row flex-col gap-5 justify-between container-x w-full">
           <div className="font-light  text-white
            text-sm ">
-            NextFlip Estate © 2025. สงวนลิขสิทธิ์.
+            NextFlip Estate © 2026. สงวนลิขสิทธิ์.
           </div>
           <div className="flex  gap-2 text-white/80 font-light text-sm">
             <Link className="hover:text-white w-fit " to="/privacy">นโยบายความเป็นส่วนตัว</Link>

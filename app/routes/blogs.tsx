@@ -13,7 +13,7 @@ export async function loader() {
   };
 }
 
-export function meta({}: Route.MetaArgs) {
+export function meta({ }: Route.MetaArgs) {
   return [
     {
       title: "บทความอสังหาริมทรัพย์ | NextFlip Estate",
@@ -49,7 +49,8 @@ export default function BlogPage() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-lg md:text-xl font-light max-w-2xl text-white/80 mt-4 px-6"
           >
-            ติดปีกความรู้เรื่องคอนโดและบ้านกับ NextFlip Estate
+            ประสบการณ์จริงจากการซื้อ–ขาย–รีโนเวท–ฟลิปคอนโด โดย NextFlip Estate
+            เพื่อเจ้าของห้องและนักลงทุนที่อยากตัดสินใจอย่างมั่นใจ
           </motion.p>
         </div>
         <ImageCarousel />
@@ -89,17 +90,15 @@ export default function BlogPage() {
                   whileInView={{ y: 0, opacity: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className={`group bg-white overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col ${
-                    isFeatured
+                  className={`group bg-white overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col ${isFeatured
                       ? "md:col-span-6 lg:flex-row h-auto lg:min-h-[500px]"
                       : "md:col-span-3 lg:col-span-2"
-                  }`}
+                    }`}
                 >
                   {/* Image Container */}
                   <div
-                    className={`relative overflow-hidden ${
-                      isFeatured ? "lg:w-3/5 h-64 lg:h-auto" : "h-64"
-                    }`}
+                    className={`relative overflow-hidden ${isFeatured ? "lg:w-3/5 h-64 lg:h-auto" : "h-64"
+                      }`}
                   >
                     <img
                       loading="lazy"
@@ -114,9 +113,8 @@ export default function BlogPage() {
 
                   {/* Content Container */}
                   <div
-                    className={`p-8 flex flex-col justify-between ${
-                      isFeatured ? "lg:w-2/5" : "flex-1"
-                    }`}
+                    className={`p-8 flex flex-col justify-between ${isFeatured ? "lg:w-2/5" : "flex-1"
+                      }`}
                   >
                     <div>
                       <time className="text-sm text-zinc-400 font-medium">
@@ -127,9 +125,8 @@ export default function BlogPage() {
                         })}
                       </time>
                       <h3
-                        className={`${
-                          isFeatured ? "text-3xl" : "text-xl"
-                        } font-semibold mt-3 mb-4 transition-colors `}
+                        className={`${isFeatured ? "text-3xl" : "text-xl"
+                          } font-semibold mt-3 mb-4 transition-colors `}
                       >
                         <Link to={`/blogs/${blog.slug}`}>{blog.title}</Link>
                       </h3>
