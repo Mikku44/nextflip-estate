@@ -93,11 +93,24 @@ export default function BlogUpdatePage() {
   const [searchTerm, setSearchTerm] = useState("");
 
   // Library Images (Matching blog.add logic)
-  const length = 25;
-  const libraryImages = Array.from({ length }, (_, i) => ({
+  const length = 66;
+  const length2 = 10;
+
+  const clientImages = Array.from({ length :length2 }, (_, i) => ({
+    filename: `client${i + 1}.jpg`,
+    path: `client${i + 1}.jpg`
+  }))
+
+  const condoImages = Array.from({ length }, (_, i) => ({
     filename: `condo${i + 1}.jpg`,
     path: `condo${i + 1}.jpg`
-  }));
+  }))
+
+  let libraryImages = [...condoImages,...clientImages];
+
+
+
+  libraryImages = [...libraryImages,]
 
   const generateSlug = (title: string) => {
     const base = title
@@ -287,7 +300,7 @@ export default function BlogUpdatePage() {
                     <div
                       key={item.filename}
                       onClick={() => toggleSelect(item.path)}
-                      className={`relative aspect-square rounded-xl overflow-hidden cursor-pointer border-4 transition-all ${
+                      className={`relative aspect-square rounded-xl h-[200px] overflow-hidden cursor-pointer border-4 transition-all ${
                         isSelected ? "border-blue-500 scale-95" : "border-transparent hover:border-gray-200"
                       }`}
                     >

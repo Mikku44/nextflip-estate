@@ -438,8 +438,8 @@ export default function Home() {
             return (
               <motion.div
                 key={blog.id || blog.slug} // Use ID if available, otherwise slug
-                initial={{ y: 20, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
+                initial={{ y: 20}}
+                whileInView={{ y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
                 className={`group bg-white overflow-hidden 

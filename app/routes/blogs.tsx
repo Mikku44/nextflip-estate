@@ -86,10 +86,10 @@ export default function BlogPage() {
               return (
                 <motion.div
                   key={blog.slug}
-                  initial={{ y: 20, opacity: 0 }}
-                  whileInView={{ y: 0, opacity: 1 }}
+                  initial={{ y: 20, }}
+                  whileInView={{ y: 0,}}
                   viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
+                  // transition={{ delay: index * 0.1 }}
                   className={`group bg-white overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col ${isFeatured
                       ? "md:col-span-6 lg:flex-row h-auto lg:min-h-[500px]"
                       : "md:col-span-3 lg:col-span-2"
