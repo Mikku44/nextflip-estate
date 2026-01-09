@@ -11,7 +11,7 @@ interface AssetCardProps {
 
 export default function AssetCard({ data, className = "" }: AssetCardProps) {
     return (
-        <NavLink to={data?.id ? `/condominium/${data.id}` : "/"} className={"relative group shadow-2xl " + className}>
+        <NavLink to={data?.id ? `/condominium/${data.slug}` : "/"} className={"relative group shadow-2xl " + className}>
             <div className="absolute pointer-events-none w-full md:block hidden md:scale-[120%] z-5 min-h-95 
         group-hover:opacity-100 opacity-0 shadow-xl duration-300
         md:h-full h-fit bg-black group ">

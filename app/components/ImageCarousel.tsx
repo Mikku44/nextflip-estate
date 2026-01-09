@@ -11,7 +11,7 @@ interface ImageCarouselProps {
 }
 
 export default function ImageCarousel({
-    images,
+    images = [],
     autoPlay = true,
     interval = 3000,
     className = "",
@@ -84,7 +84,7 @@ export default function ImageCarousel({
                                     msOverflowStyle: 'none'
                                 }}
                             >
-                                {images.map((image, idx) => (
+                                {images?.map((image, idx) => (
                                     <motion.div
                                         key={image + idx}
                                         onClick={() => setIndex([idx, idx > index ? 1 : -1])}

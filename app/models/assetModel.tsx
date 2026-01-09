@@ -21,7 +21,7 @@ export interface AssetDetailModel {
     bedrooms: number;
     bathrooms: number;
     badge?: 'โครงการใหม่' | 'ขายแล้ว' | 'โครงการยอดนิยม';
-    images: string;
+    images: string[];
 
     // basic info
     buildingName? : string;

@@ -1,4 +1,4 @@
-import { NavLink } from "react-router";
+import { NavLink, useLoaderData } from "react-router";
 import type { Route } from "./+types/condominium";
 import { motion } from "framer-motion";
 import { ArrowDown } from "@untitledui/icons";
@@ -7,6 +7,8 @@ import AssetCard from "~/components/AssetCard";
 import { FaFacebook, FaLine } from "react-icons/fa6";
 import { useMemo, useState } from "react";
 import ImageCarousel from "~/components/ImageSlider2";
+import type { AssetDetailModel, AssetModel } from "~/models/assetModel";
+import { assetService } from "~/services/assetService";
 
 type SortType = "highprice" | "lowprice" | "new" | "old";
 
@@ -27,14 +29,24 @@ export function meta({ }: Route.MetaArgs) {
   ];
 }
 
+export async function loader() {
+  const data = await assetService.getAll(100); // ดึงมา 100 รายการล่าสุด
+  return {
+    assets: data.assets as AssetDetailModel[],
+  };
+}
+
+
 
 
 export default function Condominium() {
 
   const [sort, setSort] = useState<SortType>("new");
 
+   const { assets } = useLoaderData<typeof loader>();
+
   const sortedList = useMemo(() => {
-    const list = [...EXAMPLE_CONDO_LIST];
+    const list = assets || [];
 
     switch (sort) {
       case "highprice":
