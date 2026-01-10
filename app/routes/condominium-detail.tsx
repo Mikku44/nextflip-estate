@@ -14,8 +14,10 @@ import ShareButton from "~/components/Sharebutton";
 import { useRef } from "react";
 import { assetService } from "~/services/assetService";
 import type { AssetDetailModel } from "~/models/assetModel";
-import { BiSolidCategoryAlt } from "react-icons/bi";
+import { BiArea, BiSolidCategoryAlt } from "react-icons/bi";
 import { RiSofaFill } from "react-icons/ri";
+import { AssetBadge } from "~/components/AssetCard";
+import { AssetCornerBadge } from "~/components/AssetBadge";
 
 export const faqItems = [
   {
@@ -121,6 +123,7 @@ export default function CondominiumDetail() {
         <div className=" bg-black/20 absolute z-10 w-full h-[500px] flex flex-col justify-end pb-10">
           <div className="container-x w-full flex flex-col space-y-2">
 
+
             <motion.div
               initial={{
                 y: 10, opacity: 0
@@ -217,104 +220,134 @@ export default function CondominiumDetail() {
 
       {/* basic information */}
       <section className="pt-12 bg-zinc-50 relative">
-
         <div className="container-x">
-          <h2 className="text-2xl mb-8 text-zinc-800">
-            ข้อมูลห้อง
+          <h2 className="text-xl md:text-2xl flex gap-3 w-full mb-6 md:mb-8 text-zinc-800">
+            <div className="">ข้อมูลห้อง</div>
+           <AssetCornerBadge badge={asset.badge as any} />
           </h2>
 
-          <div className="relative overflow-hidden h-[500px]">
 
-            {/* image */}
+
+          <div className="relative overflow-hidden h-[380px] sm:h-[420px] md:h-[500px]">
+
+            {/* Background Image */}
             <div className="absolute inset-0 z-0">
               <motion.img
                 ref={ref}
                 style={{ scale }}
-                src={asset.images[0] || "/images/condo2.jpg"}
+                src={asset.images?.[0] || "/images/condo2.jpg"}
                 alt="condo"
-                className="w-full h-full object-cover" />
+                className="w-full h-full object-cover"
+              />
+              {/* overlay for readability */}
+              <div className="absolute inset-0 bg-black/20 md:bg-black/10" />
             </div>
 
-            <section className="max-w-[500px] w-full absolute z-5 bottom-0 left-0 m-5 bg-white shadow-2xl p-5">
+            {/* Info Card */}
+            <section
+              className="
+          absolute z-10
+          bottom-0 left-0
+          w-full
+          md:max-w-[420px]
+          bg-white
+          p-4 md:p-5
+          shadow-2xl
+          md:m-5
+          
+        "
+            >
+
+
               {/* Project Name */}
-              <div className="flex items-center justify-between  pb-3">
-                <div className="flex flex-col ">
-                  <div className="">ชื่อโครงการ</div>
-                  <span className="font-medium text-3xl text-(--primary-color)" >
-                    {asset.buildingName || asset.title}
-                  </span>
-                </div>
-              </div>
-
-              {/* Building */}
-              {asset.buildingName && (
-                <div className="flex items-center justify-between  pb-3">
-                  <div className="flex items-center gap-3 ">
-                    <FaBuilding className="text-(--primary-color" />
-                    <span className="font-medium">อาคาร</span>
-                  </div>
-                  <span className="font-light text-zinc-700 ">{asset.buildingName}</span>
-                </div>
-              )}
-
-              {/* Floor */}
-              {asset.floor && (
-                <div className="flex items-center justify-between  pb-3">
-                  <div className="flex items-center gap-3 ">
-                    <FaLayerGroup className="text-(--primary-color" />
-                    <span className="font-medium">ชั้น</span>
-                  </div>
-                  <span className="font-light text-zinc-700 ">{asset.floor}</span>
-                </div>
-              )}
-
-              {/* Room Number */}
-              {asset.roomNumber && (
-                <div className="flex items-center justify-between  pb-3">
-                  <div className="flex items-center gap-3 ">
-                    <FaDoorOpen className="text-(--primary-color" />
-                    <span className="font-medium">เลขที่ห้อง</span>
-                  </div>
-                  <span className="font-light text-zinc-700 ">{asset.roomNumber}</span>
-                </div>
-              )}
-
-              {/* Size */}
-              <div className="flex items-center justify-between  pb-3">
-                <div className="flex items-center gap-3 ">
-                  <FaRulerCombined className="text-(--primary-color" />
-                  <span className="font-medium">ขนาด</span>
-                </div>
-                <span className="font-light text-zinc-700 ">
-                  {asset.size || asset.area} ตร.ม.
+              <div className="pb-3">
+                <div className="text-xs text-zinc-500">ชื่อโครงการ</div>
+                <span className="font-semibold text-xl md:text-2xl text-(--primary-color)">
+                  {asset.title}
                 </span>
               </div>
 
-               {asset.type && (
-                <div className="flex items-center justify-between  pb-3">
-                  <div className="flex items-center gap-3 ">
-                    <BiSolidCategoryAlt  className="text-(--primary-color" />
-                    <span className="font-medium">ชนิดห้อง</span>
+              <div className="space-y-2 text-sm md:text-base">
+                {/* Building */}
+                {asset.buildingName && (
+                  <div className="flex items-start gap-2 w-full justify-between">
+                    <div className="flex items-center gap-2">
+                      <FaBuilding className="text-(--primary-color)" />
+                      <span className="font-medium">อาคาร</span>
+                    </div>
+                    <span className="text-zinc-700 max-w-[200px]">{asset.buildingName}</span>
                   </div>
-                  <span className="font-light text-zinc-700 ">{asset.type}</span>
-                </div>
-              )}
+                )}
 
-              {/* Balcony Direction */}
-              {asset.direction && (
-                <div className="flex items-center justify-between  pb-3">
-                  <div className="flex items-center gap-3 ">
-                    <FaCompass className="text-(--primary-color" />
-                    <span className="font-medium">ทิศของระเบียงห้อง</span>
+                {/* Floor */}
+                {asset.floor && (
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <FaLayerGroup className="text-(--primary-color)" />
+                      <span className="font-medium">ชั้น</span>
+                    </div>
+                    <span className="text-zinc-700">{asset.floor}</span>
                   </div>
-                  <span className="font-light text-zinc-700 ">{asset.direction}</span>
+                )}
+
+                {/* Room Number */}
+                {asset.roomNumber && (
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <FaDoorOpen className="text-(--primary-color)" />
+                      <span className="font-medium">เลขที่ห้อง</span>
+                    </div>
+                    <span className="text-zinc-700">{asset.roomNumber}</span>
+                  </div>
+                )}
+
+                {/* Size */}
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <FaRulerCombined className="text-(--primary-color)" />
+                    <span className="font-medium">ขนาด</span>
+                  </div>
+                  <span className="text-zinc-700">
+                    {asset.size} ตร.ว.
+                  </span>
                 </div>
-              )}
-             
+                {asset.area > 0 && <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <BiArea className="text-(--primary-color)" />
+                    <span className="font-medium">พื้นที่ใช้สอย</span>
+                  </div>
+                  <span className="text-zinc-700">
+                    {asset.area} ตร.ม.
+                  </span>
+                </div>}
+
+                {/* Type */}
+                {asset.type && (
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <BiSolidCategoryAlt className="text-(--primary-color)" />
+                      <span className="font-medium">ชนิดห้อง</span>
+                    </div>
+                    <span className="text-zinc-700">{asset.type}</span>
+                  </div>
+                )}
+
+                {/* Direction */}
+                {asset.direction && (
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <FaCompass className="text-(--primary-color)" />
+                      <span className="font-medium">ทิศของระเบียง</span>
+                    </div>
+                    <span className="text-zinc-700">{asset.direction}</span>
+                  </div>
+                )}
+              </div>
             </section>
           </div>
         </div>
       </section>
+
 
       {/* cost per room */}
       {(
@@ -403,12 +436,12 @@ export default function CondominiumDetail() {
             <h2 className=" text-xl text-center mb-10">
               เฟอร์นิเจอร์และเครื่องใช้ไฟฟ้าครบชุด ลดค่าใช้จ่าย พร้อมปล่อยเช่าหรือเข้าอยู่ทันที
             </h2>
-           
+
 
             <ul className="grid grid-cols-2 md:grid-cols-2 gap-3">
               {asset?.furnitures?.map((item, index) => (
                 <li key={index} className="flex items-center gap-2">
-                  <RiSofaFill  className=" size-7" /> {item}
+                  <RiSofaFill className=" size-7" /> {item}
                 </li>
               ))}
             </ul>

@@ -1,11 +1,11 @@
 // utils/format.ts
 export function formatCurrency(amount: number) {
   if (amount >= 1_000_000_000) {
-    return `${(amount / 1_000_000_000).toFixed(1).replace(/\.0$/, "")}B`;
+    return `${(amount / 1_000_000_000).toFixed(1).replace(/\.0$/, "")} สิบล้านบาท`;
   }
 
   if (amount >= 1_000_000) {
-    return `${(amount / 1_000_000).toFixed(1).replace(/\.0$/, "")}M`;
+    return `${(amount / 1_000_000).toFixed(1).replace(/\.0$/, "")} ล้านบาท`;
   }
 
   return new Intl.NumberFormat("th-TH", {

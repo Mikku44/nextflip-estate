@@ -116,7 +116,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
   try {
     await assetService.create(newAsset);
-    return redirect("/codominium");
+    return redirect("/condominium");
   } catch (error) {
     return { error: "ไม่สามารถบันทึกข้อมูลได้ กรุณาลองใหม่อีกครั้ง" };
   }
@@ -333,6 +333,7 @@ export default function AssetAddPage() {
                       >
                         <option value="">No Badge</option>
                         <option value="โครงการใหม่">โครงการใหม่</option>
+                        <option value="พร้อมวางขาย">ว่างพร้อมขาย</option>
                         <option value="ขายแล้ว">ขายแล้ว</option>
                         <option value="โครงการยอดนิยม">โครงการยอดนิยม</option>
                       </select>

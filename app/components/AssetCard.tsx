@@ -50,7 +50,7 @@ export default function AssetCard({ data, className = "" }: AssetCardProps) {
                 <div className="grid grid-cols-3 text-white px-4 gap-2">
                     <div className="flex gap-3 border-r pr-4 border-zinc-300 items-center ">
                         <TbResize />
-                        <p className="text-sm">{data?.area || "- "}m^2</p>
+                        <p className="text-sm">{data?.size || data?.area || "- "} m^2</p>
                     </div>
                     <div className="flex justify-center gap-3 border-r pr-4 border-zinc-300 items-center ">
                         <TbResize />
@@ -103,7 +103,7 @@ export default function AssetCard({ data, className = "" }: AssetCardProps) {
                 <div className="grid grid-cols-3  px-4 gap-2">
                     <div className="flex gap-3 border-r pr-4 border-zinc-300 items-center ">
                         <TbResize />
-                        <p className="text-sm line-clamp-1">{data?.area || "- "}m^2</p>
+                        <p className="text-sm">{data?.size || "- "} ตร.ว.</p>
                     </div>
                     <div className="flex justify-center gap-3 border-r pr-4 border-zinc-300 items-center ">
                         <TbResize />
@@ -122,7 +122,7 @@ export default function AssetCard({ data, className = "" }: AssetCardProps) {
 }
 
 interface AssetBadgeProps {
-    badge: 'โครงการใหม่' | 'ขายแล้ว' | 'โครงการยอดนิยม';
+    badge: 'โครงการใหม่' | 'ขายแล้ว' | 'โครงการยอดนิยม' | 'พร้อมวางขาย';
 }
 
 export function AssetBadge({ badge }: AssetBadgeProps) {
@@ -132,6 +132,7 @@ export function AssetBadge({ badge }: AssetBadgeProps) {
         'โครงการใหม่': 'from-amber-600 to-amber-500',
         'ขายแล้ว': 'from-red-600 to-red-500',
         'โครงการยอดนิยม': 'from-blue-600 to-green-500',
+        'พร้อมวางขาย': 'from-indigo-600 to-green-500',
     };
 
     return (
@@ -143,7 +144,7 @@ export function AssetBadge({ badge }: AssetBadgeProps) {
         rounded-r-full shadow-md
       `}
         >
-            {badge}
+            {badge == "พร้อมวางขาย" ? "ว่างพร้อมขาย" : badge}
         </div>
     );
 }

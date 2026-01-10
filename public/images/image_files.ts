@@ -824,8 +824,68 @@ export const images_file = [
     "filename": "dcondoramintra.jpg"
   },
   {
+    "path": "dcondoramintra10.jpg",
+    "filename": "dcondoramintra10.jpg"
+  },
+  {
+    "path": "dcondoramintra11.jpg",
+    "filename": "dcondoramintra11.jpg"
+  },
+  {
+    "path": "dcondoramintra12.jpg",
+    "filename": "dcondoramintra12.jpg"
+  },
+  {
+    "path": "dcondoramintra13.jpg",
+    "filename": "dcondoramintra13.jpg"
+  },
+  {
+    "path": "dcondoramintra14.jpg",
+    "filename": "dcondoramintra14.jpg"
+  },
+  {
+    "path": "dcondoramintra15.jpg",
+    "filename": "dcondoramintra15.jpg"
+  },
+  {
+    "path": "dcondoramintra16.jpg",
+    "filename": "dcondoramintra16.jpg"
+  },
+  {
+    "path": "dcondoramintra17.jpg",
+    "filename": "dcondoramintra17.jpg"
+  },
+  {
     "path": "dcondoramintra2.jpg",
     "filename": "dcondoramintra2.jpg"
+  },
+  {
+    "path": "dcondoramintra3.jpg",
+    "filename": "dcondoramintra3.jpg"
+  },
+  {
+    "path": "dcondoramintra4.jpg",
+    "filename": "dcondoramintra4.jpg"
+  },
+  {
+    "path": "dcondoramintra5.jpg",
+    "filename": "dcondoramintra5.jpg"
+  },
+  {
+    "path": "dcondoramintra6.jpg",
+    "filename": "dcondoramintra6.jpg"
+  },
+  {
+    "path": "dcondoramintra7.jpg",
+    "filename": "dcondoramintra7.jpg"
+  },
+  {
+    "path": "dcondoramintra8.jpg",
+    "filename": "dcondoramintra8.jpg"
+  },
+  {
+    "path": "dcondoramintra9.jpg",
+    "filename": "dcondoramintra9.jpg"
   },
   {
     "path": "excel.jpg",
@@ -1354,6 +1414,58 @@ export const images_file = [
   {
     "path": "lumpinicondo9.jpg",
     "filename": "lumpinicondo9.jpg"
+  },
+  {
+    "path": "lumpinipin.jpg",
+    "filename": "lumpinipin.jpg"
+  },
+  {
+    "path": "lumpinipin10.jpg",
+    "filename": "lumpinipin10.jpg"
+  },
+  {
+    "path": "lumpinipin11.jpg",
+    "filename": "lumpinipin11.jpg"
+  },
+  {
+    "path": "lumpinipin12.jpg",
+    "filename": "lumpinipin12.jpg"
+  },
+  {
+    "path": "lumpinipin13.jpg",
+    "filename": "lumpinipin13.jpg"
+  },
+  {
+    "path": "lumpinipin2.jpg",
+    "filename": "lumpinipin2.jpg"
+  },
+  {
+    "path": "lumpinipin3.jpg",
+    "filename": "lumpinipin3.jpg"
+  },
+  {
+    "path": "lumpinipin4.jpg",
+    "filename": "lumpinipin4.jpg"
+  },
+  {
+    "path": "lumpinipin5.jpg",
+    "filename": "lumpinipin5.jpg"
+  },
+  {
+    "path": "lumpinipin6.jpg",
+    "filename": "lumpinipin6.jpg"
+  },
+  {
+    "path": "lumpinipin7.jpg",
+    "filename": "lumpinipin7.jpg"
+  },
+  {
+    "path": "lumpinipin8.jpg",
+    "filename": "lumpinipin8.jpg"
+  },
+  {
+    "path": "lumpinipin9.jpg",
+    "filename": "lumpinipin9.jpg"
   },
   {
     "path": "lumpiniplace.jpg",
@@ -1980,8 +2092,104 @@ export const images_file = [
     "filename": "supawan9.jpg"
   },
   {
+    "path": "thestate.jpg",
+    "filename": "thestate.jpg"
+  },
+  {
+    "path": "thestate10.jpg",
+    "filename": "thestate10.jpg"
+  },
+  {
+    "path": "thestate11.jpg",
+    "filename": "thestate11.jpg"
+  },
+  {
+    "path": "thestate12.jpg",
+    "filename": "thestate12.jpg"
+  },
+  {
+    "path": "thestate13.jpg",
+    "filename": "thestate13.jpg"
+  },
+  {
+    "path": "thestate14.jpg",
+    "filename": "thestate14.jpg"
+  },
+  {
+    "path": "thestate15.jpg",
+    "filename": "thestate15.jpg"
+  },
+  {
+    "path": "thestate16.jpg",
+    "filename": "thestate16.jpg"
+  },
+  {
+    "path": "thestate17.jpg",
+    "filename": "thestate17.jpg"
+  },
+  {
+    "path": "thestate2.jpg",
+    "filename": "thestate2.jpg"
+  },
+  {
+    "path": "thestate3.jpg",
+    "filename": "thestate3.jpg"
+  },
+  {
+    "path": "thestate4.jpg",
+    "filename": "thestate4.jpg"
+  },
+  {
+    "path": "thestate5.jpg",
+    "filename": "thestate5.jpg"
+  },
+  {
+    "path": "thestate6.jpg",
+    "filename": "thestate6.jpg"
+  },
+  {
+    "path": "thestate7.jpg",
+    "filename": "thestate7.jpg"
+  },
+  {
+    "path": "thestate8.jpg",
+    "filename": "thestate8.jpg"
+  },
+  {
+    "path": "thestate9.jpg",
+    "filename": "thestate9.jpg"
+  },
+  {
     "path": "thetrust.jpg",
     "filename": "thetrust.jpg"
+  },
+  {
+    "path": "thetrust10.jpg",
+    "filename": "thetrust10.jpg"
+  },
+  {
+    "path": "thetrust11.jpg",
+    "filename": "thetrust11.jpg"
+  },
+  {
+    "path": "thetrust12.jpg",
+    "filename": "thetrust12.jpg"
+  },
+  {
+    "path": "thetrust13.jpg",
+    "filename": "thetrust13.jpg"
+  },
+  {
+    "path": "thetrust14.jpg",
+    "filename": "thetrust14.jpg"
+  },
+  {
+    "path": "thetrust15.jpg",
+    "filename": "thetrust15.jpg"
+  },
+  {
+    "path": "thetrust16.jpg",
+    "filename": "thetrust16.jpg"
   },
   {
     "path": "thetrust2.jpg",
@@ -1998,6 +2206,22 @@ export const images_file = [
   {
     "path": "thetrust5.jpg",
     "filename": "thetrust5.jpg"
+  },
+  {
+    "path": "thetrust6.jpg",
+    "filename": "thetrust6.jpg"
+  },
+  {
+    "path": "thetrust7.jpg",
+    "filename": "thetrust7.jpg"
+  },
+  {
+    "path": "thetrust8.jpg",
+    "filename": "thetrust8.jpg"
+  },
+  {
+    "path": "thetrust9.jpg",
+    "filename": "thetrust9.jpg"
   },
   {
     "path": "unio.jpg",

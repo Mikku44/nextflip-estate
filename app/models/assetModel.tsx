@@ -6,7 +6,7 @@ export interface AssetModel {
     area: number;
     bedrooms: number;
     bathrooms: number;
-    badge?: 'โครงการใหม่' | 'ขายแล้ว' | 'โครงการยอดนิยม';
+    badge?: 'โครงการใหม่' | 'ขายแล้ว' | 'โครงการยอดนิยม' | 'พร้อมวางขาย';
     imageUrl: string;
 
 }
