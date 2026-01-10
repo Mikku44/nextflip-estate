@@ -1,14 +1,13 @@
-import { Form, redirect, useActionData, type ActionFunctionArgs } from "react-router";
-import { useState } from "react";
+import { Form, redirect, useActionData, useLoaderData, type ActionFunctionArgs, type LoaderFunctionArgs } from "react-router";
+import { useState, useEffect } from "react";
 import { assetService } from "~/services/assetService";
-import { v4 as uuidv4 } from "uuid";
-import {
-  Minus,
-  Image as ImageIcon,
-  Check,
-  Search,
-  X,
-  Plus,
+import { 
+  Minus, 
+  Image as ImageIcon, 
+  Check, 
+  Search, 
+  X, 
+  Plus, 
   Trash2,
   Save,
   MapPin,
@@ -20,14 +19,42 @@ import { images_file } from "public/images/image_files";
 import type { AssetDetailModel } from "~/models/assetModel";
 
 /**
- * SERVER ACTION
- * Handles form submission and saves to database
+ * LOADER - Fetch existing asset data
  */
-export const action = async ({ request }: ActionFunctionArgs) => {
+export const loader = async ({ params }: LoaderFunctionArgs) => {
+  const { slug } = params;
+  
+  if (!slug) {
+    throw new Response("Asset slug is required", { status: 400 });
+  }
+
+  try {
+    const asset = await assetService.getBySlug(slug);
+    
+    if (!asset) {
+      throw new Response("Asset not found", { status: 404 });
+    }
+    
+    return { asset };
+  } catch (error) {
+    throw new Response("Failed to load asset", { status: 500 });
+  }
+};
+
+/**
+ * SERVER ACTION - Handle form submission and update database
+ */
+export const action = async ({ request, params }: ActionFunctionArgs) => {
+  const { slug } = params;
+  
+  if (!slug) {
+    return { error: "Asset slug is required" };
+  }
+
   const formData = await request.formData();
 
   const title = formData.get("title")?.toString() || "";
-  const slug = formData.get("slug")?.toString() || "";
+  const newSlug = formData.get("slug")?.toString() || "";
   const description = formData.get("description")?.toString() || "";
   const price = parseFloat(formData.get("price")?.toString() || "0");
   const area = parseFloat(formData.get("area")?.toString() || "0");
@@ -41,7 +68,6 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   const roomNumber = formData.get("roomNumber")?.toString() || "";
   const size = parseFloat(formData.get("size")?.toString() || "0");
   const direction = formData.get("direction")?.toString() || "";
-  const type = formData.get("type")?.toString() || "";
 
   // Costs
   const commonFree = parseFloat(formData.get("commonFree")?.toString() || "0");
@@ -80,13 +106,13 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     console.error("JSON parsing error:", e);
   }
 
-  if (!title || !slug || !description) {
+  if (!title || !newSlug || !description) {
     return { error: "กรุณากรอกข้อมูล Title, Slug และ Description ให้ครบถ้วน" };
   }
 
-  const newAsset: AssetDetailModel = {
+  const updatedAsset: AssetDetailModel = {
     title,
-    slug,
+    slug: newSlug,
     description,
     price,
     area,
@@ -99,7 +125,6 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     roomNumber,
     size,
     direction,
-    type,
     commonFree,
     waterBill,
     parkingFee,
@@ -115,51 +140,61 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   };
 
   try {
-    await assetService.create(newAsset);
-    return redirect("/codominium");
+    await assetService.update(slug, updatedAsset);
+    return redirect(`/codominium/${newSlug}`);
   } catch (error) {
-    return { error: "ไม่สามารถบันทึกข้อมูลได้ กรุณาลองใหม่อีกครั้ง" };
+    return { error: "ไม่สามารถอัพเดทข้อมูลได้ กรุณาลองใหม่อีกครั้ง" };
   }
 };
 
 /**
  * CLIENT COMPONENT
  */
-export default function AssetAddPage() {
+export default function AssetUpdatePage() {
+  const { asset } = useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
 
-  // Form State
+  // Form State - Initialize with loaded data
   const [form, setForm] = useState({
-    title: "",
-    slug: "",
-    description: "",
-    price: 0,
-    area: 0,
-    bedrooms: 1,
-    bathrooms: 1,
-    badge: "",
-    buildingName: "",
-    floor: "",
-    roomNumber: "",
-    size: 0,
-    direction: "",
-    type: "",
-    commonFree: 0,
-    waterBill: 0,
-    parkingFee: 0,
-    motorBikeFee: 0,
-    beforeImage: "",
-    afterImage: "",
-    embededMap: "",
+    title: asset.title || "",
+    slug: asset.slug || "",
+    description: asset.description || "",
+    price: asset.price || 0,
+    area: asset.area || 0,
+    bedrooms: asset.bedrooms || 1,
+    bathrooms: asset.bathrooms || 1,
+    badge: asset.badge || "",
+    buildingName: asset.buildingName || "",
+    floor: asset.floor || "",
+    roomNumber: asset.roomNumber || "",
+    size: asset.size || 0,
+    direction: asset.direction || "",
+    commonFree: asset.commonFree || 0,
+    waterBill: asset.waterBill || 0,
+    parkingFee: asset.parkingFee || 0,
+    motorBikeFee: asset.motorBikeFee || 0,
+    beforeImage: asset.beforeImage || "",
+    afterImage: asset.afterImage || "",
+    embededMap: asset.embededMap || "",
   });
 
-  // Array States
-  const [images, setImages] = useState<string[]>([]);
-  const [furnitures, setFurnitures] = useState<string[]>([""]);
-  const [hightlights, setHightlights] = useState<string[]>([""]);
-  const [nearPlaces, setNearPlaces] = useState<string[]>([""]);
-  const [compatible, setCompatible] = useState<{ title: string; desc: string }[]>([]);
-  const [FAQs, setFAQs] = useState<{ title: string; desc: string }[]>([]);
+  // Array States - Initialize with loaded data
+  const [images, setImages] = useState<string[]>(asset.images || []);
+  const [furnitures, setFurnitures] = useState<string[]>(
+    asset.furnitures && asset.furnitures.length > 0 ? asset.furnitures : [""]
+  );
+  const [hightlights, setHightlights] = useState<string[]>(
+    asset.hightlights && asset.hightlights.length > 0 ? asset.hightlights : [""]
+  );
+  const [nearPlaces, setNearPlaces] = useState<string[]>(
+    asset.nearPlaces && asset.nearPlaces.length > 0 ? asset.nearPlaces : [""]
+  );
+  const [compatible, setCompatible] = useState<{ title: string; desc: string }[]>(
+    asset.compatible || []
+  );
+  const [FAQs, setFAQs] = useState<{ title: string; desc: string }[]>(
+    asset.FAQs || []
+  );
 
   // Modal State
   const [isOpen, setIsOpen] = useState(false);
@@ -172,32 +207,13 @@ export default function AssetAddPage() {
   const libraryImages = [...arr];
   const filteredImages = images_file.filter(img => img.path.includes(searchTerm)).map(item => `/images/${item.filename}`);
 
-  // Auto-generate slug
-  const generateSlug = (title: string) => {
-    const base = title
-      .toLowerCase()
-      .trim()
-      .replace(/[^a-z0-9ก-๙]+/g, "-")
-      .replace(/(^-|-$)+/g, "");
-    const shortId = uuidv4().split("-")[0];
-    return base ? `${base}-${shortId}` : "";
-  };
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
-
-    if (name === "title") {
-      setForm((prev) => ({
-        ...prev,
-        title: value,
-        slug: generateSlug(value),
-      }));
-    } else {
-      setForm((prev) => ({
-        ...prev,
-        [name]: type === "number" ? parseFloat(value) || 0 : value,
-      }));
-    }
+    
+    setForm((prev) => ({
+      ...prev,
+      [name]: type === "number" ? parseFloat(value) || 0 : value,
+    }));
   };
 
   // Array Handlers
@@ -266,7 +282,12 @@ export default function AssetAddPage() {
   return (
     <div className="min-h-screen bg-gray-50 pb-20">
       {/* Header */}
-
+      <header className="bg-white border-b sticky top-0 z-30 px-6 py-4 flex justify-between items-center shadow-sm">
+        <h1 className="text-2xl font-bold text-zinc-800">Update Asset Listing</h1>
+        <div className="text-sm text-gray-500">
+          Editing: <span className="font-medium text-gray-700">{asset.title}</span>
+        </div>
+      </header>
 
       <div className="max-w-6xl mx-auto px-6 py-10">
         {actionData?.error && (
@@ -274,7 +295,6 @@ export default function AssetAddPage() {
             {actionData.error}
           </div>
         )}
-        <h1 className="text-2xl max-w-6xl mx-auto w-full font-bold text-zinc-800 mb-5">Create New Asset Listing</h1>
 
         <Form method="post" className="space-y-8">
           {/* Hidden JSON Inputs */}
@@ -288,13 +308,13 @@ export default function AssetAddPage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* LEFT COLUMN - Main Content */}
             <div className="lg:col-span-2 space-y-8">
-
+              
               {/* Core Information */}
-              <section className="bg-white p-6 border border-slate-300">
+              <section className="bg-white p-6 rounded-xl shadow-sm border">
                 <h2 className="text-sm font-semibold uppercase tracking-wider text-gray-500 mb-6 flex items-center gap-2">
                   <Home size={18} /> Core Information
                 </h2>
-
+                
                 <div className="space-y-6">
                   <div>
                     <label className="text-sm font-medium text-gray-700 mb-2 block">Property Title</label>
@@ -318,7 +338,7 @@ export default function AssetAddPage() {
                         value={form.slug}
                         onChange={handleChange}
                         className="w-full bg-gray-50 border-b-2 border-gray-200 py-2 text-gray-500 italic outline-none"
-                        placeholder="auto-generated-slug"
+                        placeholder="url-slug"
                         required
                       />
                     </div>
@@ -345,7 +365,7 @@ export default function AssetAddPage() {
                       name="description"
                       value={form.description}
                       onChange={handleChange}
-                      className="w-full border-2 border-gray-200 focus:border-blue-500 outline-none p-3 transition-colors"
+                      className="w-full border-2 border-gray-200 rounded-lg focus:border-blue-500 outline-none p-3 transition-colors"
                       rows={5}
                       placeholder="Detailed property description..."
                       required
@@ -355,10 +375,10 @@ export default function AssetAddPage() {
               </section>
 
               {/* Property Specs */}
-              <section className="bg-white p-6 border border-slate-300">
+              <section className="bg-white p-6 rounded-xl shadow-sm border">
                 <h2 className="text-sm font-semibold uppercase tracking-wider text-gray-500 mb-6">Property Specifications</h2>
-
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   <div>
                     <label className="text-xs font-medium text-gray-500 mb-1 block">Bedrooms</label>
                     <input
@@ -366,7 +386,7 @@ export default function AssetAddPage() {
                       type="number"
                       value={form.bedrooms}
                       onChange={handleChange}
-                      className="w-full border-2 border-gray-200 focus:border-blue-500 outline-none p-2"
+                      className="w-full border-2 border-gray-200 rounded-lg focus:border-blue-500 outline-none p-2"
                       min="0"
                     />
                   </div>
@@ -378,7 +398,7 @@ export default function AssetAddPage() {
                       type="number"
                       value={form.bathrooms}
                       onChange={handleChange}
-                      className="w-full border-2 border-gray-200 focus:border-blue-500 outline-none p-2"
+                      className="w-full border-2 border-gray-200 rounded-lg focus:border-blue-500 outline-none p-2"
                       min="0"
                     />
                   </div>
@@ -390,7 +410,7 @@ export default function AssetAddPage() {
                       type="number"
                       value={form.area}
                       onChange={handleChange}
-                      className="w-full border-2 border-gray-200 focus:border-blue-500 outline-none p-2"
+                      className="w-full border-2 border-gray-200 rounded-lg focus:border-blue-500 outline-none p-2"
                       min="0"
                     />
                   </div>
@@ -402,7 +422,7 @@ export default function AssetAddPage() {
                       type="text"
                       value={form.size}
                       onChange={handleChange}
-                      className="w-full border-2 border-gray-200 focus:border-blue-500 outline-none p-2"
+                      className="w-full border-2 border-gray-200 rounded-lg focus:border-blue-500 outline-none p-2"
                       min="0"
                     />
                   </div>
@@ -414,7 +434,7 @@ export default function AssetAddPage() {
                       type="text"
                       value={form.floor}
                       onChange={handleChange}
-                      className="w-full border-2 border-gray-200 focus:border-blue-500 outline-none p-2"
+                      className="w-full border-2 border-gray-200 rounded-lg focus:border-blue-500 outline-none p-2"
                       placeholder="e.g. 15"
                     />
                   </div>
@@ -426,7 +446,7 @@ export default function AssetAddPage() {
                       type="text"
                       value={form.roomNumber}
                       onChange={handleChange}
-                      className="w-full border-2 border-gray-200 focus:border-blue-500 outline-none p-2"
+                      className="w-full border-2 border-gray-200 rounded-lg focus:border-blue-500 outline-none p-2"
                       placeholder="e.g. 1502"
                     />
                   </div>
@@ -438,18 +458,7 @@ export default function AssetAddPage() {
                       type="text"
                       value={form.direction}
                       onChange={handleChange}
-                      className="w-full border-2 border-gray-200 focus:border-blue-500 outline-none p-2"
-                      placeholder="e.g. North"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-xs font-medium text-gray-500 mb-1 block">Type</label>
-                    <input
-                      name="type"
-                      type="text"
-                      value={form.type}
-                      onChange={handleChange}
-                      className="w-full border-2 border-gray-200 focus:border-blue-500 outline-none p-2"
+                      className="w-full border-2 border-gray-200 rounded-lg focus:border-blue-500 outline-none p-2"
                       placeholder="e.g. North"
                     />
                   </div>
@@ -461,7 +470,7 @@ export default function AssetAddPage() {
                       type="number"
                       value={form.price}
                       onChange={handleChange}
-                      className="w-full border-2 border-gray-200 focus:border-blue-500 outline-none p-2"
+                      className="w-full border-2 border-gray-200 rounded-lg focus:border-blue-500 outline-none p-2"
                       min="0"
                     />
                   </div>
@@ -471,13 +480,13 @@ export default function AssetAddPage() {
               {/* Dynamic Arrays */}
               <div className="grid md:grid-cols-2 gap-6">
                 {/* Furniture */}
-                <section className="bg-white p-6 border border-slate-300">
+                <section className="bg-white p-6 rounded-xl shadow-sm border">
                   <div className="flex justify-between items-center mb-4">
                     <h2 className="text-sm font-semibold uppercase tracking-wider text-gray-500">Furniture</h2>
                     <button
                       type="button"
                       onClick={() => addArrayItem(setFurnitures)}
-                      className="bg-slate-900 text-white p-2 hover:bg-slate-700 transition"
+                      className="bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700 transition"
                     >
                       <Plus size={16} />
                     </button>
@@ -488,7 +497,7 @@ export default function AssetAddPage() {
                         <input
                           value={item}
                           onChange={(e) => handleArrayChange(idx, e.target.value, setFurnitures)}
-                          className="flex-1 border-2 border-gray-200 focus:border-blue-500 outline-none p-2 text-sm"
+                          className="flex-1 border-2 border-gray-200 rounded-lg focus:border-blue-500 outline-none p-2 text-sm"
                           placeholder="e.g. Sofa Bed"
                         />
                         <button
@@ -504,13 +513,13 @@ export default function AssetAddPage() {
                 </section>
 
                 {/* Highlights */}
-                <section className="bg-white p-6 border border-slate-300">
+                <section className="bg-white p-6 rounded-xl shadow-sm border">
                   <div className="flex justify-between items-center mb-4">
                     <h2 className="text-sm font-semibold uppercase tracking-wider text-gray-500">Highlights</h2>
                     <button
                       type="button"
                       onClick={() => addArrayItem(setHightlights)}
-                      className="bg-slate-900 text-white p-2 hover:bg-slate-700 transition"
+                      className="bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700 transition"
                     >
                       <Plus size={16} />
                     </button>
@@ -521,7 +530,7 @@ export default function AssetAddPage() {
                         <input
                           value={item}
                           onChange={(e) => handleArrayChange(idx, e.target.value, setHightlights)}
-                          className="flex-1 border-2 border-gray-200 focus:border-blue-500 outline-none p-2 text-sm"
+                          className="flex-1 border-2 border-gray-200 rounded-lg focus:border-blue-500 outline-none p-2 text-sm"
                           placeholder="e.g. Near MRT"
                         />
                         <button
@@ -538,7 +547,7 @@ export default function AssetAddPage() {
               </div>
 
               {/* Near Places */}
-              <section className="bg-white p-6 border border-slate-300">
+              <section className="bg-white p-6 rounded-xl shadow-sm border">
                 <div className="flex justify-between items-center mb-4">
                   <h2 className="text-sm font-semibold uppercase tracking-wider text-gray-500 flex items-center gap-2">
                     <MapPin size={18} /> Near Places
@@ -546,7 +555,7 @@ export default function AssetAddPage() {
                   <button
                     type="button"
                     onClick={() => addArrayItem(setNearPlaces)}
-                    className="bg-slate-900 text-white p-2 hover:bg-slate-700 transition"
+                    className="bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700 transition"
                   >
                     <Plus size={16} />
                   </button>
@@ -557,7 +566,7 @@ export default function AssetAddPage() {
                       <input
                         value={item}
                         onChange={(e) => handleArrayChange(idx, e.target.value, setNearPlaces)}
-                        className="flex-1 border-2 border-gray-200 focus:border-blue-500 outline-none p-2 text-sm"
+                        className="flex-1 border-2 border-gray-200 rounded-lg focus:border-blue-500 outline-none p-2 text-sm"
                         placeholder="e.g. MRT Rama 9 - 500m"
                       />
                       <button
@@ -573,20 +582,20 @@ export default function AssetAddPage() {
               </section>
 
               {/* Compatible Properties */}
-              <section className="bg-white p-6 border border-slate-300">
+              <section className="bg-white p-6 rounded-xl shadow-sm border">
                 <div className="flex justify-between items-center mb-4">
                   <h2 className="text-sm font-semibold uppercase tracking-wider text-gray-500">Compatible Properties</h2>
                   <button
                     type="button"
                     onClick={addCompatible}
-                    className="bg-slate-900 text-white px-4 py-2 hover:bg-slate-700 transition flex items-center gap-2"
+                    className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition flex items-center gap-2"
                   >
                     <Plus size={16} /> Add
                   </button>
                 </div>
                 <div className="space-y-4">
                   {compatible.map((item, idx) => (
-                    <div key={idx} className="border-2 border-gray-200 p-4 bg-gray-50">
+                    <div key={idx} className="border-2 border-gray-200 rounded-lg p-4 bg-gray-50">
                       <div className="flex justify-between items-start mb-3">
                         <h3 className="text-xs font-medium text-gray-500">Compatible #{idx + 1}</h3>
                         <button
@@ -601,13 +610,13 @@ export default function AssetAddPage() {
                         value={item.title}
                         onChange={(e) => handleCompatibleChange(idx, 'title', e.target.value)}
                         placeholder="Title"
-                        className="w-full border-2 border-gray-200 focus:border-blue-500 outline-none p-2 text-sm mb-2"
+                        className="w-full border-2 border-gray-200 rounded-lg focus:border-blue-500 outline-none p-2 text-sm mb-2"
                       />
                       <textarea
                         value={item.desc}
                         onChange={(e) => handleCompatibleChange(idx, 'desc', e.target.value)}
                         placeholder="Description"
-                        className="w-full border-2 border-gray-200 focus:border-blue-500 outline-none p-2 text-sm"
+                        className="w-full border-2 border-gray-200 rounded-lg focus:border-blue-500 outline-none p-2 text-sm"
                         rows={3}
                       />
                     </div>
@@ -616,20 +625,20 @@ export default function AssetAddPage() {
               </section>
 
               {/* FAQs */}
-              <section className="bg-white p-6 border border-slate-300">
+              <section className="bg-white p-6 rounded-xl shadow-sm border">
                 <div className="flex justify-between items-center mb-4">
                   <h2 className="text-sm font-semibold uppercase tracking-wider text-gray-500">FAQs</h2>
                   <button
                     type="button"
                     onClick={addFAQ}
-                    className="bg-slate-900 text-white px-4 py-2 hover:bg-slate-700 transition flex items-center gap-2"
+                    className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition flex items-center gap-2"
                   >
                     <Plus size={16} /> Add FAQ
                   </button>
                 </div>
                 <div className="space-y-4">
                   {FAQs.map((faq, idx) => (
-                    <div key={idx} className="border-2 border-gray-200 p-4 bg-gray-50">
+                    <div key={idx} className="border-2 border-gray-200 rounded-lg p-4 bg-gray-50">
                       <div className="flex justify-between items-start mb-3">
                         <h3 className="text-xs font-medium text-gray-500">FAQ #{idx + 1}</h3>
                         <button
@@ -644,13 +653,13 @@ export default function AssetAddPage() {
                         value={faq.title}
                         onChange={(e) => handleFAQChange(idx, 'title', e.target.value)}
                         placeholder="Question"
-                        className="w-full border-2 border-gray-200 focus:border-blue-500 outline-none p-2 text-sm mb-2"
+                        className="w-full border-2 border-gray-200 rounded-lg focus:border-blue-500 outline-none p-2 text-sm mb-2"
                       />
                       <textarea
                         value={faq.desc}
                         onChange={(e) => handleFAQChange(idx, 'desc', e.target.value)}
                         placeholder="Answer"
-                        className="w-full border-2 border-gray-200 focus:border-blue-500 outline-none p-2 text-sm"
+                        className="w-full border-2 border-gray-200 rounded-lg focus:border-blue-500 outline-none p-2 text-sm"
                         rows={3}
                       />
                     </div>
@@ -661,9 +670,9 @@ export default function AssetAddPage() {
 
             {/* RIGHT COLUMN - Media & Additional Info */}
             <div className="space-y-8">
-
+              
               {/* Images Section */}
-              <section className="bg-white p-6 border border-slate-300">
+              <section className="bg-white p-6 rounded-xl shadow-sm border">
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-sm font-semibold uppercase tracking-wider text-gray-500">Property Images</h2>
                   <button
@@ -672,7 +681,7 @@ export default function AssetAddPage() {
                       setSelectedInModal(images);
                       setIsOpen(true);
                     }}
-                    className="flex items-center gap-2 text-sm bg-slate-900 text-white px-4 py-2 hover:bg-slate-700 transition"
+                    className="flex items-center gap-2 text-sm bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
                   >
                     <ImageIcon size={16} /> Select ({images.length})
                   </button>
@@ -680,7 +689,7 @@ export default function AssetAddPage() {
 
                 <div className="grid grid-cols-2 gap-3">
                   {images.map((url, idx) => (
-                    <div key={idx} className="relative aspect-video overflow-hidden border-2 border-gray-200 bg-gray-100 group">
+                    <div key={idx} className="relative aspect-video rounded-lg overflow-hidden border-2 border-gray-200 bg-gray-100 group">
                       <img src={url} className="w-full h-full object-cover" alt="Preview" />
                       <button
                         type="button"
@@ -695,7 +704,7 @@ export default function AssetAddPage() {
               </section>
 
               {/* Before & After */}
-              <section className="bg-white p-6 border border-slate-300">
+              <section className="bg-white p-6 rounded-xl shadow-sm border">
                 <h2 className="text-sm font-semibold uppercase tracking-wider text-gray-500 mb-4">Before & After</h2>
                 <div className="space-y-4">
                   <div>
@@ -704,7 +713,7 @@ export default function AssetAddPage() {
                       name="beforeImage"
                       value={form.beforeImage}
                       onChange={handleChange}
-                      className="w-full border-2 border-gray-200 focus:border-blue-500 outline-none p-2 text-sm"
+                      className="w-full border-2 border-gray-200 rounded-lg focus:border-blue-500 outline-none p-2 text-sm"
                       placeholder="https://..."
                     />
                   </div>
@@ -714,7 +723,7 @@ export default function AssetAddPage() {
                       name="afterImage"
                       value={form.afterImage}
                       onChange={handleChange}
-                      className="w-full border-2 border-gray-200 focus:border-blue-500 outline-none p-2 text-sm"
+                      className="w-full border-2 border-gray-200 rounded-lg focus:border-blue-500 outline-none p-2 text-sm"
                       placeholder="https://..."
                     />
                   </div>
@@ -722,7 +731,7 @@ export default function AssetAddPage() {
               </section>
 
               {/* Location */}
-              <section className="bg-white p-6 border border-slate-300">
+              <section className="bg-white p-6 rounded-xl shadow-sm border">
                 <h2 className="text-sm font-semibold uppercase tracking-wider text-gray-500 mb-4 flex items-center gap-2">
                   <MapPin size={18} /> Location
                 </h2>
@@ -733,7 +742,7 @@ export default function AssetAddPage() {
                       name="buildingName"
                       value={form.buildingName}
                       onChange={handleChange}
-                      className="w-full border-2 border-gray-200 focus:border-blue-500 outline-none p-2 text-sm"
+                      className="w-full border-2 border-gray-200 rounded-lg focus:border-blue-500 outline-none p-2 text-sm"
                       placeholder="e.g. The Sukhothai Residences"
                     />
                   </div>
@@ -743,7 +752,7 @@ export default function AssetAddPage() {
                       name="embededMap"
                       value={form.embededMap}
                       onChange={handleChange}
-                      className="w-full border-2 border-gray-200 focus:border-blue-500 outline-none p-2 text-xs"
+                      className="w-full border-2 border-gray-200 rounded-lg focus:border-blue-500 outline-none p-2 text-xs"
                       rows={3}
                       placeholder="<iframe src=..."
                     />
@@ -764,7 +773,7 @@ export default function AssetAddPage() {
                       type="number"
                       value={form.commonFree}
                       onChange={handleChange}
-                      className="bg-zinc-800 border-none p-2 w-28 text-right text-white outline-none focus:ring-2 ring-blue-500"
+                      className="bg-zinc-800 border-none rounded-lg p-2 w-28 text-right text-white outline-none focus:ring-2 ring-blue-500"
                     />
                   </div>
                   <div className="flex justify-between items-center">
@@ -774,7 +783,7 @@ export default function AssetAddPage() {
                       type="number"
                       value={form.waterBill}
                       onChange={handleChange}
-                      className="bg-zinc-800 border-none p-2 w-28 text-right text-white outline-none focus:ring-2 ring-blue-500"
+                      className="bg-zinc-800 border-none rounded-lg p-2 w-28 text-right text-white outline-none focus:ring-2 ring-blue-500"
                     />
                   </div>
                   <div className="flex justify-between items-center">
@@ -784,7 +793,7 @@ export default function AssetAddPage() {
                       type="number"
                       value={form.parkingFee}
                       onChange={handleChange}
-                      className="bg-zinc-800 border-none p-2 w-28 text-right text-white outline-none focus:ring-2 ring-blue-500"
+                      className="bg-zinc-800 border-none rounded-lg p-2 w-28 text-right text-white outline-none focus:ring-2 ring-blue-500"
                     />
                   </div>
                   <div className="flex justify-between items-center">
@@ -794,7 +803,7 @@ export default function AssetAddPage() {
                       type="number"
                       value={form.motorBikeFee}
                       onChange={handleChange}
-                      className="bg-zinc-800 border-none p-2 w-28 text-right text-white outline-none focus:ring-2 ring-blue-500"
+                      className="bg-zinc-800 border-none rounded-lg p-2 w-28 text-right text-white outline-none focus:ring-2 ring-blue-500"
                     />
                   </div>
                 </div>
@@ -806,13 +815,10 @@ export default function AssetAddPage() {
           <div className="sticky bottom-6 z-20">
             <button
               type="submit"
-              className="w-full bg-slate-900 text-white py-4
-               font-bold text-lg hover:bg-slate-700 
-                transition-all
-                flex items-center justify-center gap-3"
+              className="w-full bg-blue-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-blue-700 shadow-lg shadow-blue-200 transition-all flex items-center justify-center gap-3"
             >
               <Save size={20} />
-              Publish Asset Listing
+              Update Asset Listing
             </button>
           </div>
         </Form>
@@ -855,14 +861,15 @@ export default function AssetAddPage() {
                     <div
                       key={url}
                       onClick={() => handleToggleImage(url)}
-                      className={`group h-40 relative rounded-xl overflow-hidden cursor-pointer border-4 transition-all ${isSelected ? "border-blue-500 scale-95" : "border-transparent hover:border-gray-300"
-                        }`}
+                      className={`group h-40 relative rounded-xl overflow-hidden cursor-pointer border-4 transition-all ${
+                        isSelected ? "border-blue-500 scale-95" : "border-transparent hover:border-gray-300"
+                      }`}
                     >
-                      <div className="absolute bottom-0 p-2 text-black/70 w-full">{url?.replace("/images/", "")}</div>
+                        <div className="absolute bottom-0 p-2 text-black/70 w-full">{url?.replace("/images/","")}</div>
                       <img src={url} className="w-full h-full object-cover" alt="Library Item" />
                       {isSelected && (
-                        <div className="absolute inset-0 bg-slate-900/20 flex items-center justify-center">
-                          <div className="bg-slate-900 text-white rounded-full p-2 shadow-lg">
+                        <div className="absolute inset-0 bg-blue-500/20 flex items-center justify-center">
+                          <div className="bg-blue-500 text-white rounded-full p-2 shadow-lg">
                             <Check size={20} strokeWidth={3} />
                           </div>
                         </div>
@@ -874,15 +881,16 @@ export default function AssetAddPage() {
                 <div
                   key={searchTerm}
                   onClick={() => handleToggleImage(searchTerm)}
-                  className={`group h-40 relative rounded-xl overflow-hidden cursor-pointer border-4 transition-all ${selectedInModal.includes(searchTerm)
+                  className={`group h-40 relative rounded-xl overflow-hidden cursor-pointer border-4 transition-all ${
+                    selectedInModal.includes(searchTerm)
                       ? "border-blue-500 scale-95"
                       : "border-transparent hover:border-gray-300"
-                    }`}
+                  }`}
                 >
                   <img src={searchTerm} className="w-full h-full object-cover" alt="Custom URL" />
                   {selectedInModal.includes(searchTerm) && (
-                    <div className="absolute inset-0 bg-slate-900/20 flex items-center justify-center">
-                      <div className="bg-slate-900 text-white rounded-full p-2 shadow-lg">
+                    <div className="absolute inset-0 bg-blue-500/20 flex items-center justify-center">
+                      <div className="bg-blue-500 text-white rounded-full p-2 shadow-lg">
                         <Check size={20} strokeWidth={3} />
                       </div>
                     </div>
@@ -910,7 +918,7 @@ export default function AssetAddPage() {
                 <button
                   type="button"
                   onClick={handleApplyImages}
-                  className="px-8 py-2 bg-slate-900 text-white rounded-xl font-bold hover:bg-slate-700 transition shadow-md"
+                  className="px-8 py-2 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition shadow-md"
                 >
                   Apply Selection
                 </button>

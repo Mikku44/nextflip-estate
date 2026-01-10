@@ -97,8 +97,14 @@ export default function Home() {
               }}
               className="text-lg font-light 
               max-w-xl text-white/70 
-              flex gap-2 items-center">
-              <Check /> ซื้อเงินสดจริง  <Check /> ประเมินฟรี  <Check /> ไม่ต้องนัดดูห้องได้
+              flex md:flex-row flex-col gap-2 md:items-center">
+              <div className="flex  gap-2">
+                <Check /> ซื้อเงินสดจริง
+              </div> <div className="flex  gap-2">
+                <Check /> ประเมินฟรี
+              </div> <div className="flex  gap-2">
+                <Check /> ไม่ต้องนัดดูห้องได้
+              </div>
             </motion.div>
 
             {/* <Link
@@ -438,7 +444,7 @@ export default function Home() {
             return (
               <motion.div
                 key={blog.id || blog.slug} // Use ID if available, otherwise slug
-                initial={{ y: 20}}
+                initial={{ y: 20 }}
                 whileInView={{ y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}

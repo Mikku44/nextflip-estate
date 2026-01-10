@@ -14,6 +14,8 @@ import ShareButton from "~/components/Sharebutton";
 import { useRef } from "react";
 import { assetService } from "~/services/assetService";
 import type { AssetDetailModel } from "~/models/assetModel";
+import { BiSolidCategoryAlt } from "react-icons/bi";
+import { RiSofaFill } from "react-icons/ri";
 
 export const faqItems = [
   {
@@ -25,8 +27,7 @@ export const faqItems = [
   {
     question: "มีผู้เช่าอยู่หรือไม่?",
     answer: `
-ปัจจุบันมีผู้เช่า
-สามารถรับค่าเช่าต่อได้
+ปัจจุบันไม่มีผู้เช่า
     `,
   },
   {
@@ -93,15 +94,25 @@ export default function CondominiumDetail() {
   const { asset } = useLoaderData<typeof loader>();
 
   const ref = useRef<any>(null);
+  const ref2 = useRef<any>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
   });
 
+  const { scrollYProgress: scroll2 } = useScroll({
+    target: ref2,
+  });
+
+  const displayValue = (value: any, suffix = "") =>
+    value === null || value === undefined || value === ""
+      ? "-"
+      : `${value}${suffix}`;
 
 
   // scale from 1 to 1.1
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.3]);
+  const scale2 = useTransform(scroll2, [0, 5], [1, 1.4]);
   return (
     <main className="min-h-[150vh] bg-zinc-100">
 
@@ -279,6 +290,16 @@ export default function CondominiumDetail() {
                 </span>
               </div>
 
+               {asset.type && (
+                <div className="flex items-center justify-between  pb-3">
+                  <div className="flex items-center gap-3 ">
+                    <BiSolidCategoryAlt  className="text-(--primary-color" />
+                    <span className="font-medium">ชนิดห้อง</span>
+                  </div>
+                  <span className="font-light text-zinc-700 ">{asset.type}</span>
+                </div>
+              )}
+
               {/* Balcony Direction */}
               {asset.direction && (
                 <div className="flex items-center justify-between  pb-3">
@@ -289,93 +310,105 @@ export default function CondominiumDetail() {
                   <span className="font-light text-zinc-700 ">{asset.direction}</span>
                 </div>
               )}
+             
             </section>
           </div>
         </div>
       </section>
 
       {/* cost per room */}
-      {(asset.commonFree || asset.waterBill || asset.parkingFee || asset.motorBikeFee) && (
+      {(
         <section className="py-12 bg-zinc-50">
-          <div className="container-x">
-            <h2 className="text-2xl mb-8 text-zinc-800">
+          <div className="container-x h-[350px] flex flex-col justify-center w-full" >
+            <h2 className="text-2xl mb-8 text-zinc-800 font-bold">
               ค่าใช้จ่ายห้อง
             </h2>
 
             <div className="relative">
-              {/* cost */}
               <div className="grid md:grid-cols-2 gap-y-6 gap-x-16">
 
                 {/* Common Fee */}
-                {asset.commonFree && (
-                  <div className="flex items-center justify-between pb-3">
-                    <div className="flex items-center gap-3 ">
-                      <FaMoneyBillWave className="text-green-500" />
-                      <span className="font-medium">ค่าส่วนกลาง</span>
-                    </div>
-                    <span className="font-light text-zinc-700 ">
-                      {formatCurrency(asset.commonFree)}/เดือน
-                    </span>
+                <div className="flex items-center justify-between pb-3">
+                  <div className="flex items-center gap-3">
+                    <FaMoneyBillWave className="text-green-500" />
+                    <span className="font-medium">ค่าส่วนกลาง</span>
                   </div>
-                )}
+                  <span className="font-light text-zinc-700">
+                    {asset?.commonFree
+                      ? `${formatCurrency(asset.commonFree)}/เดือน`
+                      : "-"}
+                  </span>
+                </div>
 
                 {/* Water Rate */}
-                {asset.waterBill && (
-                  <div className="flex items-center justify-between pb-3">
-                    <div className="flex items-center gap-3 ">
-                      <FaDroplet className="text-green-500" />
-                      <span className="font-medium">ค่าน้ำ</span>
-                    </div>
-                    <span className="font-light text-zinc-700 ">
-                      {asset.waterBill} บาท/หน่วย
-                    </span>
+                <div className="flex items-center justify-between pb-3">
+                  <div className="flex items-center gap-3">
+                    <FaDroplet className="text-green-500" />
+                    <span className="font-medium">ค่าน้ำ</span>
                   </div>
-                )}
+                  <span className="font-light text-zinc-700">
+                    {displayValue(asset?.waterBill, " บาท/หน่วย")}
+                  </span>
+                </div>
 
                 {/* Car Parking */}
-                {asset.parkingFee && (
-                  <div className="flex items-center justify-between pb-3">
-                    <div className="flex items-center gap-3 ">
-                      <FaCar className="text-green-500" />
-                      <span className="font-medium">ค่าที่จอดรถยนต์ต่อเดือน</span>
-                    </div>
-                    <span className="font-light text-zinc-700 ">
-                      {formatCurrency(asset.parkingFee)}/เดือน
-                    </span>
+                <div className="flex items-center justify-between pb-3">
+                  <div className="flex items-center gap-3">
+                    <FaCar className="text-green-500" />
+                    <span className="font-medium">ค่าที่จอดรถยนต์ต่อเดือน</span>
                   </div>
-                )}
+                  <span className="font-light text-zinc-700">
+                    {asset?.parkingFee
+                      ? `${formatCurrency(asset.parkingFee)}/เดือน`
+                      : "-"}
+                  </span>
+                </div>
 
                 {/* Bike Parking */}
-                {asset.motorBikeFee && (
-                  <div className="flex items-center justify-between pb-3">
-                    <div className="flex items-center gap-3 ">
-                      <FaMotorcycle className="text-green-500" />
-                      <span className="font-medium">ค่าที่จอดมอเตอร์ไซต์ต่อเดือน</span>
-                    </div>
-                    <span className="font-light text-zinc-700 ">
-                      {formatCurrency(asset.motorBikeFee)}/เดือน
-                    </span>
+                <div className="flex items-center justify-between pb-3">
+                  <div className="flex items-center gap-3">
+                    <FaMotorcycle className="text-green-500" />
+                    <span className="font-medium">ค่าที่จอดมอเตอร์ไซต์ต่อเดือน</span>
                   </div>
-                )}
+                  <span className="font-light text-zinc-700">
+                    {asset?.motorBikeFee
+                      ? `${formatCurrency(asset.motorBikeFee)}/เดือน`
+                      : "-"}
+                  </span>
+                </div>
 
               </div>
             </div>
+
           </div>
         </section>
       )}
 
+      <section className="max-h-[500px] overflow-hidden flex flex-end">
+        <motion.img
+          ref={ref2}
+          style={{ scale: scale2, }}
+          src={asset?.images?.[1]}
+          className="object-cover brightness-75"
+          alt="" />
+      </section>
+
       {/* furniture */}
       {(
-        <section className="py-12 bg-zinc-50">
-          <div className="container-x">
-            <h2 className="text-2xl font-semibold mb-6">
+        <section className="py-12 bg-(--primary-color) ">
+          <div className="container-x h-[350px]  text-white/90 flex flex-col justify-center w-full">
+            <h2 className="md:text-5xl text-2xl text-center font-semibold mb-1">
               เฟอร์นิเจอร์ / เครื่องใช้ไฟฟ้า
             </h2>
+            <h2 className=" text-xl text-center mb-10">
+              เฟอร์นิเจอร์และเครื่องใช้ไฟฟ้าครบชุด ลดค่าใช้จ่าย พร้อมปล่อยเช่าหรือเข้าอยู่ทันที
+            </h2>
+           
 
-            <ul className="grid grid-cols-2 md:grid-cols-3 gap-3">
+            <ul className="grid grid-cols-2 md:grid-cols-2 gap-3">
               {asset?.furnitures?.map((item, index) => (
                 <li key={index} className="flex items-center gap-2">
-                  <BsAsterisk className="text-green-500" /> {item}
+                  <RiSofaFill  className=" size-7" /> {item}
                 </li>
               ))}
             </ul>
@@ -385,7 +418,7 @@ export default function CondominiumDetail() {
 
       {/* hightlight */}
 
-      {(
+      {asset?.hightlights?.length > 0 && (
         <section className="py-12 bg-zinc-100">
           <div className="container-x">
             <h2 className="text-2xl font-semibold mb-6">จุดเด่นห้อง</h2>
@@ -451,7 +484,7 @@ export default function CondominiumDetail() {
                 />
               )}
 
-              { (
+              {(
                 <ul className="space-y-3">
                   {asset?.nearPlaces?.map((place, index) => (
                     <li key={index} className="flex items-center gap-2">
@@ -484,11 +517,11 @@ export default function CondominiumDetail() {
       )}
 
       {/* FAQ */}
-      {asset.FAQs && asset.FAQs.length > 0 && (
+      {(
         <section className="bg-zinc-100 pb-24">
           <div className="flex md:flex-row flex-col gap-10">
             <div className="container-x">
-              <div className="grid md:grid-cols-2 container-x mx-auto mb-5">
+              <div className="grid md:grid-cols-2 md:max-w-5xl mx-auto mb-5">
                 <motion.h2
                   initial={{
                     y: 10, opacity: 0
@@ -507,10 +540,10 @@ export default function CondominiumDetail() {
                   คำถามที่พบบ่อยเกี่ยวกับการขายคอนโดและบริการของ NextFlip Estate
                 </div>
               </div>
-              <FAQ items={asset.FAQs.map(faq => ({
+              <FAQ items={asset?.FAQs?.length > 0 ? asset.FAQs.map(faq => ({
                 question: faq.title || '',
                 answer: faq.desc || ''
-              }))} />
+              })) : faqItems} />
             </div>
           </div>
         </section>

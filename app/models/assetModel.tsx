@@ -23,6 +23,8 @@ export interface AssetDetailModel {
     badge?: 'โครงการใหม่' | 'ขายแล้ว' | 'โครงการยอดนิยม';
     images: string[];
 
+    type ? : string;
+
     // basic info
     buildingName? : string;
     floor? : string;
@@ -51,7 +53,7 @@ export interface AssetDetailModel {
     nearPlaces? : string[];
 
 
-    // competible
+    // compatible
     compatible ?  : {
       title : string;
       desc : string;

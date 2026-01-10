@@ -10,6 +10,7 @@ interface AssetCardProps {
 }
 
 export default function AssetCard({ data, className = "" }: AssetCardProps) {
+    const imageUrl = data?.images?.[0] || "/condo.jpg"
     return (
         <NavLink to={data?.id ? `/condominium/${data.slug}` : "/"} className={"relative group shadow-2xl " + className}>
             <div className="absolute pointer-events-none w-full md:block hidden md:scale-[120%] z-5 min-h-95 
@@ -23,7 +24,7 @@ export default function AssetCard({ data, className = "" }: AssetCardProps) {
 
                 <div className="h-[65%] w-full relative">
 
-                    <img src={data?.imageUrl || "/condo.jpg"}
+                    <img src={imageUrl}
                         className="w-full h-full object-cover"
                         alt="codo image" />
                 </div>
@@ -31,10 +32,16 @@ export default function AssetCard({ data, className = "" }: AssetCardProps) {
                 <div className="grid text-white p-4 w-full">
                     <div className="">
                         <div className="text-xl line-clamp-1">{data?.title || "Azura Villa"}</div>
-                        <div className=" font-light line-clamp-2">{data?.description || "Lorem, ipsum dolor."}</div>
-                        <ul className="list-disc font-light line-clamp-2 mt-2">
-                            <li className="flex items-center gap-2"><Check className="size-4 text-blue-500" />รีโนเวทใหม่ทั้งห้อง พร้อมอยู่</li>
-                            <li className="flex items-center gap-2"><Check className="size-4 text-blue-500" />เหมาะอยู่เอง / ปล่อยเช่า</li>
+                        <div className=" font-light line-clamp-2 opacity-80 text-sm">{data?.description || "Lorem, ipsum dolor."}</div>
+                        <ul className="list-disc font-light text-white text-sm line-clamp-2 space-y-1 mt-2">
+                            <li className="flex items-center gap-2 rounded-sm bg-(--primary-color) w-fit pl-2 pr-3 py-1">
+                                <Check className="size-4 rounded-full text-white bg-blue-500" />
+                                รีโนเวทใหม่ทั้งห้อง พร้อมอยู่
+                            </li>
+                            <li className="flex items-center gap-2 rounded-sm bg-(--primary-color) w-fit pl-2 pr-3 py-1">
+                                <Check className="size-4 rounded-full text-white bg-blue-500" />
+                                เหมาะอยู่เอง / ปล่อยเช่า
+                            </li>
                         </ul>
                     </div>
                     {/* price */}
@@ -70,7 +77,7 @@ export default function AssetCard({ data, className = "" }: AssetCardProps) {
 
 
                 <div className="h-[65%] w-full">
-                    <img src={data?.imageUrl || "/condo.jpg"}
+                    <img src={imageUrl}
                         className="w-full h-full object-cover"
                         alt="codo image" />
                 </div>
@@ -78,10 +85,16 @@ export default function AssetCard({ data, className = "" }: AssetCardProps) {
                 <div className="grid  p-4 w-full">
                     <div className="">
                         <div className="text-xl line-clamp-1">{data?.title || "Azura Villa"}</div>
-                        <div className=" font-light line-clamp-2">{data?.description || "Lorem, ipsum dolor."}</div>
-                        <ul className="list-disc font-light line-clamp-2 mt-2">
-                            <li className="flex items-center gap-2"><Check className="size-4 text-blue-500" />รีโนเวทใหม่ทั้งห้อง พร้อมอยู่</li>
-                            <li className="flex items-center gap-2"><Check className="size-4 text-blue-500" />เหมาะอยู่เอง / ปล่อยเช่า</li>
+                        <div className=" font-light line-clamp-2 opacity-80">{data?.description || "Lorem, ipsum dolor."}</div>
+                        <ul className="list-disc font-light text-white text-sm line-clamp-2 space-y-1 mt-2">
+                            <li className="flex items-center gap-2 rounded-sm bg-(--primary-color) w-fit pl-2 pr-3 py-1">
+                                <Check className="size-4 rounded-full text-white bg-blue-500" />
+                                รีโนเวทใหม่ทั้งห้อง พร้อมอยู่
+                            </li>
+                            <li className="flex items-center gap-2 rounded-sm bg-(--primary-color) w-fit pl-2 pr-3 py-1">
+                                <Check className="size-4 rounded-full text-white bg-blue-500" />
+                                เหมาะอยู่เอง / ปล่อยเช่า
+                            </li>
                         </ul>
                     </div>
                     {/* price */}
