@@ -13,6 +13,7 @@ import { Minus, Image as ImageIcon, Search, X } from "lucide-react";
 
 import MarkdownEditor from "~/components/MarkdownEditor";
 import type { BlogPost } from "~/models/blogModel";
+import { images_file } from "public/images/image_files";
 
 // ---------------------------------------
 // LOADER
@@ -66,7 +67,7 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
 
   try {
     await blogService.update(id, updatedBlog);
-    return redirect("/blogs");
+    return redirect("/admin/blog/list");
   } catch (error) {
     return { error: "ไม่สามารถอัปเดตข้อมูลได้ กรุณาลองใหม่อีกครั้ง" };
   }
@@ -110,7 +111,7 @@ export default function BlogUpdatePage() {
 
 
 
-  libraryImages = [...libraryImages,]
+  libraryImages = images_file
 
   const generateSlug = (title: string) => {
     const base = title

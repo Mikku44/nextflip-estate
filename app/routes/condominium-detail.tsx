@@ -223,6 +223,7 @@ export default function CondominiumDetail() {
         <div className="container-x">
           <h2 className="text-xl md:text-2xl flex gap-3 w-full mb-6 md:mb-8 text-zinc-800">
             <div className="">ข้อมูลห้อง</div>
+            {/* <div className="">{asset.id}</div> */}
            <AssetCornerBadge badge={asset.badge as any} />
           </h2>
 
@@ -573,9 +574,9 @@ export default function CondominiumDetail() {
                   คำถามที่พบบ่อยเกี่ยวกับการขายคอนโดและบริการของ NextFlip Estate
                 </div>
               </div>
-              <FAQ items={asset?.FAQs?.length > 0 ? asset.FAQs.map(faq => ({
-                question: faq.title || '',
-                answer: faq.desc || ''
+              <FAQ items={asset?.FAQs?.length > 0 ? asset?.FAQs?.map(faq => ({
+                question: faq?.question || '',
+                answer: faq?.answer || ''
               })) : faqItems} />
             </div>
           </div>

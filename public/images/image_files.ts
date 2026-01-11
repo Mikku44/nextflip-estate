@@ -1,5 +1,69 @@
 export const images_file = [
   {
+    "path": "1.jpg",
+    "filename": "1.jpg"
+  },
+  {
+    "path": "10.jpg",
+    "filename": "10.jpg"
+  },
+  {
+    "path": "11.jpg",
+    "filename": "11.jpg"
+  },
+  {
+    "path": "12.jpg",
+    "filename": "12.jpg"
+  },
+  {
+    "path": "13.jpg",
+    "filename": "13.jpg"
+  },
+  {
+    "path": "14.jpg",
+    "filename": "14.jpg"
+  },
+  {
+    "path": "15.jpg",
+    "filename": "15.jpg"
+  },
+  {
+    "path": "16.jpg",
+    "filename": "16.jpg"
+  },
+  {
+    "path": "2.jpg",
+    "filename": "2.jpg"
+  },
+  {
+    "path": "3.jpg",
+    "filename": "3.jpg"
+  },
+  {
+    "path": "4.jpg",
+    "filename": "4.jpg"
+  },
+  {
+    "path": "5.jpg",
+    "filename": "5.jpg"
+  },
+  {
+    "path": "6.jpg",
+    "filename": "6.jpg"
+  },
+  {
+    "path": "7.jpg",
+    "filename": "7.jpg"
+  },
+  {
+    "path": "8.jpg",
+    "filename": "8.jpg"
+  },
+  {
+    "path": "9.jpg",
+    "filename": "9.jpg"
+  },
+  {
     "path": "akesin.jpg",
     "filename": "akesin.jpg"
   },
