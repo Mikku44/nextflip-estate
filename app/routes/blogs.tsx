@@ -52,6 +52,14 @@ export default function BlogPage() {
             ประสบการณ์จริงจากการซื้อ–ขาย–รีโนเวท–ฟลิปคอนโด โดย NextFlip Estate
             เพื่อเจ้าของห้องและนักลงทุนที่อยากตัดสินใจอย่างมั่นใจ
           </motion.p>
+          <motion.p
+            initial={{ y: 20, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-xl md:text-2xl max-w-2xl text-white/80 mt-4 px-6"
+          >
+            "คอนโดมือสองขายไม่ออก ไม่ใช่เพราะราคาเสมอไป"
+          </motion.p>
         </div>
         <ImageCarousel />
       </div>

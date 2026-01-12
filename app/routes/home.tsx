@@ -160,13 +160,13 @@ export default function Home() {
                   duration: 0.6,
                   delay: 0.2
                 }}
-                className="md:text-5xl md:max-w-[80%] text-3xl" id="more">เราช่วยคุณหาคอนโดได้ไว</motion.h2>
+                className="md:text-[47px] md:max-w-[80%] text-[3xl]" id="more">เราช่วยคุณขายคอนโดได้ไว</motion.h2>
               <p className="text-xl max-w-[75%] font-light">พร้อมเสนอหลายทางเลือก เพื่อให้คุณได้ราคาที่เหมาะสมที่สุด</p>
             </div>
-            <div className="font-light space-y-4 mt-12">
+            <div className="font-light text-lg space-y-4 mt-12">
               <p className="">ทีมงาน NextFlip Estate เข้าใจว่าการขายคอนโดของแต่ละคนมีเงื่อนไขไม่เหมือนกัน
                 บางกรณีต้องการขายเร็วด้วยการรับซื้อเงินสด
-                บางกรณีสามารถวางแผนในรูปแบบ ฟลิปหรือแนวทางอื่น เพื่อเพิ ่มโอกาสได้ราคาที่สูงขึ้น
+                บางกรณีสามารถวางแผนในรูปแบบ ฟลิปหรือแนวทางอื่น เพื่อเพิ่มโอกาสได้ราคาที่สูงขึ้น
               </p>
               <p className="">เราประเมินตามสภาพจริง อธิบายแต่ละทางเลือกอย่างตรงไปตรงมา
                 เพื่อให้คุณตัดสินใจได้บนข้อมูลที่ครบถ้วนและเหมาะกับคุณที่สุด </p>
@@ -175,7 +175,7 @@ export default function Home() {
           {/* small */}
           <div className="mt-5">
 
-            <p className="text-sm max-w-[70%] font-light">รับซื้อเงินสด ● ฟลิป ●  แนวทางขายที่คุ้มค่าในแต่ละสถานการณ์ </p>
+            <p className=" max-w-[70%] font-light">รับซื้อเงินสด ● ฟลิป ●  แนวทางขายที่คุ้มค่าในแต่ละสถานการณ์ </p>
           </div>
         </section>
       </div>
