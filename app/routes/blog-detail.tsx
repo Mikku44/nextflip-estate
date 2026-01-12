@@ -5,6 +5,7 @@ import { blogService } from '~/services/blogService';
 import type { Route } from './+types/blog-detail';
 import type { BlogPost } from '~/models/blogModel'; // ตรวจสอบ path ของ interface
 import ShareButton from '~/components/Sharebutton';
+import ShareBar from '~/components/ShareBar';
 
 export async function loader({ params }: Route.LoaderArgs) {
   const blog = await blogService.getBySlug(params.slug);
@@ -192,7 +193,9 @@ export default function BlogDetail() {
           </button>
           {/* share */}
           <div className="md:w-[250px]">
-            <ShareButton title='แชร์บทความนี้' />
+            {/* <ShareButton title='แชร์บทความนี้' /> */}
+
+            <ShareBar />
           </div>
 
         </div>
