@@ -1,7 +1,7 @@
 
-import { useScroll } from 'framer-motion';
+import { AnimatePresence, useScroll, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { Link, NavLink } from 'react-router'
+import { Link, NavLink, useNavigation } from 'react-router'
 import { MENU_APP } from '~/const/app'
 import { BurgerButton, MobileDrawer } from './DrawerMenu';
 
@@ -9,6 +9,8 @@ import { BurgerButton, MobileDrawer } from './DrawerMenu';
 export default function Navbar() {
     const [isScrollDown, setIsScrollDown] = useState(false);
     const [open, setOpen] = useState(false);
+    const navigation = useNavigation();
+    const isLoading = navigation.state === "loading";
 
     const { scrollY } = useScroll();
 
@@ -24,6 +26,47 @@ export default function Navbar() {
 
     return (
         <>
+
+            {isLoading && (
+                <AnimatePresence>
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-[999] flex items-end justify-center pointer-events-none"
+                    >
+                        <motion.div
+                            initial={{ opacity: 0, y: 16 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 16 }}
+                            transition={{ duration: 0.25, ease: "easeOut" }}
+                            className="mb-6 flex items-center gap-3 rounded-full border border-zinc-200 bg-white/90 px-5 py-3 shadow-sm backdrop-blur"
+                        >
+                            {/* Dots */}
+                            <div className="flex items-center gap-1">
+                                {[0, 1, 2].map((i) => (
+                                    <motion.span
+                                        key={i}
+                                        className="size-1.5 rounded-full bg-zinc-400"
+                                        animate={{ opacity: [0.3, 1, 0.3] }}
+                                        transition={{
+                                            duration: 1,
+                                            repeat: Infinity,
+                                            delay: i * 0.15,
+                                            ease: "easeInOut",
+                                        }}
+                                    />
+                                ))}
+                            </div>
+
+                            <span className="text-sm font-medium tracking-wide text-zinc-600">
+                                กำลังโหลด
+                            </span>
+                        </motion.div>
+                    </motion.div>
+                </AnimatePresence>
+
+            )}
             <MobileDrawer
                 open={open}
                 onClose={() => setOpen(false)}
@@ -75,7 +118,7 @@ export default function Navbar() {
                 </nav>
 
                 <div className="md:hidden h-[54px] aspect-square flex items-center gap-2">
-                   
+
                     {/* <SearchButton open={open} onClick={() => { }} /> */}
                     <BurgerButton open={open} onClick={() => setOpen(!open)} />
                 </div>

@@ -15,35 +15,43 @@ import { Check } from "@untitledui/icons";
 import { blogService } from "~/services/blogService";
 import type { BlogPost } from "~/models/blogModel";
 
-export function meta({ }: Route.MetaArgs) {
+export function meta({}: Route.MetaArgs) {
   return [
     {
-      title: "ติดต่อ NextFlip Estate | ปรึกษาซื้อ-ขายอสังหาริมทรัพย์กับ คุณ Bangkaew"
+      title: "ติดต่อ NextFlip Estate | ปรึกษาซื้อ-ขายอสังหาริมทรัพย์กับ คุณ Bangkaew",
     },
     {
       name: "description",
       content:
-        "ติดต่อ NextFlip Estate เพื่อปรึกษาการลงทุนคอนโด บ้าน และอสังหาริมทรัพย์ โทร 086 386 3844 หรือแอด LINE เพื่อรับบริการพาชมโครงการแบบ Exclusive โดยทีมงานมืออาชีพ"
+        "ติดต่อ NextFlip Estate เพื่อปรึกษาการลงทุนคอนโด บ้าน และอสังหาริมทรัพย์ โทร 086 386 3844 หรือแอด LINE เพื่อรับบริการพาชมโครงการแบบ Exclusive โดยทีมงานมืออาชีพ",
     },
     {
       name: "keywords",
-      content: "ติดต่อ NextFlip Estate, เบอร์โทร NextFlip Estate, คุณ Bangkaew อสังหา, ปรึกษาซื้อขายคอนโด, นัดชมคอนโด กรุงเทพ"
+      content:
+        "ติดต่อ NextFlip Estate, เบอร์โทร NextFlip Estate, คุณ Bangkaew อสังหา, ปรึกษาซื้อขายคอนโด, นัดชมคอนโด กรุงเทพ",
     },
-    // Open Graph สำหรับแชร์ลง Social Media
+
+    // Open Graph
     {
       property: "og:title",
-      content: "Contact NextFlip Estate | Real Estate Consultant"
+      content: "Contact NextFlip Estate | Real Estate Consultant",
     },
     {
       property: "og:description",
-      content: "สอบถามข้อมูลอสังหาฯ หรือนัดชมโครงการกับ คุณ Bangkaew ได้ทุกช่องทาง"
+      content:
+        "สอบถามข้อมูลอสังหาฯ หรือนัดชมโครงการกับ คุณ Bangkaew ได้ทุกช่องทาง",
     },
     {
       property: "og:type",
-      content: "website"
-    }
+      content: "website",
+    },
+    {
+      property: "og:image",
+      content: "https://nextflipestate.com/logo.jpg",
+    },
   ];
 }
+
 
 export async function loader() {
   const data = await blogService.getAll(3); // ดึงมา 100 รายการล่าสุด

@@ -24,18 +24,111 @@ export async function loader({ params }: Route.LoaderArgs) {
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
-  const blog = loaderData?.blog;
+  const blog = loaderData?.blog as BlogPost | undefined;
 
-  if (!blog) return [{ title: "Blog Not Found" }];
+  if (!blog) {
+    return [
+      { title: "Blog Not Found | NextFlip Estate" },
+      {
+        name: "robots",
+        content: "noindex, nofollow",
+      },
+    ];
+  }
+
+  const description =
+    blog.content?.replace(/[#_*`>\-\n]/g, "").substring(0, 160) || "";
+
+  const image = blog.images?.[0]
+    ? blog.images[0]
+    : "https://nextflipestate.com/og/default-blog.jpg";
+
+  const url = `https://nextflipestate.com/blog/${blog.slug}`;
 
   return [
+    // ===== Basic SEO =====
     { title: `${blog.title} | NextFlip Estate` },
     {
       name: "description",
-      content: blog.content?.substring(0, 160) || "", // ตัดเนื้อหาบางส่วนไปเป็น description
+      content: description,
+    },
+    {
+      name: "keywords",
+      content: blog.tags,
+    },
+    {
+      name: "author",
+      content: blog.author,
+    },
+
+    // ===== Open Graph =====
+    {
+      property: "og:title",
+      content: blog.title,
+    },
+    {
+      property: "og:description",
+      content: description,
+    },
+    {
+      property: "og:type",
+      content: "article",
+    },
+    {
+      property: "og:url",
+      content: url,
+    },
+    {
+      property: "og:image",
+      content: image,
+    },
+    {
+      property: "og:image:width",
+      content: "1200",
+    },
+    {
+      property: "og:image:height",
+      content: "630",
+    },
+    {
+      property: "og:image:alt",
+      content: blog.title,
+    },
+
+    // Article specific
+    {
+      property: "article:author",
+      content: blog.author,
+    },
+    {
+      property: "article:published_time",
+      content: blog.date,
+    },
+    {
+      property: "article:tag",
+      content: blog.tags,
+    },
+
+    // ===== Twitter / X =====
+    {
+      name: "twitter:card",
+      content: "summary_large_image",
+    },
+    {
+      name: "twitter:title",
+      content: blog.title,
+    },
+    {
+      name: "twitter:description",
+      content: description,
+    },
+    {
+      name: "twitter:image",
+      content: image,
     },
   ];
 }
+
 
 export default function BlogDetail() {
   // ดึงข้อมูลจริงจาก Loader มาใช้งาน
@@ -47,12 +140,15 @@ export default function BlogDetail() {
       {/* Hero Section - ใช้ข้อมูลรูปภาพจาก database */}
       <header className="relative h-[60vh] w-full bg-zinc-800">
         {blog.images && blog.images.length > 0 ? (
-          <ImageCarousel images={blog.images} />
+          <div className=""></div>
         ) : (
           <div className="w-full h-full flex items-center justify-center text-zinc-500">
             No image available
           </div>
         )}
+
+
+
 
 
 
@@ -72,6 +168,11 @@ export default function BlogDetail() {
           </div>
         </div>
       </header>
+
+      <div className=" aspect-video max-w-5xl mx-auto mt-16">
+              <img src={blog.images?.[0]} alt={blog.title}
+               className="w-full h-full object-cover" />
+      </div>
 
       {/* Blog Content Section */}
       <main className="max-w-3xl mx-auto px-6 py-16">
