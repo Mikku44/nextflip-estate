@@ -33,37 +33,32 @@ export default function Navbar() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-[999] flex items-end justify-center pointer-events-none"
+                        className="fixed inset-0 z-[999] flex items-center justify-center bg-white/80 backdrop-blur-sm"
                     >
                         <motion.div
-                            initial={{ opacity: 0, y: 16 }}
+                            className="flex flex-col items-center gap-4"
+                            initial={{ opacity: 0, y: 6 }}
                             animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: 16 }}
-                            transition={{ duration: 0.25, ease: "easeOut" }}
-                            className="mb-6 flex items-center gap-3 rounded-full border border-zinc-200 bg-white/90 px-5 py-3 shadow-sm backdrop-blur"
+                            exit={{ opacity: 0, y: 6 }}
+                            transition={{ duration: 0.4, ease: 'easeOut' }}
                         >
-                            {/* Dots */}
-                            <div className="flex items-center gap-1">
-                                {[0, 1, 2].map((i) => (
-                                    <motion.span
-                                        key={i}
-                                        className="size-1.5 rounded-full bg-zinc-400"
-                                        animate={{ opacity: [0.3, 1, 0.3] }}
-                                        transition={{
-                                            duration: 1,
-                                            repeat: Infinity,
-                                            delay: i * 0.15,
-                                            ease: "easeInOut",
-                                        }}
-                                    />
-                                ))}
-                            </div>
+                            {/* Breathing Dot */}
+                            <motion.span
+                                className="size-2 rounded-full bg-zinc-400"
+                                animate={{ scale: [1, 1.6, 1], opacity: [0.4, 1, 0.4] }}
+                                transition={{
+                                    duration: 1.6,
+                                    repeat: Infinity,
+                                    ease: 'easeInOut',
+                                }}
+                            />
 
-                            <span className="text-sm font-medium tracking-wide text-zinc-600">
-                                กำลังโหลด
+                            <span className="text-xs tracking-[0.3em] uppercase text-zinc-500">
+                                Loading
                             </span>
                         </motion.div>
                     </motion.div>
+
                 </AnimatePresence>
 
             )}
