@@ -130,7 +130,7 @@ if __name__ == "__main__":
         
 if __name__ == "__main__":
     # Configuration for Creative Tour Guru Thailand
-    DOMAIN = "https://creativetourguruthailand.com"
+    DOMAIN = "https://www.nextflipestate.com"
     
     if len(sys.argv) < 2:
         print("Usage: python script.py <path_to_images_directory>")
