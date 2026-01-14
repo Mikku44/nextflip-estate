@@ -15,40 +15,49 @@ import { Check } from "@untitledui/icons";
 import { blogService } from "~/services/blogService";
 import type { BlogPost } from "~/models/blogModel";
 
-export function meta({}: Route.MetaArgs) {
+export function meta({ }: Route.MetaArgs) {
   return [
     {
-      title: "ติดต่อ NextFlip Estate | ปรึกษาซื้อ-ขายอสังหาริมทรัพย์กับ คุณ Bangkaew",
+      title: "NextFlip Estate | รับซื้อคอนโดเงินสด และที่ปรึกษาการขายอสังหาริมทรัพย์",
     },
     {
       name: "description",
       content:
-        "ติดต่อ NextFlip Estate เพื่อปรึกษาการลงทุนคอนโด บ้าน และอสังหาริมทรัพย์ โทร 086 386 3844 หรือแอด LINE เพื่อรับบริการพาชมโครงการแบบ Exclusive โดยทีมงานมืออาชีพ",
+        "NextFlip Estate โดยคุณเอ้  รับซื้อคอนโดเงินสด ปิดดีลไว ประเมินราคาฟรี พร้อมบริการรีโนเวทฟลิปคอนโดเพื่อเพิ่มมูลค่า สนใจปรึกษาโทร 086-386-3844",
     },
     {
       name: "keywords",
       content:
-        "ติดต่อ NextFlip Estate, เบอร์โทร NextFlip Estate, คุณ Bangkaew อสังหา, ปรึกษาซื้อขายคอนโด, นัดชมคอนโด กรุงเทพ",
+        "NextFlip Estate, รับซื้อคอนโดเงินสด, ขายคอนโดด่วน, ฟลิปคอนโด, รีโนเวทคอนโดเพื่อขาย, คุณเอ้ , ปรึกษาซื้อขายอสังหาริมทรัพย์",
     },
 
-    // Open Graph
+    // Open Graph (สำหรับแชร์ลง Facebook/Line)
     {
       property: "og:title",
-      content: "Contact NextFlip Estate | Real Estate Consultant",
+      content: "NextFlip Estate | รับซื้อคอนโดเงินสด ปิดดีลไว ให้ราคายุติธรรม",
     },
     {
       property: "og:description",
       content:
-        "สอบถามข้อมูลอสังหาฯ หรือนัดชมโครงการกับ คุณ Bangkaew ได้ทุกช่องทาง",
+        "อยากขายคอนโดไว หรืออยากเพิ่มมูลค่าห้องด้วยการฟลิป? ปรึกษา NextFlip Estate บริการรับซื้อด้วยเงินสดและดูแลการขายแบบครบวงจร",
     },
     {
       property: "og:type",
       content: "website",
     },
     {
-      property: "og:image",
-      content: "https://nextflipestate.com/logo.jpg",
+      property: "og:url",
+      content: "https://nextflipestate.com",
     },
+    {
+      property: "og:image",
+      content: "https://nextflipestate.com/logo.jpg", 
+    },
+
+    {
+      rel: "icon",
+      href: "https://www.nextflipestate.com/favicon.ico"
+    }
   ];
 }
 

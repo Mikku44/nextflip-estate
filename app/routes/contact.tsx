@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { IoCallOutline, IoMailOutline, IoLogoYoutube, IoLocationOutline, IoLogoFacebook } from "react-icons/io5";
-import { FaLine } from "react-icons/fa";
+import { FaLine, FaTiktok } from "react-icons/fa";
 import ImageCarousel from "~/components/ImageSlider2";
 import type { Route } from "./+types/contact";
 import { Check } from "lucide-react";
@@ -40,6 +40,14 @@ export const CONTACT_METHODS = [
     value: "@NextFlip",
     href: "https://lin.ee/4fkHaEbk",
     color: "hover:text-green-500"
+  },
+  {
+    icon: <FaTiktok size={28} />,
+    label: "TikTok",
+    subtitle: "(แนะนำสำหรับการประเมินเคสเบื้องต้นส่งรูปห้อง / ภาระผ่อน / เอกสารได้ทันที)",
+    value: "@NextFlip",
+    href: "https://www.tiktok.com/@nextflipestate",
+    color: "hover:text-pink-500"
   },
   {
     icon: <IoMailOutline size={28} />,
