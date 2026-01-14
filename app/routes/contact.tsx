@@ -38,7 +38,7 @@ export const CONTACT_METHODS = [
     label: "Line Official",
     subtitle: "(แนะนำสำหรับการประเมินเคสเบื้องต้นส่งรูปห้อง / ภาระผ่อน / เอกสารได้ทันที)",
     value: "@NextFlip",
-    href: "https://lin.ee/4fkHaEbk",
+    href: " https://lin.ee/rnbLvlD",
     color: "hover:text-green-500"
   },
   {
