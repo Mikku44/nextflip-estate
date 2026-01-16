@@ -74,7 +74,7 @@ function ActionButton({
   return (
     <motion.a
       href={href}
-      target={href.startsWith("http") ? "_blank" : undefined}
+      target={"_blank"}
       rel="noopener noreferrer"
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}

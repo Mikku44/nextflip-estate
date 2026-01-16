@@ -3,6 +3,7 @@ import { IoCheckmarkCircleOutline, IoAlertCircleOutline, IoBuildOutline, IoTimeO
 import ImageCarousel from "~/components/ImageSlider2";
 import CaseStudyCard from "~/components/UsecaseCard";
 import { CASE_STUDIES } from "~/const/app";
+import type { Route } from "./+types/use-case";
 
 const CASE_DATA = {
   title: "รีโนเวทคอนโดเก่า 20 ปี ให้เป็น Luxury Minimal",
@@ -25,6 +26,53 @@ const CASE_DATA = {
     { label: "After", url: "/images/condo24.jpg" }
   ]
 };
+
+export function meta({ }: Route.MetaArgs) {
+  return [
+    {
+      title: "NextFlip Estate | ตัวอย่าง Use case คอนโดที่เราร่วมรีโนเวท",
+    },
+    {
+      name: "description",
+      content:
+        "NextFlip Estate โดยคุณเอ้  รับซื้อคอนโดเงินสด ปิดดีลไว ประเมินราคาฟรี พร้อมบริการรีโนเวทฟลิปคอนโดเพื่อเพิ่มมูลค่า สนใจปรึกษาโทร 086-386-3844",
+    },
+    {
+      name: "keywords",
+      content:
+        "NextFlip Estate, รับซื้อคอนโดเงินสด, ขายคอนโดด่วน, ฟลิปคอนโด, รีโนเวทคอนโดเพื่อขาย, คุณเอ้ , ปรึกษาซื้อขายอสังหาริมทรัพย์",
+    },
+
+    // Open Graph (สำหรับแชร์ลง Facebook/Line)
+    {
+      property: "og:title",
+      content: "NextFlip Estate | รับซื้อคอนโดเงินสด ปิดดีลไว ให้ราคายุติธรรม",
+    },
+    {
+      property: "og:description",
+      content:
+        "อยากขายคอนโดไว หรืออยากเพิ่มมูลค่าห้องด้วยการฟลิป? ปรึกษา NextFlip Estate บริการรับซื้อด้วยเงินสดและดูแลการขายแบบครบวงจร",
+    },
+    {
+      property: "og:type",
+      content: "website",
+    },
+    {
+      property: "og:url",
+      content: "https://nextflipestate.com",
+    },
+    {
+      property: "og:image",
+      content: "https://nextflipestate.com/og-1.jpg", 
+    },
+
+    {
+      rel: "icon",
+      href: "https://www.nextflipestate.com/favicon.ico"
+    }
+  ];
+}
+
 
 export default function CaseDetail() {
   return (

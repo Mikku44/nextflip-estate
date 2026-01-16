@@ -5,6 +5,7 @@ import ImageCarousel from '~/components/ImageSlider2';
 import type { Route } from './+types/condo-estimator';
 import { toast } from 'sonner';
 import { Check } from '@untitledui/icons';
+import LineCopyModal from '~/components/LineCopyModal';
 
 
 export function meta({ }: Route.MetaArgs) {
@@ -39,6 +40,8 @@ const defaultData = {
 export default function ValuationStepForm() {
   const [step, setStep] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [completeMessage, setCompleteMessage] = useState("");
   const totalSteps = 3; // Adjusted to match your visible steps
 
   // 1. Centralized Data State
@@ -87,23 +90,47 @@ export default function ValuationStepForm() {
 
     // window.open(href, "_blank");
 
-    const payload = message;
+
 
     try {
-      const res = await fetch("/api/apply", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
 
-      if (!res.ok) throw new Error("Submit failed");
+      //TODO REMOVE THIS
+      // const res = await fetch("/api/apply", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify(payload),
+      // });
 
-      const result = await res.json();
-      console.log("Success:", result);
+      // if (!res.ok) throw new Error("Submit failed");
 
-      toast("ส่งข้อมูลเรียบร้อยแล้ว");
+      // const result = await res.json();
+
+
+      // console.log("Success:", result);
+
+      //TODO ADD open LINE ADD FRIEDNS with
+
+
+      // const lineUrl =
+      //   "https://line.me/R/ti/p/@647xoqha?text=" +
+      //   encodeURIComponent(message);
+
+      toast("กำลังเตรียมข้อมูล...");
+
+
+      setCompleteMessage(message);
+      // toast("ระบบกำลังเปิด LINE เพื่อส่งข้อมูล");
+
+      // เปิด LINE (มือถือจะเปิดแอป, desktop จะเปิด LINE Web)
+
+
+      setIsModalOpen(true);
+      // window.open(lineUrl, "_blank", "noopener,noreferrer");
+
+
+      // toast("ส่งข้อมูลเรียบร้อยแล้ว");
     } catch (error) {
       console.error("Error submitting form:", error);
       toast("เกิดข้อผิดพลาด กรุณาลองใหม่");
@@ -118,6 +145,12 @@ export default function ValuationStepForm() {
 
   return (
     <main className='bg-zinc-100 pb-10'>
+
+      <LineCopyModal
+        open={isModalOpen}
+        text={completeMessage}
+        onClose={() => setIsModalOpen(false)}
+      />;
       {/* HERO section remains same */}
       <div className="h-[70vh] bg-zinc-100 overflow-hidden relative">
         <div className="h-full w-full flex items-center justify-center text-center flex-col pb-10 absolute z-10 inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
@@ -231,8 +264,8 @@ export default function ValuationStepForm() {
                     <FaCloudUploadAlt className="mx-auto text-zinc-300 group-hover:text-zinc-900 mb-2" size={32} />
                     <p className="text-xs font-light text-zinc-400">Upload รูปห้อง (สูงสุด 10 รูป)</p>
                   </div> */}
-                   <input name="line" value={formData.line} onChange={handleChange} type="tel" placeholder="LINE ID หรือช่องทางการติดต่ออื่นๆ" className="input w-full p-3" />
-                  
+                  <input name="line" value={formData.line} onChange={handleChange} type="tel" placeholder="LINE ID หรือช่องทางการติดต่ออื่นๆ" className="input w-full p-3" />
+
                 </motion.div>
 
               )}

@@ -51,7 +51,7 @@ export function meta({ }: Route.MetaArgs) {
     },
     {
       property: "og:image",
-      content: "https://nextflipestate.com/logo.jpg", 
+      content: "https://nextflipestate.com/og-1.jpg", 
     },
 
     {
