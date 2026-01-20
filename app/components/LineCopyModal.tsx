@@ -17,12 +17,12 @@ export default function LineCopyModal({
       await navigator.clipboard.writeText(text);
 
 
-       const lineUrl =
+      const lineUrl =
         "https://line.me/R/ti/p/@647xoqha?text=" +
         encodeURIComponent(text);
-    //   const lineUrl =
-    //     "https://line.me/R/msg/text/?" +
-    //     encodeURIComponent(text);
+      //   const lineUrl =
+      //     "https://line.me/R/msg/text/?" +
+      //     encodeURIComponent(text);
 
       window.open(lineUrl, "_blank", "noopener,noreferrer");
     } catch (err) {
@@ -41,31 +41,31 @@ export default function LineCopyModal({
           onClick={onClose}
         >
           <motion.div
-            className="w-full max-w-sm rounded-2xl bg-white/90 backdrop-blur-md p-6 shadow-xl"
+            className="w-full max-w-md rounded-2xl bg-white/90 backdrop-blur-md p-6 shadow-xl"
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
             onClick={(e) => e.stopPropagation()}
           >
             <p className="text-center text-gray-800 leading-relaxed">
-              ระบบได้เตรียมข้อความไว้ให้แล้ว
+              เตรียมข้อมูลให้เรียบร้อยแล้วครับ 😊
               <br />
-              กรุณากดปุ่มด้านล่างเพื่อเปิด LINE
+              กดปุ่มด้านล่าง → เพิ่มเพื่อน LINE →  วางข้อความ → ส่งได้เลย
               <br />
-              
+
             </p>
 
             <textarea name="message" id="msg" cols={15}
-            className="input mx-auto w-full border-2 h-[240px]
-            mt-5 bg-zinc-100 text-zinc-800 rounded-xl border-black" 
-            value={text}></textarea>
+              className="input mx-auto w-full border-2 h-[240px]
+            mt-5 bg-zinc-100 text-zinc-800 rounded-xl border-black"
+              value={text}></textarea>
 
             <button
               onClick={handleCopyAndContinue}
               className="mt-6 w-full rounded-xl flex items-center justify-center gap-4 bg-green-500 py-3 text-sm font-medium text-white
                          hover:bg-green-500/80 transition active:scale-[0.98]"
             >
-             <FaLine className="size-12" /> Add Line and Copy
+              <FaLine className="size-12" /> Add Line and Copy
             </button>
 
             {onClose && (

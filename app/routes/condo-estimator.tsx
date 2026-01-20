@@ -150,7 +150,7 @@ export default function ValuationStepForm() {
         open={isModalOpen}
         text={completeMessage}
         onClose={() => setIsModalOpen(false)}
-      />;
+      />
       {/* HERO section remains same */}
       <div className="h-[70vh] bg-zinc-100 overflow-hidden relative">
         <div className="h-full w-full flex items-center justify-center text-center flex-col pb-10 absolute z-10 inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
