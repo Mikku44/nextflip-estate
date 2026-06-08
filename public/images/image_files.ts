@@ -32,8 +32,36 @@ export const images_file = [
     "filename": "16.jpg"
   },
   {
+    "path": "17.png",
+    "filename": "17.png"
+  },
+  {
+    "path": "18.png",
+    "filename": "18.png"
+  },
+  {
+    "path": "19.png",
+    "filename": "19.png"
+  },
+  {
     "path": "2.jpg",
     "filename": "2.jpg"
+  },
+  {
+    "path": "20.png",
+    "filename": "20.png"
+  },
+  {
+    "path": "21.png",
+    "filename": "21.png"
+  },
+  {
+    "path": "22.png",
+    "filename": "22.png"
+  },
+  {
+    "path": "23.png",
+    "filename": "23.png"
   },
   {
     "path": "3.jpg",

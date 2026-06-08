@@ -59,8 +59,57 @@
   <url>
     <loc>https://www.nextflipestate.com</loc>
     <image:image>
+      <image:loc>https://www.nextflipestate.com/images/17.png</image:loc>
+      <image:title>17</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.nextflipestate.com</loc>
+    <image:image>
+      <image:loc>https://www.nextflipestate.com/images/18.png</image:loc>
+      <image:title>18</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.nextflipestate.com</loc>
+    <image:image>
+      <image:loc>https://www.nextflipestate.com/images/19.png</image:loc>
+      <image:title>19</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.nextflipestate.com</loc>
+    <image:image>
       <image:loc>https://www.nextflipestate.com/images/2.jpg</image:loc>
       <image:title>2</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.nextflipestate.com</loc>
+    <image:image>
+      <image:loc>https://www.nextflipestate.com/images/20.png</image:loc>
+      <image:title>20</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.nextflipestate.com</loc>
+    <image:image>
+      <image:loc>https://www.nextflipestate.com/images/21.png</image:loc>
+      <image:title>21</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.nextflipestate.com</loc>
+    <image:image>
+      <image:loc>https://www.nextflipestate.com/images/22.png</image:loc>
+      <image:title>22</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.nextflipestate.com</loc>
+    <image:image>
+      <image:loc>https://www.nextflipestate.com/images/23.png</image:loc>
+      <image:title>23</image:title>
     </image:image>
   </url>
   <url>

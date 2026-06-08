@@ -70,6 +70,7 @@
     &:where(hr) {
         margin-top: calc(var(--spacing) * 8);
         margin-bottom: calc(var(--spacing) * 8);
+        background-color: azure;
     }
 
     /* Quotes */

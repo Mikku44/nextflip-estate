@@ -4,6 +4,7 @@ import { blogService } from "~/services/blogService";
 import { v4 as uuidv4 } from "uuid";
 import { Minus, Image as ImageIcon, Check, Search, X } from "lucide-react";
 import MarkdownEditor from "~/components/MarkdownEditor";
+import { images_file } from "public/images/image_files";
 
 /**
  * SERVER ACTION
@@ -97,8 +98,10 @@ export default function BlogAddPage() {
   const length = 25;
 
   const arr = Array.from({ length: length }, (_, index) => `/images/condo${index + 1}.jpg`);
+  const arr2 = images_file.map(img => `/images/${img.path}`);
   const libraryImages = [
-    ...arr
+    ...arr,
+    ...arr2
   ];
 
   const filteredImages = libraryImages.filter(img => img.includes(searchTerm));
